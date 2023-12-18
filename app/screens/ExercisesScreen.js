@@ -9,22 +9,21 @@ import {
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import Sheet from "../components/ui/Sheet";
+import ExerciseList from "../components/Exercises/ExerciseList";
 
 export default function ExercisesScreen() {
   return (
     <View style={{ flex: 1, backgroundColor: "#161a22" }}>
       <StatusBar backgroundColor="#161a22" color="white" style="light" />
-      <Text
+      <View
         style={{
-          marginTop: 50,
-          alignSelf: "center",
-          fontSize: 30,
-          color: "white",
+          marginTop: 40,
+          borderTopWidth: 0.4,
+          borderTopColor: "gray",
         }}
       >
-        Exercises
-      </Text>
-      <Sheet />
+        <ExerciseList />
+      </View>
     </View>
   );
 }

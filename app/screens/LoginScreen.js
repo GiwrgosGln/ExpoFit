@@ -14,8 +14,8 @@ import { BlurView } from "expo-blur";
 import { StatusBar } from "expo-status-bar";
 
 const LoginScreen = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("gergegl1999@gmail.com");
+  const [password, setPassword] = useState("30031963g");
   const navigation = useNavigation();
   const { setUser } = useAuthStore();
 
@@ -25,6 +25,7 @@ const LoginScreen = () => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
         setUser(user.email, user.uid);
+        console.log(user);
         navigation.navigate("HomeStack");
       }
     });

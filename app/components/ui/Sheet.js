@@ -1,85 +1,59 @@
+import React, { useRef, useEffect, useState } from "react";
 import BottomSheet, {
   BottomSheetBackdrop,
   BottomSheetScrollView,
 } from "@gorhom/bottom-sheet";
-import { useMemo, useRef, useCallback } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  Button,
-  Image,
-  ScrollView,
-} from "react-native";
+import { StyleSheet, Text, View, Image } from "react-native";
 
-export default function Sheet() {
-  // hooks
+const Sheet = ({ exercise, onClose }) => {
   const sheetRef = useRef(null);
+  const [isValidGif, setIsValidGif] = useState(true);
 
-  // variables
-  const data = useMemo(
-    () =>
-      Array(50)
-        .fill(0)
-        .map((_, index) => `index-${index}`),
-    []
-  );
-  const snapPoints = useMemo(() => ["70%", "90%"], []);
+  useEffect(() => {
+    if (sheetRef.current) {
+      sheetRef.current.snapToIndex(0); // Ensure the sheet is open when exercise is pressed
+    }
 
-  // callbacks
-  const handleSheetChange = useCallback((index) => {
+    // Check if gifUrl is valid
+    if (exercise.gifurl) {
+      fetch(exercise.gifurl)
+        .then((response) => {
+          setIsValidGif(response.ok);
+        })
+        .catch(() => {
+          setIsValidGif(false);
+        });
+    } else {
+      setIsValidGif(false);
+    }
+  }, [exercise]);
+
+  const handleSheetChange = (index) => {
     console.log("handleSheetChange", index);
-  }, []);
-  const handleSnapPress = useCallback((index) => {
-    sheetRef.current?.snapToIndex(index);
-  }, []);
-  const handleClosePress = useCallback(() => {
-    sheetRef.current?.close();
-  }, []);
+  };
 
-  // render
-  const renderItem = useCallback(
-    (item) => (
-      <View key={item} style={styles.itemContainer}>
-        <Text>{item}</Text>
-      </View>
-    ),
-    []
-  );
-  const renderBackdrop = useCallback(
-    (props) => (
-      <BottomSheetBackdrop
-        appearsOnIndex={0}
-        disappearsOnIndex={-1}
-        {...props}
-      />
-    ),
-    []
-  );
   return (
-    <View style={styles.container}>
-      <Button
-        title="Snap To 90%"
-        onPress={() => handleSnapPress(1)}
-        style={{ backgroundColor: "#6879f8" }}
-      />
-      <Button title="Snap To 70%" onPress={() => handleSnapPress(0)} />
-      <Button title="Close" onPress={() => handleClosePress()} />
-      <BottomSheet
-        ref={sheetRef}
-        index={-1}
-        snapPoints={snapPoints}
-        enablePanDownToClose={true}
-        onChange={handleSheetChange}
-        backdropComponent={renderBackdrop}
-        backgroundStyle={{ backgroundColor: "#292a3e" }}
-        handleIndicatorStyle={{ backgroundColor: "#6879f8" }}
-      >
-        <BottomSheetScrollView contentContainerStyle={styles.contentContainer}>
-          {/* {data.map(renderItem)} */}
+    <BottomSheet
+      ref={sheetRef}
+      index={0}
+      snapPoints={["70%", "90%"]}
+      enablePanDownToClose={true}
+      onChange={handleSheetChange}
+      backdropComponent={(props) => (
+        <BottomSheetBackdrop
+          appearsOnIndex={0}
+          disappearsOnIndex={-1}
+          {...props}
+        />
+      )}
+      backgroundStyle={{ backgroundColor: "#292a3e" }}
+      handleIndicatorStyle={{ backgroundColor: "#6879f8" }}
+    >
+      <BottomSheetScrollView contentContainerStyle={styles.contentContainer}>
+        {isValidGif && exercise.gifurl ? (
           <View style={{ backgroundColor: "white", marginTop: 10 }}>
             <Image
-              source={{ uri: "https://v2.exercisedb.io/image/fmw-lBf2WlmZRN" }}
+              source={{ uri: exercise.gifurl }}
               style={{
                 height: 250,
                 width: 250,
@@ -87,91 +61,52 @@ export default function Sheet() {
               }}
             />
           </View>
-          <Text
-            style={{
-              color: "white",
-              alignSelf: "center",
-              marginTop: 10,
-              fontSize: 30,
-            }}
-          >
-            Barbell Bench Press
-          </Text>
-          <Text
-            style={{
-              color: "white",
-              alignSelf: "center",
-              fontSize: 16,
-            }}
-          >
-            Chest, Triceps, Shoulders
-          </Text>
-          <View
-            style={{
-              marginTop: 20,
-              gap: 20,
-              paddingHorizontal: 20,
-              paddingBottom: 50,
-            }}
-          >
-            <Text style={{ fontSize: 16, color: "white" }}>
-              1. Lie flat on a bench with your feet flat on the ground and your
-              back pressed against the bench.
+        ) : null}
+        <Text
+          style={{
+            color: "white",
+            alignSelf: "center",
+            marginTop: 10,
+            fontSize: 30,
+            marginHorizontal: 20,
+            textAlign: "center",
+            marginBottom: 5,
+          }}
+        >
+          {exercise.name}
+        </Text>
+        <Text
+          style={{
+            color: "white",
+            alignSelf: "center",
+            fontSize: 16,
+          }}
+        >
+          Target Muscle: {exercise.target}
+        </Text>
+        <View
+          style={{
+            marginTop: 20,
+            gap: 20,
+            paddingHorizontal: 20,
+            paddingBottom: 20,
+          }}
+        >
+          {exercise.instructions.map((instruction, index) => (
+            <Text key={index} style={{ fontSize: 16, color: "white" }}>
+              {index + 1}. {instruction}
             </Text>
-            <Text style={{ fontSize: 16, color: "white" }}>
-              2. Grasp the barbell with an overhand grip slightly wider than
-              shoulder-width apart.
-            </Text>
-            <Text style={{ fontSize: 16, color: "white" }}>
-              3. Lift the barbell off the rack and hold it directly above your
-              chest with your arms fully extended.
-            </Text>
-            <Text style={{ fontSize: 16, color: "white" }}>
-              4. Lower the barbell slowly towards your chest, keeping your
-              elbows tucked in.
-            </Text>
-            <Text style={{ fontSize: 16, color: "white" }}>
-              5. Pause for a moment when the barbell touches your chest.
-            </Text>
-            <Text style={{ fontSize: 16, color: "white" }}>
-              6. Push the barbell back up to the starting position by extending
-              your arms.
-            </Text>
-            <Text style={{ fontSize: 16, color: "white" }}>
-              7. Repeat for the desired number of repetitions.
-            </Text>
-          </View>
-        </BottomSheetScrollView>
-      </BottomSheet>
-    </View>
+          ))}
+        </View>
+      </BottomSheetScrollView>
+    </BottomSheet>
   );
-}
+};
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingTop: 200,
-  },
   contentContainer: {
     backgroundColor: "#292a3e",
   },
-  itemContainer: {
-    padding: 6,
-    margin: 6,
-    backgroundColor: "#eee",
-    color: "blue",
-  },
 });
 
-{
-  /* <BottomSheet
-        ref={bottomSheetRef}
-        index={1}
-        snapPoints={snapPoints}
-        enablePanDownToClose={true}
-        backdropComponent={renderBackdrop}
-        backgroundStyle={{ backgroundColor: "#292a3e" }}
-        handleIndicatorStyle={{ backgroundColor: "#6879f8" }}
-        onChange={handleSheetChange}
-      ></BottomSheet> */
-}
+export default Sheet;

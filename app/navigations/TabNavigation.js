@@ -33,6 +33,7 @@ export default function TabNavigation() {
           tabBarStyle: {
             backgroundColor: "#161a22",
             borderTopWidth: 0,
+            height: 50,
           },
         }}
       />
@@ -48,6 +49,7 @@ export default function TabNavigation() {
           tabBarStyle: {
             backgroundColor: "#161a22",
             borderTopWidth: 0,
+            height: 50,
           },
         }}
       />
@@ -63,6 +65,7 @@ export default function TabNavigation() {
           tabBarStyle: {
             backgroundColor: "#161a22",
             borderTopWidth: 0,
+            height: 50,
           },
         }}
       />

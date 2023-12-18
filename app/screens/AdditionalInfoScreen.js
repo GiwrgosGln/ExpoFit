@@ -3,7 +3,8 @@ import { View } from "react-native";
 import { Input, Button } from "tamagui";
 import useAuthStore from "../../state/authStore";
 import { useNavigation } from "@react-navigation/core";
-import { BlurView } from "expo-blur";
+import { StatusBar } from "expo-status-bar";
+import { registerUser } from "../../services/apiService";
 
 const AdditionalInfoScreen = () => {
   const { uid, saveUsername } = useAuthStore();
@@ -14,29 +15,16 @@ const AdditionalInfoScreen = () => {
   const [weight, setWeight] = useState("");
 
   const handleRegister = async () => {
-    console.log(uid); // Use authStore.uid instead of useAuthStore.id
-    const requestData = {
-      id: uid, // Fetching uid from Zustand store
-      username,
-      sex,
-      weight: parseInt(weight),
-    };
+    console.log(uid);
 
-    try {
-      const response = await fetch("https://fitnessapi.onrender.com/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(requestData),
-      });
+    const registrationResult = await registerUser(uid, username, sex, weight);
 
-      const data = await response.json();
-      console.log("Registration successful:", data);
+    if (registrationResult) {
+      console.log("Registration successful:", registrationResult);
       saveUsername(username);
       navigation.navigate("HomeStack");
-    } catch (error) {
-      console.error("Error registering:", error);
+    } else {
+      console.error("Registration failed");
     }
   };
 

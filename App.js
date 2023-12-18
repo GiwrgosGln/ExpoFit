@@ -24,7 +24,7 @@ export default function App() {
 
   return (
     <TamaguiProvider config={config}>
-      <Theme name={colorScheme === "dark" ? "dark" : "light"}>
+      <Theme name={colorScheme === "dark" ? "dark" : "dark"}>
         <YStack f={1} backgroundColor={"$backgroundSoft"}>
           <NavigationContainer>
             <Stack.Navigator>

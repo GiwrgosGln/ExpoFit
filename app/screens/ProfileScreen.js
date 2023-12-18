@@ -6,7 +6,7 @@ export default function ProfileScreen() {
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor="#161a22" color="white" style="light" />
-      <Text>Profile</Text>
+      <Text style={{ color: "white", fontSize: 30 }}>Profile</Text>
     </View>
   );
 }
@@ -15,5 +15,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#161a22",
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
