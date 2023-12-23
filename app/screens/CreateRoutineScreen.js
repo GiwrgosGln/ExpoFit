@@ -1,11 +1,6 @@
-import React, { useState } from "react";
-import {
-  View,
-  Text,
-  TextInput,
-  ScrollView,
-  TouchableOpacity,
-} from "react-native";
+// CreateRoutineScreen.js
+import React from "react";
+import { View, Text, ScrollView, TouchableOpacity } from "react-native";
 import { Button, Input } from "tamagui";
 import useSetsStore from "../../state/setsStore";
 import { useNavigation } from "@react-navigation/native";
@@ -14,7 +9,7 @@ import { Picker } from "@react-native-picker/picker";
 
 const CreateRoutineScreen = ({ route }) => {
   const { selectedExercises } = route.params;
-  const { sets, addSet } = useSetsStore();
+  const { sets, addSet, setSets } = useSetsStore();
   const navigation = useNavigation();
 
   const handleAddSet = (exerciseIndex) => {
@@ -32,7 +27,25 @@ const CreateRoutineScreen = ({ route }) => {
     newSets.find(
       (s) => s.exerciseIndex === exerciseIndex && s.setIndex === setIndex
     ).type = type;
-    addSet(newSets);
+    setSets(newSets); // Use setSets to update the entire sets array
+  };
+
+  const handleRemoveSet = (exerciseIndex, setIndex) => {
+    // Remove the set from the sets array
+    const newSets = sets.filter(
+      (set) =>
+        !(set.exerciseIndex === exerciseIndex && set.setIndex === setIndex)
+    );
+
+    // Re-index the remaining sets for the specified exercise
+    newSets
+      .filter((set) => set.exerciseIndex === exerciseIndex)
+      .forEach((set, index) => {
+        set.setIndex = index;
+      });
+
+    // Use setSets to update the entire sets array
+    setSets(newSets);
   };
 
   return (
@@ -115,6 +128,7 @@ const CreateRoutineScreen = ({ route }) => {
                         justifyContent: "center",
                       }}
                     >
+                      {/* Picker for set type */}
                       <Picker
                         selectedValue={set.type}
                         onValueChange={(itemValue) =>
@@ -134,6 +148,17 @@ const CreateRoutineScreen = ({ route }) => {
                         <Picker.Item label="Failure" value="Failure" />
                       </Picker>
                     </View>
+                    {/* Remove button */}
+                    <TouchableOpacity
+                      onPress={() => handleRemoveSet(exerciseIndex, setIndex)}
+                      style={{
+                        backgroundColor: "#ff6b6b",
+                        borderRadius: 10,
+                        padding: 10,
+                      }}
+                    >
+                      <Text style={{ color: "white" }}>Remove</Text>
+                    </TouchableOpacity>
                   </View>
                 </View>
               ))}
