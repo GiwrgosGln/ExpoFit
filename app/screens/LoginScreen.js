@@ -8,10 +8,10 @@ import {
   Image,
 } from "react-native";
 import { Input, Button, Text } from "tamagui";
-import { auth } from "../../firebase";
 import useAuthStore from "../../state/authStore";
 import { BlurView } from "expo-blur";
 import { StatusBar } from "expo-status-bar";
+import { auth } from "../../firebase";
 
 const LoginScreen = () => {
   const [email, setEmail] = useState("gergegl1999@gmail.com");

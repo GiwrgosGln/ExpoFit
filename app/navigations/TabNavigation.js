@@ -29,6 +29,9 @@ export default function TabNavigation() {
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="home" color={color} size={size} />
           ),
+          tabBarLabelStyle: {
+            fontFamily: "Inter",
+          },
           tabBarActiveTintColor: "white",
           tabBarStyle: {
             backgroundColor: "#161a22",
@@ -45,6 +48,9 @@ export default function TabNavigation() {
           tabBarIcon: ({ color, size }) => (
             <FontAwesome5 name="dumbbell" color={color} size={size} />
           ),
+          tabBarLabelStyle: {
+            fontFamily: "Inter",
+          },
           tabBarActiveTintColor: "white",
           tabBarStyle: {
             backgroundColor: "#161a22",
@@ -61,6 +67,9 @@ export default function TabNavigation() {
           tabBarIcon: ({ color, size }) => (
             <Feather name="user" color={color} size={size} />
           ),
+          tabBarLabelStyle: {
+            fontFamily: "Inter",
+          },
           tabBarActiveTintColor: "white",
           tabBarStyle: {
             backgroundColor: "#161a22",

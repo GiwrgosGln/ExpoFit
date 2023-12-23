@@ -3,33 +3,25 @@ import BottomSheet, {
   BottomSheetBackdrop,
   BottomSheetScrollView,
 } from "@gorhom/bottom-sheet";
-import { StyleSheet, Text, View, Image } from "react-native";
+import { StyleSheet, Text, View, Image, ActivityIndicator } from "react-native";
 
-const Sheet = ({ exercise, onClose }) => {
+const Sheet = ({ exercise }) => {
   const sheetRef = useRef(null);
-  const [isValidGif, setIsValidGif] = useState(true);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    setLoading(true);
     if (sheetRef.current) {
-      sheetRef.current.snapToIndex(0); // Ensure the sheet is open when exercise is pressed
-    }
-
-    // Check if gifUrl is valid
-    if (exercise.gifurl) {
-      fetch(exercise.gifurl)
-        .then((response) => {
-          setIsValidGif(response.ok);
-        })
-        .catch(() => {
-          setIsValidGif(false);
-        });
-    } else {
-      setIsValidGif(false);
+      sheetRef.current.snapToIndex(0);
     }
   }, [exercise]);
 
   const handleSheetChange = (index) => {
     console.log("handleSheetChange", index);
+  };
+
+  const handleImageLoad = () => {
+    setLoading(false);
   };
 
   return (
@@ -50,18 +42,36 @@ const Sheet = ({ exercise, onClose }) => {
       handleIndicatorStyle={{ backgroundColor: "#6879f8" }}
     >
       <BottomSheetScrollView contentContainerStyle={styles.contentContainer}>
-        {isValidGif && exercise.gifurl ? (
-          <View style={{ backgroundColor: "white", marginTop: 10 }}>
-            <Image
-              source={{ uri: exercise.gifurl }}
+        <View
+          style={{
+            backgroundColor: "white",
+            marginTop: 10,
+            flex: 1,
+            justifyContent: "center",
+          }}
+        >
+          {loading && (
+            <ActivityIndicator
               style={{
-                height: 250,
-                width: 250,
+                position: "absolute",
                 alignSelf: "center",
               }}
+              size="large"
+              color="#6879f8"
             />
-          </View>
-        ) : null}
+          )}
+          <Image
+            source={{ uri: exercise.gifurl }}
+            style={{
+              height: 250,
+              width: 250,
+              alignSelf: "center",
+              resizeMode: "contain",
+              zIndex: 200,
+            }}
+            onLoad={handleImageLoad}
+          />
+        </View>
         <Text
           style={{
             color: "white",
@@ -71,6 +81,7 @@ const Sheet = ({ exercise, onClose }) => {
             marginHorizontal: 20,
             textAlign: "center",
             marginBottom: 5,
+            fontFamily: "Inter",
           }}
         >
           {exercise.name}
@@ -80,6 +91,7 @@ const Sheet = ({ exercise, onClose }) => {
             color: "white",
             alignSelf: "center",
             fontSize: 16,
+            fontFamily: "Inter",
           }}
         >
           Target Muscle: {exercise.target}
@@ -93,7 +105,10 @@ const Sheet = ({ exercise, onClose }) => {
           }}
         >
           {exercise.instructions.map((instruction, index) => (
-            <Text key={index} style={{ fontSize: 16, color: "white" }}>
+            <Text
+              key={index}
+              style={{ fontSize: 16, color: "white", fontFamily: "Inter" }}
+            >
               {index + 1}. {instruction}
             </Text>
           ))}

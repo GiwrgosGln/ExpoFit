@@ -15,11 +15,15 @@ yarn-error.log
 package-lock.json
 yarn.lock
 
+
+# Exclude apiService.js in the services folder
+services
+
 # Firebase Config
 firebase.js
 
-# Exclude apiService.js in the services folder
-services/apiService.js
+# Eas
+eas.json
 
 # Native
 *.orig.*

@@ -7,25 +7,21 @@ import {
   Image,
   ScrollView,
 } from "react-native";
-import axios from "axios";
 import { StatusBar } from "expo-status-bar";
+import Loader1 from "../components/ui/Loader";
+import globalStyles from "../styles/globalStyles";
+import DraggableFlatList from "react-native-draggable-flatlist";
+import DummyData from "../components/ui/DraggableFlatlist";
 
 const Home = () => {
   return (
-    <View style={styles.container}>
+    <View style={globalStyles.container}>
       <StatusBar backgroundColor="#161a22" color="white" style="light" />
-      <Text style={{ color: "white", fontSize: 30 }}>Home</Text>
+      <Loader1 />
     </View>
   );
 };
 
 export default Home;
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#161a22",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-});
+const styles = StyleSheet.create({});

@@ -9,6 +9,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import TabNavigation from "./app/navigations/TabNavigation";
 import LoginScreen from "./app/screens/LoginScreen";
 import AdditionalInfoScreen from "./app/screens/AdditionalInfoScreen";
+import CreateRoutineScreen from "./app/screens/CreateRoutineScreen";
 
 const Stack = createStackNavigator();
 
@@ -41,6 +42,11 @@ export default function App() {
               <Stack.Screen
                 name="AdditionalInfo"
                 component={AdditionalInfoScreen}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="CreateRoutine"
+                component={CreateRoutineScreen}
                 options={{ headerShown: false }}
               />
             </Stack.Navigator>

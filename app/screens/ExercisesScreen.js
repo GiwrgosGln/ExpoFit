@@ -8,7 +8,6 @@ import {
   StyleSheet,
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
-import Sheet from "../components/ui/Sheet";
 import ExerciseList from "../components/Exercises/ExerciseList";
 
 export default function ExercisesScreen() {
