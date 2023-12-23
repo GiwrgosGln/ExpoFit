@@ -15,6 +15,10 @@ yarn-error.log
 package-lock.json
 yarn.lock
 
+# Folders
+.tamagui/
+.vscode/
+
 
 # Exclude apiService.js in the services folder
 services
