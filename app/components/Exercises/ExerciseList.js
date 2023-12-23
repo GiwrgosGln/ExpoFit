@@ -7,7 +7,6 @@ import { ListItem, Separator, YGroup, Input } from "tamagui";
 import { AntDesign } from "@expo/vector-icons";
 import { StatusBar } from "expo-status-bar";
 import { useNavigation } from "@react-navigation/native";
-import useRoutineOrderStore from "../../../state/routineOrderStore";
 
 const ExerciseItem = React.memo(({ exercise, onPress, onAddPress }) => (
   <TouchableOpacity onPress={() => onPress(exercise)} key={exercise._id}>
@@ -37,8 +36,7 @@ const ExerciseList = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [targetFilter, setTargetFilter] = useState(null);
   const [equipmentFilter, setEquipmentFilter] = useState(null);
-
-  const routineOrderStore = useRoutineOrderStore();
+  const [selectedExercises, setSelectedExercises] = useState([]);
   const navigation = useNavigation();
   const [componentKey, setComponentKey] = useState(0);
 
@@ -62,11 +60,8 @@ const ExerciseList = () => {
 
   const handleAddPress = (exercise) => {
     console.log(`Added ${exercise.name}`);
-    routineOrderStore.setRoutineOrder([
-      ...routineOrderStore.routineOrder,
-      exercise,
-    ]);
-    console.log("Selected Exercises:", routineOrderStore.routineOrder);
+    setSelectedExercises((prevExercises) => [...prevExercises, exercise]);
+    console.log("Selected Exercises:", selectedExercises);
   };
 
   const handleCloseSheet = () => {
@@ -86,16 +81,16 @@ const ExerciseList = () => {
   };
 
   const handleShowAddedExercises = () => {
-    console.log("Selected Exercises to pass:", routineOrderStore.routineOrder);
+    console.log("Selected Exercises to pass:", selectedExercises);
     // Navigate to CreateRoutineScreen with the selected exercises
     navigation.navigate("CreateRoutine", {
-      selectedExercises: routineOrderStore.routineOrder,
+      selectedExercises: selectedExercises,
     });
   };
 
   useEffect(() => {
-    console.log("Updated Selected Exercises:", routineOrderStore.routineOrder);
-  }, [routineOrderStore.routineOrder]);
+    console.log("Updated Selected Exercises:", selectedExercises);
+  }, [selectedExercises]);
 
   return (
     <View style={{ height: "100%" }}>
@@ -168,7 +163,6 @@ const ExerciseList = () => {
           </Picker>
         </View>
 
-        {/* Equipment filter input */}
         <View
           style={{
             flex: 1,
@@ -221,7 +215,7 @@ const ExerciseList = () => {
       </View>
 
       {/* Button to show added exercises and navigate to CreateRoutineScreen */}
-      {routineOrderStore.routineOrder.length > 0 && (
+      {selectedExercises.length > 0 && (
         <TouchableOpacity
           style={{
             backgroundColor: "#6879f8",

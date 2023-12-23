@@ -1,56 +1,47 @@
-import React, { useEffect } from "react";
-import { View, Text, TouchableOpacity } from "react-native";
-import DraggableFlatList from "react-native-draggable-flatlist";
-import useRoutineOrderStore from "../../state/routineOrderStore";
-import { FontAwesome, AntDesign } from "@expo/vector-icons";
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  TextInput,
+  ScrollView,
+  TouchableOpacity,
+} from "react-native";
+import { Button, Input } from "tamagui";
+import useSetsStore from "../../state/setsStore";
 import { useNavigation } from "@react-navigation/native";
+import { AntDesign, FontAwesome } from "@expo/vector-icons";
+import { Picker } from "@react-native-picker/picker";
 
 const CreateRoutineScreen = ({ route }) => {
   const { selectedExercises } = route.params;
+  const { sets, addSet } = useSetsStore();
   const navigation = useNavigation();
-  const routineOrderStore = useRoutineOrderStore();
 
-  useEffect(() => {
-    routineOrderStore.loadRoutineOrder();
-  }, []);
+  const handleAddSet = (exerciseIndex) => {
+    const existingSetsForExercise = sets.filter(
+      (set) => set.exerciseIndex === exerciseIndex
+    );
+    const setIndex = existingSetsForExercise.length; // Incremental set index
 
-  const saveRoutineOrder = async (order) => {
-    try {
-      routineOrderStore.setRoutineOrder(order);
-    } catch (error) {
-      console.error("Error saving routine order to storage:", error);
-    }
+    // Add a new set to the sets array for the specified exercise
+    addSet({ type: "", exerciseIndex, setIndex });
   };
 
-  const renderItem = ({ item, index, drag, isActive }) => (
-    <TouchableOpacity
-      style={{
-        padding: 16,
-        backgroundColor: isActive ? "skyblue" : "#eee",
-        marginVertical: 8,
-        borderRadius: 8,
-      }}
-      onLongPress={drag}
-    >
-      <Text>{item.name}</Text>
-    </TouchableOpacity>
-  );
-
-  const keyExtractor = (item) => item._id.toString();
-
-  const onDragEnd = ({ data }) => {
-    console.log("Drag End - Updated Order:", data);
-    saveRoutineOrder(data);
+  const handleTypeChange = (type, exerciseIndex, setIndex) => {
+    const newSets = [...sets];
+    newSets.find(
+      (s) => s.exerciseIndex === exerciseIndex && s.setIndex === setIndex
+    ).type = type;
+    addSet(newSets);
   };
 
   return (
-    <View
+    <ScrollView
       style={{
         flex: 1,
-        width: "100%",
         backgroundColor: "#161a22",
-        paddingTop: 20,
-        marginTop: 20,
+        paddingTop: 40,
+        gap: 30,
         paddingHorizontal: 20,
       }}
     >
@@ -58,25 +49,108 @@ const CreateRoutineScreen = ({ route }) => {
         style={{
           flexDirection: "row",
           justifyContent: "space-between",
+          marginBottom: 20,
           alignItems: "center",
-          marginBottom: 40,
         }}
       >
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <AntDesign name="back" size={24} color="white" />
         </TouchableOpacity>
-        <Text style={{ color: "white", fontSize: 24 }}>Create Routine</Text>
-        <FontAwesome name="save" size={24} color="white" />
+        <Text style={{ fontSize: 20, color: "white" }}>Create Routine</Text>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <FontAwesome name="save" size={24} color="white" />
+        </TouchableOpacity>
       </View>
-      <DraggableFlatList
-        data={routineOrderStore.routineOrder}
-        renderItem={renderItem}
-        keyExtractor={keyExtractor}
-        onDragEnd={onDragEnd}
-        activationDistance={10}
-        dragHitSlop={{ top: 10, left: 10, bottom: 10, right: 10 }}
-      />
-    </View>
+      <View style={{ gap: 10 }}>
+        <Input
+          placeholder="Title"
+          style={{
+            borderColor: "#6879f8",
+          }}
+        />
+      </View>
+      <View style={{ paddingBottom: 100, gap: 40, marginTop: 20 }}>
+        {/* Display exercises and sets inputs */}
+        {selectedExercises.map((exercise, exerciseIndex) => (
+          <View key={exercise.id} style={{ gap: 0 }}>
+            <Text
+              style={{
+                color: "white",
+                fontSize: 20,
+                alignSelf: "center",
+                marginBottom: 20,
+              }}
+            >
+              {exercise.name}
+            </Text>
+
+            {/* Display sets inputs for the current exercise */}
+            {sets
+              .filter((set) => set.exerciseIndex === exerciseIndex)
+              .map((set, setIndex) => (
+                <View key={setIndex}>
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      justifyContent: "space-evenly",
+                      marginVertical: 10,
+                      gap: 10,
+                    }}
+                  >
+                    <Text
+                      style={{
+                        color: "white",
+                        alignSelf: "center",
+                        fontSize: 24,
+                      }}
+                    >
+                      {setIndex + 1}
+                    </Text>
+                    <View
+                      style={{
+                        flex: 1,
+                        borderRadius: 10,
+                        overflow: "hidden",
+                        height: 40,
+                        justifyContent: "center",
+                      }}
+                    >
+                      <Picker
+                        selectedValue={set.type}
+                        onValueChange={(itemValue) =>
+                          handleTypeChange(itemValue, exerciseIndex, setIndex)
+                        }
+                        style={{
+                          backgroundColor: "#292a40",
+                          color: "white",
+                          flex: 1,
+                          marginHorizontal: 5,
+                        }}
+                        dropdownIconColor={"white"}
+                      >
+                        <Picker.Item label="Select Type" value="" />
+                        <Picker.Item label="Warm Up" value="Warm Up" />
+                        <Picker.Item label="Normal" value="Normal" />
+                        <Picker.Item label="Failure" value="Failure" />
+                      </Picker>
+                    </View>
+                  </View>
+                </View>
+              ))}
+            {/* Button to add set for the current exercise */}
+            <View style={{ alignItems: "center", marginTop: 20 }}>
+              <Button
+                onPress={() => handleAddSet(exerciseIndex)}
+                backgroundColor={"#6879f8"}
+                color={"white"}
+              >
+                Add Set
+              </Button>
+            </View>
+          </View>
+        ))}
+      </View>
+    </ScrollView>
   );
 };
 

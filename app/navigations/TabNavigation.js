@@ -19,6 +19,7 @@ export default function TabNavigation() {
         tabBarStyle: {
           backgroundColor: "#161a22",
         },
+        tabBarHideOnKeyboard: true,
       }}
     >
       <Tab.Screen
