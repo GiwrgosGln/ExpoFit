@@ -11,6 +11,10 @@ The Workout Tracker App is a React Native application designed to help users tra
 - **Progress Tracking:** Visualize your progress over time with interactive charts and statistics.
 - **User-Friendly Interface:** Intuitive and easy-to-use interface for seamless navigation and a smooth user experience.
 
+## Backend API
+
+The app relies on a backend API for data storage and retrieval. The backend API is implemented in Go and can be found on GitHub at [Workout Tracker Backend Repository](https://github.com/GiwrgosGln/FitnessAPI).
+
 ## Usage
 
 1. **Browse Exercises:**
@@ -24,3 +28,4 @@ The Workout Tracker App is a React Native application designed to help users tra
 3. **Track Your Progress:**
    - Log your workout results to track progress over time.
    - View charts and statistics to analyze your fitness journey.
+
