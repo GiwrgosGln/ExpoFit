@@ -14,6 +14,7 @@ The Workout Tracker App is a React Native application designed to help users tra
 ## Tech Stack
 
 - **Expo**
+- **AWS S3**
 - **Tamagui**
 - **Zustand**
 - **MongoDB**
