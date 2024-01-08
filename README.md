@@ -9,4 +9,18 @@ The Workout Tracker App is a React Native application designed to help users tra
 - **Exercise Database:** Access a vast library of over 100 exercises with detailed descriptions and instructions.
 - **Customizable Routines:** Create and personalize your own workout routines based on your fitness goals.
 - **Progress Tracking:** Visualize your progress over time with interactive charts and statistics.
-- *
+- **User-Friendly Interface:** Intuitive and easy-to-use interface for seamless navigation and a smooth user experience.
+
+## Usage
+
+1. **Browse Exercises:**
+   - Explore the exercise database to discover new workouts.
+   - Tap on an exercise to view detailed instructions and tips.
+
+2. **Create Your Routine:**
+   - Build your own workout routines by selecting exercises from the database.
+   - Customize sets, reps, and rest intervals for each exercise.
+
+3. **Track Your Progress:**
+   - Log your workout results to track progress over time.
+   - View charts and statistics to analyze your fitness journey.
