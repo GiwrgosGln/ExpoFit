@@ -19,7 +19,6 @@ yarn.lock
 .tamagui/
 .vscode/
 
-
 # Exclude apiService.js in the services folder
 services
 

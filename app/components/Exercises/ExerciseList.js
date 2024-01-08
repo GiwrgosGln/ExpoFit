@@ -7,6 +7,7 @@ import { ListItem, Separator, YGroup, Input } from "tamagui";
 import { AntDesign } from "@expo/vector-icons";
 import { StatusBar } from "expo-status-bar";
 import { useNavigation } from "@react-navigation/native";
+import useExerciseStore from "../../../state/exerciseStore";
 
 const ExerciseItem = React.memo(({ exercise, onPress, onAddPress }) => (
   <TouchableOpacity onPress={() => onPress(exercise)} key={exercise._id}>
@@ -31,21 +32,23 @@ const ExerciseItem = React.memo(({ exercise, onPress, onAddPress }) => (
 ));
 
 const ExerciseList = () => {
-  const [exercises, setExercises] = useState([]);
-  const [selectedExercise, setSelectedExercise] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [targetFilter, setTargetFilter] = useState(null);
   const [equipmentFilter, setEquipmentFilter] = useState(null);
-  const [selectedExercises, setSelectedExercises] = useState([]);
+  const [selectedExercise, setSelectedExercise] = useState(null); // Add this line
   const navigation = useNavigation();
   const [componentKey, setComponentKey] = useState(0);
+
+  // Use the store
+  const { exercises, selectedExercises, addSelectedExercise } =
+    useExerciseStore();
 
   useEffect(() => {
     const fetchExercises = async () => {
       const exercisesData = await getExercises();
 
       if (exercisesData) {
-        setExercises(exercisesData);
+        useExerciseStore.setState({ exercises: exercisesData });
       }
     };
 
@@ -54,30 +57,13 @@ const ExerciseList = () => {
 
   const handleExercisePress = (exercise) => {
     console.log("Exercise pressed:", exercise);
-    setSelectedExercise(exercise);
+    setSelectedExercise(exercise); // Add this line
     setComponentKey((prevKey) => prevKey + 1);
   };
 
   const handleAddPress = (exercise) => {
     console.log(`Added ${exercise.name}`);
-    setSelectedExercises((prevExercises) => [...prevExercises, exercise]);
-    console.log("Selected Exercises:", selectedExercises);
-  };
-
-  const handleCloseSheet = () => {
-    setSelectedExercise(null);
-  };
-
-  const handleSearchChange = (query) => {
-    setSearchQuery(query);
-  };
-
-  const handleTargetFilterChange = (target) => {
-    setTargetFilter(target);
-  };
-
-  const handleEquipmentFilterChange = (equipment) => {
-    setEquipmentFilter(equipment);
+    addSelectedExercise(exercise);
   };
 
   const handleShowAddedExercises = () => {
@@ -88,9 +74,9 @@ const ExerciseList = () => {
     });
   };
 
-  useEffect(() => {
-    console.log("Updated Selected Exercises:", selectedExercises);
-  }, [selectedExercises]);
+  const handleCloseSheet = () => {
+    setSelectedExercise(null);
+  };
 
   return (
     <View style={{ height: "100%" }}>
@@ -106,10 +92,9 @@ const ExerciseList = () => {
         }}
         placeholder="Search exercises..."
         value={searchQuery}
-        onChangeText={handleSearchChange}
+        onChangeText={(query) => setSearchQuery(query)}
       />
 
-      {/* Filter pickers in the same line */}
       <View
         style={{
           flexDirection: "row",
@@ -119,7 +104,6 @@ const ExerciseList = () => {
           marginTop: 10,
         }}
       >
-        {/* Target filter input */}
         <View
           style={{
             flex: 1,
@@ -134,7 +118,7 @@ const ExerciseList = () => {
             style={{
               backgroundColor: "#6879f8",
             }}
-            onValueChange={(itemValue) => handleTargetFilterChange(itemValue)}
+            onValueChange={(itemValue) => setTargetFilter(itemValue)}
             dropdownIconColor={"black"}
           >
             <Picker.Item
@@ -177,10 +161,7 @@ const ExerciseList = () => {
             style={{
               backgroundColor: "#6879f8",
             }}
-            itemStyle={{ height: 520 }}
-            onValueChange={(itemValue) =>
-              handleEquipmentFilterChange(itemValue)
-            }
+            onValueChange={(itemValue) => setEquipmentFilter(itemValue)}
             dropdownIconColor={"black"}
           >
             <Picker.Item
@@ -188,7 +169,6 @@ const ExerciseList = () => {
               value={null}
               style={{ fontSize: 16, color: "black" }}
             />
-            {/* Replace the following options with your actual equipment values */}
             <Picker.Item
               label="Barbell"
               value="Barbell"
@@ -209,12 +189,10 @@ const ExerciseList = () => {
               value="Cable"
               style={{ fontSize: 16, color: "black" }}
             />
-            {/* Add more items based on your actual equipment values */}
           </Picker>
         </View>
       </View>
 
-      {/* Button to show added exercises and navigate to CreateRoutineScreen */}
       {selectedExercises.length > 0 && (
         <TouchableOpacity
           style={{
@@ -235,7 +213,6 @@ const ExerciseList = () => {
         </TouchableOpacity>
       )}
 
-      {/* Exercise list */}
       <ScrollView style={{ marginTop: 10 }}>
         {exercises
           .filter((exercise) => {
@@ -266,7 +243,6 @@ const ExerciseList = () => {
           ))}
       </ScrollView>
 
-      {/* Selected exercise sheet */}
       {selectedExercise && (
         <Sheet
           key={componentKey}

@@ -1,21 +1,38 @@
-// CreateRoutineScreen.js
 import React from "react";
 import { View, Text, ScrollView, TouchableOpacity } from "react-native";
 import { Button, Input } from "tamagui";
 import useSetsStore from "../../state/setsStore";
+import useExerciseStore from "../../state/exerciseStore";
 import { useNavigation } from "@react-navigation/native";
-import { AntDesign, FontAwesome } from "@expo/vector-icons";
+import {
+  AntDesign,
+  Feather,
+  FontAwesome,
+  MaterialIcons,
+} from "@expo/vector-icons";
 import { Picker } from "@react-native-picker/picker";
 
 const CreateRoutineScreen = ({ route }) => {
-  const { selectedExercises } = route.params;
-  const { sets, addSet, setSets } = useSetsStore();
+  const {
+    exercises,
+    selectedExercises,
+    sets,
+    addExercise,
+    removeExercise,
+    clearExercises,
+    addSelectedExercise,
+    removeSelectedExercise,
+    clearSelectedExercises,
+    addSet,
+    setSets,
+  } = useExerciseStore();
+
   const navigation = useNavigation();
 
   const handleAddSet = (exerciseIndex) => {
-    const existingSetsForExercise = sets.filter(
-      (set) => set.exerciseIndex === exerciseIndex
-    );
+    const existingSetsForExercise = sets
+      ? sets.filter((set) => set.exerciseIndex === exerciseIndex)
+      : [];
     const setIndex = existingSetsForExercise.length; // Incremental set index
 
     // Add a new set to the sets array for the specified exercise
@@ -23,26 +40,52 @@ const CreateRoutineScreen = ({ route }) => {
   };
 
   const handleTypeChange = (type, exerciseIndex, setIndex) => {
-    const newSets = [...sets];
+    const newSets = sets ? [...sets] : [];
     newSets.find(
       (s) => s.exerciseIndex === exerciseIndex && s.setIndex === setIndex
     ).type = type;
-    setSets(newSets); // Use setSets to update the entire sets array
+
+    // Use setSets to update the entire sets array
+    setSets(newSets);
   };
 
-  const handleRemoveSet = (exerciseIndex, setIndex) => {
+  const handleRemoveSet = (exerciseIndex, setIndexToRemove) => {
     // Remove the set from the sets array
-    const newSets = sets.filter(
-      (set) =>
-        !(set.exerciseIndex === exerciseIndex && set.setIndex === setIndex)
-    );
+    const newSets = sets
+      ? sets.filter(
+          (set) =>
+            !(
+              set.exerciseIndex === exerciseIndex &&
+              set.setIndex === setIndexToRemove
+            )
+        )
+      : [];
 
     // Re-index the remaining sets for the specified exercise
-    newSets
-      .filter((set) => set.exerciseIndex === exerciseIndex)
-      .forEach((set, index) => {
-        set.setIndex = index;
-      });
+    const remainingSetsForExercise = newSets.filter(
+      (set) => set.exerciseIndex === exerciseIndex
+    );
+    remainingSetsForExercise.forEach((set, index) => {
+      set.setIndex = index;
+    });
+
+    // Use setSets to update the entire sets array
+    setSets(newSets);
+  };
+
+  const handleRemoveExercise = (exerciseIndex) => {
+    // Remove the exercise from the selectedExercises array
+    removeSelectedExercise(exerciseIndex);
+
+    // Remove the exercise and its associated sets from the state
+    const newSets = sets.filter((set) => set.exerciseIndex !== exerciseIndex);
+
+    // Re-index the remaining sets for the specified exercises
+    newSets.forEach((set) => {
+      if (set.exerciseIndex > exerciseIndex) {
+        set.exerciseIndex -= 1;
+      }
+    });
 
     // Use setSets to update the entire sets array
     setSets(newSets);
@@ -86,16 +129,38 @@ const CreateRoutineScreen = ({ route }) => {
         {/* Display exercises and sets inputs */}
         {selectedExercises.map((exercise, exerciseIndex) => (
           <View key={exercise.id} style={{ gap: 0 }}>
-            <Text
+            <View
               style={{
-                color: "white",
-                fontSize: 20,
-                alignSelf: "center",
-                marginBottom: 20,
+                flexDirection: "row",
+                justifyContent: "space-between",
+                flex: 1,
+                alignItems: "center",
               }}
             >
-              {exercise.name}
-            </Text>
+              <Text
+                style={{
+                  color: "white",
+                  fontSize: 20,
+                  alignSelf: "center",
+                  fontWeight: 600,
+                }}
+              >
+                {exercise.name}
+              </Text>
+              {/* Button to add set for the current exercise */}
+              <TouchableOpacity
+                onPress={() => handleAddSet(exerciseIndex)}
+                style={{
+                  backgroundColor: "#6879f8",
+                  borderRadius: 10,
+                  padding: 10,
+                  marginTop: 10,
+                  alignSelf: "center",
+                }}
+              >
+                <Text style={{ color: "white" }}>Add Set</Text>
+              </TouchableOpacity>
+            </View>
 
             {/* Display sets inputs for the current exercise */}
             {sets
@@ -108,6 +173,7 @@ const CreateRoutineScreen = ({ route }) => {
                       justifyContent: "space-evenly",
                       marginVertical: 10,
                       gap: 10,
+                      alignItems: "center",
                     }}
                   >
                     <Text
@@ -126,6 +192,7 @@ const CreateRoutineScreen = ({ route }) => {
                         overflow: "hidden",
                         height: 40,
                         justifyContent: "center",
+                        alignContent: "center",
                       }}
                     >
                       {/* Picker for set type */}
@@ -142,36 +209,33 @@ const CreateRoutineScreen = ({ route }) => {
                         }}
                         dropdownIconColor={"white"}
                       >
-                        <Picker.Item label="Select Type" value="" />
-                        <Picker.Item label="Warm Up" value="Warm Up" />
                         <Picker.Item label="Normal" value="Normal" />
+                        <Picker.Item label="Warm Up" value="Warm Up" />
                         <Picker.Item label="Failure" value="Failure" />
                       </Picker>
                     </View>
                     {/* Remove button */}
                     <TouchableOpacity
                       onPress={() => handleRemoveSet(exerciseIndex, setIndex)}
-                      style={{
-                        backgroundColor: "#ff6b6b",
-                        borderRadius: 10,
-                        padding: 10,
-                      }}
                     >
-                      <Text style={{ color: "white" }}>Remove</Text>
+                      <Feather name="x" size={28} color="red" />
                     </TouchableOpacity>
                   </View>
                 </View>
               ))}
-            {/* Button to add set for the current exercise */}
-            <View style={{ alignItems: "center", marginTop: 20 }}>
-              <Button
-                onPress={() => handleAddSet(exerciseIndex)}
-                backgroundColor={"#6879f8"}
-                color={"white"}
-              >
-                Add Set
-              </Button>
-            </View>
+            {/* Button to remove the current exercise */}
+            <TouchableOpacity
+              onPress={() => handleRemoveExercise(exerciseIndex)}
+              style={{
+                backgroundColor: "#ff6b6b",
+                borderRadius: 10,
+                padding: 10,
+                marginTop: 10,
+                alignSelf: "center",
+              }}
+            >
+              <Text style={{ color: "white" }}>Remove Exercise</Text>
+            </TouchableOpacity>
           </View>
         ))}
       </View>

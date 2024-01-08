@@ -4,9 +4,8 @@ import Settings from "../screens/Settings";
 import { Ionicons, FontAwesome5, Feather } from "@expo/vector-icons";
 import { BlurView } from "expo-blur";
 import HomeScreen from "../screens/HomeScreen";
-import { StyleSheet } from "react-native";
-import ExercisesScreen from "../screens/ExercisesScreen";
 import ProfileScreen from "../screens/ProfileScreen";
+import RoutinesScreen from "../screens/RoutinesScreen";
 
 export default function TabNavigation() {
   const Tab = createBottomTabNavigator();
@@ -42,10 +41,10 @@ export default function TabNavigation() {
         }}
       />
       <Tab.Screen
-        name="Exercises"
-        component={ExercisesScreen}
+        name="Routines"
+        component={RoutinesScreen}
         options={{
-          tabBarLabel: "Exercises",
+          tabBarLabel: "Routines",
           tabBarIcon: ({ color, size }) => (
             <FontAwesome5 name="dumbbell" color={color} size={size} />
           ),
