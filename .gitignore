@@ -5,6 +5,7 @@ node_modules/
 
 # Expo
 .expo/
+
 dist/
 web-build/
 
@@ -15,8 +16,10 @@ yarn-error.log
 package-lock.json
 yarn.lock
 
-# Folders
+# Ignore the .tamagui folder
 .tamagui/
+
+# Ignore the .vscode folder
 .vscode/
 
 # Exclude apiService.js in the services folder

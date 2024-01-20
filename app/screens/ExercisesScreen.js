@@ -10,7 +10,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
-import ExerciseList from "../components/Exercises/ExerciseList";
+import ExerciseList from "../components/exercises/ExerciseList";
 import { useNavigation } from "@react-navigation/native";
 import { AntDesign } from "@expo/vector-icons";
 

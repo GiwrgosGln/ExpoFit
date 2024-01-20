@@ -1,8 +1,8 @@
 import React from "react";
 import { View, Text, ScrollView, TouchableOpacity } from "react-native";
 import { Button, Input } from "tamagui";
-import useSetsStore from "../../state/setsStore";
-import useExerciseStore from "../../state/exerciseStore";
+import useSetsStore from "../../../state/setsStore";
+import useExerciseStore from "../../../state/exerciseStore";
 import { useNavigation } from "@react-navigation/native";
 import {
   AntDesign,

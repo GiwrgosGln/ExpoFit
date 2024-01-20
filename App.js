@@ -7,10 +7,10 @@ import { NavigationContainer } from "@react-navigation/native";
 
 import { createStackNavigator } from "@react-navigation/stack";
 import TabNavigation from "./app/navigations/TabNavigation";
-import LoginScreen from "./app/screens/LoginScreen";
-import AdditionalInfoScreen from "./app/screens/AdditionalInfoScreen";
+import LoginScreen from "./app/screens/auth/LoginScreen";
+import AdditionalInfoScreen from "./app/screens/auth/AdditionalInfoScreen";
 import ExercisesScreen from "./app/screens/ExercisesScreen";
-import CreateRoutineScreen from "./app/screens/CreateRoutineScreen";
+import CreateRoutineScreen from "./app/screens/routines/CreateRoutineScreen";
 
 const Stack = createStackNavigator();
 

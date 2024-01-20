@@ -3,9 +3,9 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Settings from "../screens/Settings";
 import { Ionicons, FontAwesome5, Feather } from "@expo/vector-icons";
 import { BlurView } from "expo-blur";
-import HomeScreen from "../screens/HomeScreen";
-import ProfileScreen from "../screens/ProfileScreen";
-import RoutinesScreen from "../screens/RoutinesScreen";
+import HomeScreen from "../screens/main/HomeScreen";
+import ProfileScreen from "../screens/main/ProfileScreen";
+import RoutinesScreen from "../screens/main/RoutinesScreen";
 
 export default function TabNavigation() {
   const Tab = createBottomTabNavigator();
