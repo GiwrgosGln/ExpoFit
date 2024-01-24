@@ -10,9 +10,9 @@ import {
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { Entypo } from "@expo/vector-icons";
-import StartEmptyWorkoutBtn from "../../components/routines/StartEmptyWorkout";
-import CreateNewRoutine from "../../components/routines/CreateNewRoutine";
-import Routines from "../../components/routines/Routines";
+import StartEmptyWorkoutBtn from "../../components/Routines/StartEmptyWorkout";
+import CreateNewRoutine from "../../components/Routines/CreateNewRoutine";
+import Routines from "../../components/Routines/Routines";
 
 export default function RoutinesScreen() {
   return (

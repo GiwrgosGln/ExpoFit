@@ -7,7 +7,6 @@ import {
   Text,
 } from "react-native";
 import { Input, Picker } from "tamagui";
-import { AntDesign } from "@expo/vector-icons";
 import ExerciseItem from "./ExerciseItem";
 import Filters from "./Filters";
 import AddedExercisesButton from "./AddedExercisesButton";

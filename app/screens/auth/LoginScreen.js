@@ -19,7 +19,7 @@ const LoginScreen = () => {
   const navigation = useNavigation();
   const { setUser } = useAuthStore();
 
-  const image = require("../../assets/wallpaper3.jpg");
+  const image = require("../../../assets/wallpaper3.jpg");
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -58,8 +58,8 @@ const LoginScreen = () => {
   };
 
   return (
-    <ImageBackground source={image} resizeMode="cover" style={{ flex: 1 }}>
-      <StatusBar backgroundColor="#161a22" color="white" style="light" />
+    <View style={{ flex: 1, backgroundColor: "#6879f8" }}>
+      <StatusBar backgroundColor="#6879f8" color="white" style="light" />
       <View style={{ flex: 1 }}>
         <KeyboardAvoidingView style={styles.container} behavior="height">
           <View style={{ alignSelf: "center", alignItems: "center" }}>
@@ -67,8 +67,7 @@ const LoginScreen = () => {
               Workout Tracker
             </Text>
           </View>
-          <BlurView
-            intensity={15}
+          <View
             style={{
               height: "75%",
               width: "100%",
@@ -77,7 +76,8 @@ const LoginScreen = () => {
               borderLeftWidth: 0.5,
               overflow: "hidden",
               justifyContent: "center",
-              borderColor: "white",
+              borderColor: "#6879f8",
+              backgroundColor: "#161a22",
             }}
           >
             <View style={{ width: "100%", gap: 52 }}>
@@ -85,7 +85,7 @@ const LoginScreen = () => {
                 style={{
                   width: "100%",
                   alignItems: "center",
-                  gap: 20,
+                  gap: 10,
                 }}
               >
                 <Input
@@ -95,6 +95,7 @@ const LoginScreen = () => {
                   width={"80%"}
                   backgroundColor={"black"}
                   color={"white"}
+                  borderColor={"#6879f8"}
                 />
                 <Input
                   placeholder="Password"
@@ -104,6 +105,7 @@ const LoginScreen = () => {
                   width={"80%"}
                   backgroundColor={"black"}
                   color={"white"}
+                  borderColor={"#6879f8"}
                 />
               </View>
 
@@ -111,13 +113,13 @@ const LoginScreen = () => {
                 style={{
                   width: "100%",
                   alignItems: "center",
-                  gap: 10,
+                  gap: 20,
                 }}
               >
                 <Button
                   onPress={handleLogin}
                   width={"80%"}
-                  backgroundColor={"black"}
+                  backgroundColor={"#6879f8"}
                   color={"white"}
                 >
                   Login
@@ -125,17 +127,17 @@ const LoginScreen = () => {
                 <Button
                   onPress={handleSignUp}
                   width={"80%"}
-                  backgroundColor={"black"}
+                  backgroundColor={"#6879f8"}
                   color={"white"}
                 >
                   Register
                 </Button>
               </View>
             </View>
-          </BlurView>
+          </View>
         </KeyboardAvoidingView>
       </View>
-    </ImageBackground>
+    </View>
   );
 };
 

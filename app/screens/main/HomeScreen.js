@@ -9,7 +9,7 @@ const Home = () => {
       <StatusBar backgroundColor="#161a22" color="white" style="light" />
       <View>
         <View style={{ paddingHorizontal: 20 }}>
-          <Text style={globalStyles.title}>Hello, GiwrgosGln!</Text>
+          <Text style={globalStyles.title}>Hello, user!</Text>
         </View>
         <View style={{ marginTop: 20, paddingHorizontal: 20 }}>
           <Text style={{ fontSize: 20, color: "white", alignSelf: "center" }}>

@@ -21,7 +21,12 @@ export default function SignOut() {
 
   return (
     <View>
-      <Button onPress={handleSignOut} backgroundColor={"white"} color={"black"}>
+      <Button
+        onPress={handleSignOut}
+        backgroundColor={"#ff6b6b"}
+        color={"white"}
+        fontSize={16}
+      >
         Sign Out
       </Button>
     </View>

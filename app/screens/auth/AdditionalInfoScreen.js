@@ -17,14 +17,27 @@ const AdditionalInfoScreen = () => {
   const handleRegister = async () => {
     console.log(uid);
 
-    const registrationResult = await registerUser(uid, username, sex, weight);
+    try {
+      // Parse weight as a number
+      const registrationResult = await registerUser(
+        uid,
+        username,
+        sex,
+        parseFloat(weight)
+      );
 
-    if (registrationResult) {
-      console.log("Registration successful:", registrationResult);
-      saveUsername(username);
-      navigation.navigate("HomeStack");
-    } else {
-      console.error("Registration failed");
+      if (registrationResult && registrationResult.id) {
+        console.log("Registration successful:", registrationResult);
+        saveUsername(username);
+        navigation.navigate("HomeStack");
+      } else {
+        console.error(
+          "Registration failed. Server response:",
+          registrationResult
+        );
+      }
+    } catch (error) {
+      console.error("An error occurred during registration:", error.message);
     }
   };
 

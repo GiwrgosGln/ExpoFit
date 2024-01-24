@@ -6,9 +6,7 @@
         "Stack": {
           "staticConfig": {
             "acceptsClassName": true,
-            "defaultProps": {
-              "alignItems": "stretch"
-            },
+            "defaultProps": {},
             "validStyles": {
               "enterStyle": true,
               "exitStyle": true,
@@ -27,6 +25,7 @@
               "borderTopWidth": true,
               "borderWidth": true,
               "transform": true,
+              "transformOrigin": true,
               "alignContent": true,
               "alignItems": true,
               "alignSelf": true,
@@ -176,9 +175,14 @@
                   "numberOfLines": 1,
                   "lineBreakMode": "clip"
                 }
+              },
+              "ellipsis": {
+                "true": {
+                  "numberOfLines": 1,
+                  "lineBreakMode": "clip"
+                }
               }
             },
-            "deoptProps": {},
             "validStyles": {
               "enterStyle": true,
               "exitStyle": true,
@@ -197,6 +201,7 @@
               "borderTopWidth": true,
               "borderWidth": true,
               "transform": true,
+              "transformOrigin": true,
               "alignContent": true,
               "alignItems": true,
               "alignSelf": true,
@@ -342,9 +347,7 @@
         "View": {
           "staticConfig": {
             "acceptsClassName": true,
-            "defaultProps": {
-              "display": "flex"
-            },
+            "defaultProps": {},
             "validStyles": {
               "enterStyle": true,
               "exitStyle": true,
@@ -363,6 +366,7 @@
               "borderTopWidth": true,
               "borderWidth": true,
               "transform": true,
+              "transformOrigin": true,
               "alignContent": true,
               "alignItems": true,
               "alignSelf": true,
@@ -517,6 +521,7 @@
               "borderTopWidth": true,
               "borderWidth": true,
               "transform": true,
+              "transformOrigin": true,
               "alignContent": true,
               "alignItems": true,
               "alignSelf": true,
@@ -647,7 +652,6 @@
               "shadowOpacity": true
             },
             "defaultProps": {
-              "alignItems": "stretch",
               "tag": "span",
               "size": true,
               "pointerEvents": "none"
@@ -702,6 +706,12 @@
                   "lineBreakMode": "clip"
                 }
               },
+              "ellipsis": {
+                "true": {
+                  "numberOfLines": 1,
+                  "lineBreakMode": "clip"
+                }
+              },
               "unstyled": {
                 "false": {
                   "size": "$true",
@@ -713,7 +723,6 @@
                 "...": "Function"
               }
             },
-            "deoptProps": {},
             "validStyles": {
               "enterStyle": true,
               "exitStyle": true,
@@ -732,6 +741,7 @@
               "borderTopWidth": true,
               "borderWidth": true,
               "transform": true,
+              "transformOrigin": true,
               "alignContent": true,
               "alignItems": true,
               "alignSelf": true,
@@ -883,7 +893,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "tag": "article",
               "flexDirection": "column"
             },
@@ -905,6 +914,7 @@
               "borderTopWidth": true,
               "borderWidth": true,
               "transform": true,
+              "transformOrigin": true,
               "alignContent": true,
               "alignItems": true,
               "alignSelf": true,
@@ -1044,7 +1054,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "tag": "aside",
               "flexDirection": "column"
             },
@@ -1066,6 +1075,7 @@
               "borderTopWidth": true,
               "borderWidth": true,
               "transform": true,
+              "transformOrigin": true,
               "alignContent": true,
               "alignItems": true,
               "alignSelf": true,
@@ -1229,9 +1239,14 @@
                   "numberOfLines": 1,
                   "lineBreakMode": "clip"
                 }
+              },
+              "ellipsis": {
+                "true": {
+                  "numberOfLines": 1,
+                  "lineBreakMode": "clip"
+                }
               }
             },
-            "deoptProps": {},
             "validStyles": {
               "enterStyle": true,
               "exitStyle": true,
@@ -1250,6 +1265,7 @@
               "borderTopWidth": true,
               "borderWidth": true,
               "transform": true,
+              "transformOrigin": true,
               "alignContent": true,
               "alignItems": true,
               "alignSelf": true,
@@ -1399,7 +1415,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "flexDirection": "column",
               "tag": "fieldset"
             },
@@ -1421,6 +1436,7 @@
               "borderTopWidth": true,
               "borderWidth": true,
               "transform": true,
+              "transformOrigin": true,
               "alignContent": true,
               "alignItems": true,
               "alignSelf": true,
@@ -1581,7 +1597,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "tag": "footer",
               "flexDirection": "column"
             },
@@ -1603,6 +1618,7 @@
               "borderTopWidth": true,
               "borderWidth": true,
               "transform": true,
+              "transformOrigin": true,
               "alignContent": true,
               "alignItems": true,
               "alignSelf": true,
@@ -1742,7 +1758,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "tag": "header",
               "accessibilityRole": "header",
               "flexDirection": "column"
@@ -1765,6 +1780,7 @@
               "borderTopWidth": true,
               "borderWidth": true,
               "transform": true,
+              "transformOrigin": true,
               "alignContent": true,
               "alignItems": true,
               "alignSelf": true,
@@ -1902,6 +1918,10 @@
         },
         "Input": {
           "staticConfig": {
+            "isInput": true,
+            "acceptTokens": {
+              "placeholderTextColor": "color"
+            },
             "variants": {
               "unstyled": {
                 "false": {
@@ -1918,7 +1938,7 @@
                     "borderColor": "$borderColorHover"
                   },
                   "focusStyle": {
-                    "outlineColor": "$borderColorFocus",
+                    "outlineColor": "$outlineColor",
                     "outlineWidth": 2,
                     "outlineStyle": "solid",
                     "borderColor": "$borderColorFocus"
@@ -1927,6 +1947,9 @@
               },
               "size": {
                 "...size": "Function"
+              },
+              "disabled": {
+                "true": {}
               }
             },
             "defaultProps": {
@@ -1946,6 +1969,10 @@
         },
         "InputFrame": {
           "staticConfig": {
+            "isInput": true,
+            "acceptTokens": {
+              "placeholderTextColor": "color"
+            },
             "variants": {
               "unstyled": {
                 "false": {
@@ -1962,7 +1989,7 @@
                     "borderColor": "$borderColorHover"
                   },
                   "focusStyle": {
-                    "outlineColor": "$borderColorFocus",
+                    "outlineColor": "$outlineColor",
                     "outlineWidth": 2,
                     "outlineStyle": "solid",
                     "borderColor": "$borderColorFocus"
@@ -1971,6 +1998,9 @@
               },
               "size": {
                 "...size": "Function"
+              },
+              "disabled": {
+                "true": {}
               }
             },
             "defaultProps": {
@@ -1990,7 +2020,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "tag": "main",
               "flexDirection": "column"
             },
@@ -2012,6 +2041,7 @@
               "borderTopWidth": true,
               "borderWidth": true,
               "transform": true,
+              "transformOrigin": true,
               "alignContent": true,
               "alignItems": true,
               "alignSelf": true,
@@ -2151,7 +2181,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "tag": "nav",
               "flexDirection": "column"
             },
@@ -2173,6 +2202,7 @@
               "borderTopWidth": true,
               "borderWidth": true,
               "transform": true,
+              "transformOrigin": true,
               "alignContent": true,
               "alignItems": true,
               "alignSelf": true,
@@ -2312,7 +2342,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "tag": "section",
               "flexDirection": "column",
               "accessibilityRole": "summary"
@@ -2335,6 +2364,7 @@
               "borderTopWidth": true,
               "borderWidth": true,
               "transform": true,
+              "transformOrigin": true,
               "alignContent": true,
               "alignItems": true,
               "alignSelf": true,
@@ -2493,6 +2523,7 @@
               "borderTopWidth": true,
               "borderWidth": true,
               "transform": true,
+              "transformOrigin": true,
               "alignContent": true,
               "alignItems": true,
               "alignSelf": true,
@@ -2623,7 +2654,6 @@
               "shadowOpacity": true
             },
             "defaultProps": {
-              "alignItems": "stretch",
               "tag": "span",
               "size": true,
               "pointerEvents": "none"
@@ -2655,7 +2685,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "flexDirection": "column"
             },
             "validStyles": {
@@ -2676,6 +2705,7 @@
               "borderTopWidth": true,
               "borderWidth": true,
               "transform": true,
+              "transformOrigin": true,
               "alignContent": true,
               "alignItems": true,
               "alignSelf": true,
@@ -2830,9 +2860,7 @@
         "Stack": {
           "staticConfig": {
             "acceptsClassName": true,
-            "defaultProps": {
-              "alignItems": "stretch"
-            },
+            "defaultProps": {},
             "validStyles": {
               "enterStyle": true,
               "exitStyle": true,
@@ -2851,6 +2879,7 @@
               "borderTopWidth": true,
               "borderWidth": true,
               "transform": true,
+              "transformOrigin": true,
               "alignContent": true,
               "alignItems": true,
               "alignSelf": true,
@@ -3002,13 +3031,18 @@
                   "lineBreakMode": "clip"
                 }
               },
+              "ellipsis": {
+                "true": {
+                  "numberOfLines": 1,
+                  "lineBreakMode": "clip"
+                }
+              },
               "unstyled": {
                 "false": {
                   "color": "$color"
                 }
               }
             },
-            "deoptProps": {},
             "validStyles": {
               "enterStyle": true,
               "exitStyle": true,
@@ -3027,6 +3061,7 @@
               "borderTopWidth": true,
               "borderWidth": true,
               "transform": true,
+              "transformOrigin": true,
               "alignContent": true,
               "alignItems": true,
               "alignSelf": true,
@@ -3176,6 +3211,10 @@
         },
         "TextArea": {
           "staticConfig": {
+            "isInput": true,
+            "acceptTokens": {
+              "placeholderTextColor": "color"
+            },
             "variants": {
               "unstyled": {
                 "false": {
@@ -3192,7 +3231,7 @@
                     "borderColor": "$borderColorHover"
                   },
                   "focusStyle": {
-                    "outlineColor": "$borderColorFocus",
+                    "outlineColor": "$outlineColor",
                     "outlineWidth": 2,
                     "outlineStyle": "solid",
                     "borderColor": "$borderColorFocus"
@@ -3202,6 +3241,9 @@
               },
               "size": {
                 "...size": "Function"
+              },
+              "disabled": {
+                "true": {}
               }
             },
             "defaultProps": {
@@ -3223,6 +3265,10 @@
         },
         "TextAreaFrame": {
           "staticConfig": {
+            "isInput": true,
+            "acceptTokens": {
+              "placeholderTextColor": "color"
+            },
             "variants": {
               "unstyled": {
                 "false": {
@@ -3239,7 +3285,7 @@
                     "borderColor": "$borderColorHover"
                   },
                   "focusStyle": {
-                    "outlineColor": "$borderColorFocus",
+                    "outlineColor": "$outlineColor",
                     "outlineWidth": 2,
                     "outlineStyle": "solid",
                     "borderColor": "$borderColorFocus"
@@ -3249,6 +3295,9 @@
               },
               "size": {
                 "...size": "Function"
+              },
+              "disabled": {
+                "true": {}
               }
             },
             "defaultProps": {
@@ -3269,9 +3318,7 @@
         "View": {
           "staticConfig": {
             "acceptsClassName": true,
-            "defaultProps": {
-              "display": "flex"
-            },
+            "defaultProps": {},
             "validStyles": {
               "enterStyle": true,
               "exitStyle": true,
@@ -3290,6 +3337,7 @@
               "borderTopWidth": true,
               "borderWidth": true,
               "transform": true,
+              "transformOrigin": true,
               "alignContent": true,
               "alignItems": true,
               "alignSelf": true,
@@ -3425,7 +3473,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "flexDirection": "column",
               "unstyled": false
             },
@@ -3447,6 +3494,7 @@
               "borderTopWidth": true,
               "borderWidth": true,
               "transform": true,
+              "transformOrigin": true,
               "alignContent": true,
               "alignItems": true,
               "alignSelf": true,
@@ -3712,7 +3760,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "flexDirection": "column",
               "position": "absolute",
               "fullscreen": true,
@@ -3736,6 +3783,7 @@
               "borderTopWidth": true,
               "borderWidth": true,
               "transform": true,
+              "transformOrigin": true,
               "alignContent": true,
               "alignItems": true,
               "alignSelf": true,
@@ -3892,7 +3940,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "flexDirection": "column",
               "position": "absolute",
               "fullscreen": true,
@@ -3916,6 +3963,7 @@
               "borderTopWidth": true,
               "borderWidth": true,
               "transform": true,
+              "transformOrigin": true,
               "alignContent": true,
               "alignItems": true,
               "alignSelf": true,
@@ -4070,8 +4118,8 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "center",
               "flexDirection": "column",
+              "alignItems": "center",
               "justifyContent": "center",
               "position": "relative",
               "overflow": "hidden"
@@ -4094,6 +4142,7 @@
               "borderTopWidth": true,
               "borderWidth": true,
               "transform": true,
+              "transformOrigin": true,
               "alignContent": true,
               "alignItems": true,
               "alignSelf": true,
@@ -4342,12 +4391,11 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "flexDirection": "column",
               "unstyled": false,
               "tag": "button",
-              "focusable": true,
-              "role": "button"
+              "role": "button",
+              "focusable": true
             },
             "validStyles": {
               "enterStyle": true,
@@ -4367,6 +4415,7 @@
               "borderTopWidth": true,
               "borderWidth": true,
               "transform": true,
+              "transformOrigin": true,
               "alignContent": true,
               "alignItems": true,
               "alignSelf": true,
@@ -4614,7 +4663,7 @@
                   "borderWidth": 1,
                   "borderColor": "transparent",
                   "focusStyle": {
-                    "outlineColor": "$borderColorFocus",
+                    "outlineColor": "$outlineColor",
                     "outlineStyle": "solid",
                     "outlineWidth": 2
                   }
@@ -4664,12 +4713,11 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "flexDirection": "column",
               "unstyled": false,
               "tag": "button",
-              "focusable": true,
-              "role": "button"
+              "role": "button",
+              "focusable": true
             },
             "validStyles": {
               "enterStyle": true,
@@ -4689,6 +4737,7 @@
               "borderTopWidth": true,
               "borderWidth": true,
               "transform": true,
+              "transformOrigin": true,
               "alignContent": true,
               "alignItems": true,
               "alignSelf": true,
@@ -4936,7 +4985,7 @@
                   "borderWidth": 1,
                   "borderColor": "transparent",
                   "focusStyle": {
-                    "outlineColor": "$borderColorFocus",
+                    "outlineColor": "$outlineColor",
                     "outlineStyle": "solid",
                     "outlineWidth": 2
                   }
@@ -5001,6 +5050,12 @@
                   "lineBreakMode": "clip"
                 }
               },
+              "ellipsis": {
+                "true": {
+                  "numberOfLines": 1,
+                  "lineBreakMode": "clip"
+                }
+              },
               "unstyled": {
                 "false": {
                   "size": "$true",
@@ -5017,7 +5072,6 @@
                 "...": "Function"
               }
             },
-            "deoptProps": {},
             "validStyles": {
               "enterStyle": true,
               "exitStyle": true,
@@ -5036,6 +5090,7 @@
               "borderTopWidth": true,
               "borderWidth": true,
               "transform": true,
+              "transformOrigin": true,
               "alignContent": true,
               "alignItems": true,
               "alignSelf": true,
@@ -5190,7 +5245,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "flexDirection": "column",
               "unstyled": false
             },
@@ -5212,6 +5266,7 @@
               "borderTopWidth": true,
               "borderWidth": true,
               "transform": true,
+              "transformOrigin": true,
               "alignContent": true,
               "alignItems": true,
               "alignSelf": true,
@@ -5471,7 +5526,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "flexDirection": "column",
               "unstyled": false
             },
@@ -5493,6 +5547,7 @@
               "borderTopWidth": true,
               "borderWidth": true,
               "transform": true,
+              "transformOrigin": true,
               "alignContent": true,
               "alignItems": true,
               "alignSelf": true,
@@ -5749,7 +5804,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "flexDirection": "column",
               "unstyled": false
             },
@@ -5771,6 +5825,7 @@
               "borderTopWidth": true,
               "borderWidth": true,
               "transform": true,
+              "transformOrigin": true,
               "alignContent": true,
               "alignItems": true,
               "alignSelf": true,
@@ -6031,7 +6086,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "flexDirection": "column",
               "unstyled": false
             },
@@ -6053,6 +6107,7 @@
               "borderTopWidth": true,
               "borderWidth": true,
               "transform": true,
+              "transformOrigin": true,
               "alignContent": true,
               "alignItems": true,
               "alignSelf": true,
@@ -6312,7 +6367,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "flexDirection": "column",
               "unstyled": false
             },
@@ -6334,6 +6388,7 @@
               "borderTopWidth": true,
               "borderWidth": true,
               "transform": true,
+              "transformOrigin": true,
               "alignContent": true,
               "alignItems": true,
               "alignSelf": true,
@@ -6593,7 +6648,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "flexDirection": "column",
               "unstyled": false,
               "tag": "button"
@@ -6616,6 +6670,7 @@
               "borderTopWidth": true,
               "borderWidth": true,
               "transform": true,
+              "transformOrigin": true,
               "alignContent": true,
               "alignItems": true,
               "alignSelf": true,
@@ -6866,7 +6921,7 @@
                     "borderColor": "$borderColorFocus",
                     "outlineStyle": "solid",
                     "outlineWidth": 2,
-                    "outlineColor": "$borderColorFocus"
+                    "outlineColor": "$outlineColor"
                   }
                 }
               },
@@ -6908,7 +6963,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "flexDirection": "column",
               "unstyled": false,
               "tag": "button"
@@ -6931,6 +6985,7 @@
               "borderTopWidth": true,
               "borderWidth": true,
               "transform": true,
+              "transformOrigin": true,
               "alignContent": true,
               "alignItems": true,
               "alignSelf": true,
@@ -7181,7 +7236,7 @@
                     "borderColor": "$borderColorFocus",
                     "outlineStyle": "solid",
                     "outlineWidth": 2,
-                    "outlineColor": "$borderColorFocus"
+                    "outlineColor": "$outlineColor"
                   }
                 }
               },
@@ -7222,7 +7277,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "display": "flex",
               "tag": "button"
             },
             "validStyles": {
@@ -7243,6 +7297,7 @@
               "borderTopWidth": true,
               "borderWidth": true,
               "transform": true,
+              "transformOrigin": true,
               "alignContent": true,
               "alignItems": true,
               "alignSelf": true,
@@ -7384,7 +7439,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "flexDirection": "column",
               "size": "$true",
               "unstyled": false,
@@ -7408,6 +7462,7 @@
               "borderTopWidth": true,
               "borderWidth": true,
               "transform": true,
+              "transformOrigin": true,
               "alignContent": true,
               "alignItems": true,
               "alignSelf": true,
@@ -7667,11 +7722,217 @@
             "isHOC": true
           }
         },
+        "DialogDescription": {
+          "staticConfig": {
+            "acceptsClassName": true,
+            "isText": true,
+            "defaultProps": {
+              "fontFamily": "$body",
+              "suppressHighlighting": true,
+              "unstyled": false,
+              "tag": "p",
+              "userSelect": "auto",
+              "color": "$color",
+              "size": "$true"
+            },
+            "inlineWhenUnflattened": {},
+            "variants": {
+              "ellipsizeMode": {
+                "...": "Function"
+              },
+              "ellipse": {
+                "true": {
+                  "numberOfLines": 1,
+                  "lineBreakMode": "clip"
+                }
+              },
+              "ellipsis": {
+                "true": {
+                  "numberOfLines": 1,
+                  "lineBreakMode": "clip"
+                }
+              },
+              "unstyled": {
+                "false": {
+                  "size": "$true",
+                  "color": "$color"
+                }
+              },
+              "size": "Function",
+              "fontFamily": {
+                "...": "Function"
+              }
+            },
+            "validStyles": {
+              "enterStyle": true,
+              "exitStyle": true,
+              "hoverStyle": true,
+              "pressStyle": true,
+              "focusStyle": true,
+              "backfaceVisibility": true,
+              "borderBottomEndRadius": true,
+              "borderBottomStartRadius": true,
+              "borderBottomWidth": true,
+              "borderLeftWidth": true,
+              "borderRightWidth": true,
+              "borderStyle": true,
+              "borderTopEndRadius": true,
+              "borderTopStartRadius": true,
+              "borderTopWidth": true,
+              "borderWidth": true,
+              "transform": true,
+              "transformOrigin": true,
+              "alignContent": true,
+              "alignItems": true,
+              "alignSelf": true,
+              "borderEndWidth": true,
+              "borderStartWidth": true,
+              "bottom": true,
+              "display": true,
+              "end": true,
+              "flexBasis": true,
+              "flexDirection": true,
+              "flexWrap": true,
+              "gap": true,
+              "columnGap": true,
+              "rowGap": true,
+              "justifyContent": true,
+              "left": true,
+              "margin": true,
+              "marginBlockEnd": true,
+              "marginBlockStart": true,
+              "marginInlineEnd": true,
+              "marginInline": true,
+              "marginInlineStart": true,
+              "marginBottom": true,
+              "marginEnd": true,
+              "marginHorizontal": true,
+              "marginLeft": true,
+              "marginRight": true,
+              "marginStart": true,
+              "marginTop": true,
+              "marginVertical": true,
+              "overflow": true,
+              "padding": true,
+              "paddingBottom": true,
+              "paddingInline": true,
+              "paddingBlock": true,
+              "paddingBlockStart": true,
+              "paddingInlineEnd": true,
+              "paddingInlineStart": true,
+              "paddingEnd": true,
+              "paddingHorizontal": true,
+              "paddingLeft": true,
+              "paddingRight": true,
+              "paddingStart": true,
+              "paddingTop": true,
+              "paddingVertical": true,
+              "position": true,
+              "right": true,
+              "start": true,
+              "top": true,
+              "direction": true,
+              "shadowOffset": true,
+              "shadowRadius": true,
+              "backgroundColor": true,
+              "borderColor": true,
+              "borderBlockStartColor": true,
+              "borderBlockEndColor": true,
+              "borderBlockColor": true,
+              "borderBottomColor": true,
+              "borderTopColor": true,
+              "borderLeftColor": true,
+              "borderRightColor": true,
+              "borderEndColor": true,
+              "borderStartColor": true,
+              "shadowColor": true,
+              "color": true,
+              "placeholderTextColor": true,
+              "textDecorationColor": true,
+              "textShadowColor": true,
+              "borderRadius": true,
+              "borderTopLeftRadius": true,
+              "borderTopRightRadius": true,
+              "borderBottomLeftRadius": true,
+              "borderBottomRightRadius": true,
+              "borderStartStartRadius": true,
+              "borderStartEndRadius": true,
+              "borderEndStartRadius": true,
+              "borderEndEndRadius": true,
+              "width": true,
+              "height": true,
+              "minWidth": true,
+              "minHeight": true,
+              "maxWidth": true,
+              "maxHeight": true,
+              "x": true,
+              "y": true,
+              "scale": true,
+              "perspective": true,
+              "scaleX": true,
+              "scaleY": true,
+              "skewX": true,
+              "skewY": true,
+              "matrix": true,
+              "rotate": true,
+              "rotateY": true,
+              "rotateX": true,
+              "rotateZ": true,
+              "WebkitLineClamp": true,
+              "animationIterationCount": true,
+              "aspectRatio": true,
+              "borderImageOutset": true,
+              "borderImageSlice": true,
+              "borderImageWidth": true,
+              "columnCount": true,
+              "flex": true,
+              "flexGrow": true,
+              "flexOrder": true,
+              "flexPositive": true,
+              "flexShrink": true,
+              "flexNegative": true,
+              "fontWeight": true,
+              "gridRow": true,
+              "gridRowEnd": true,
+              "gridRowGap": true,
+              "gridRowStart": true,
+              "gridColumn": true,
+              "gridColumnEnd": true,
+              "gridColumnGap": true,
+              "gridColumnStart": true,
+              "lineClamp": true,
+              "opacity": true,
+              "order": true,
+              "orphans": true,
+              "tabSize": true,
+              "widows": true,
+              "zIndex": true,
+              "zoom": true,
+              "scaleZ": true,
+              "shadowOpacity": true,
+              "fontFamily": true,
+              "fontSize": true,
+              "fontStyle": true,
+              "letterSpacing": true,
+              "lineHeight": true,
+              "textTransform": true,
+              "textAlign": true,
+              "textDecorationLine": true,
+              "textDecorationStyle": true,
+              "textShadowOffset": true,
+              "textShadowRadius": true
+            },
+            "componentName": "DialogDescription",
+            "isReactNative": false,
+            "isStyledHOC": false,
+            "neverFlatten": true,
+            "isHOC": true
+          }
+        },
         "DialogOverlay": {
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "flexDirection": "column",
               "unstyled": false
             },
@@ -7693,6 +7954,7 @@
               "borderTopWidth": true,
               "borderWidth": true,
               "transform": true,
+              "transformOrigin": true,
               "alignContent": true,
               "alignItems": true,
               "alignSelf": true,
@@ -7958,7 +8220,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "flexDirection": "column",
               "unstyled": false
             },
@@ -7980,6 +8241,7 @@
               "borderTopWidth": true,
               "borderWidth": true,
               "transform": true,
+              "transformOrigin": true,
               "alignContent": true,
               "alignItems": true,
               "alignSelf": true,
@@ -8243,7 +8505,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "flexDirection": "column",
               "unstyled": false
             },
@@ -8265,6 +8526,7 @@
               "borderTopWidth": true,
               "borderWidth": true,
               "transform": true,
+              "transformOrigin": true,
               "alignContent": true,
               "alignItems": true,
               "alignSelf": true,
@@ -8425,11 +8687,48 @@
             "isStyledHOC": false
           }
         },
-        "DialogTrigger": {
+        "DialogTitle": {
           "staticConfig": {
             "acceptsClassName": true,
+            "isText": true,
             "defaultProps": {
-              "display": "flex"
+              "fontFamily": "$heading",
+              "suppressHighlighting": true,
+              "unstyled": false,
+              "tag": "h2",
+              "userSelect": "auto",
+              "color": "$color",
+              "size": "$9",
+              "accessibilityRole": "header",
+              "margin": 0
+            },
+            "inlineWhenUnflattened": {},
+            "variants": {
+              "ellipsizeMode": {
+                "...": "Function"
+              },
+              "ellipse": {
+                "true": {
+                  "numberOfLines": 1,
+                  "lineBreakMode": "clip"
+                }
+              },
+              "ellipsis": {
+                "true": {
+                  "numberOfLines": 1,
+                  "lineBreakMode": "clip"
+                }
+              },
+              "unstyled": {
+                "false": {
+                  "size": "$true",
+                  "color": "$color"
+                }
+              },
+              "size": "Function",
+              "fontFamily": {
+                "...": "Function"
+              }
             },
             "validStyles": {
               "enterStyle": true,
@@ -8449,6 +8748,177 @@
               "borderTopWidth": true,
               "borderWidth": true,
               "transform": true,
+              "transformOrigin": true,
+              "alignContent": true,
+              "alignItems": true,
+              "alignSelf": true,
+              "borderEndWidth": true,
+              "borderStartWidth": true,
+              "bottom": true,
+              "display": true,
+              "end": true,
+              "flexBasis": true,
+              "flexDirection": true,
+              "flexWrap": true,
+              "gap": true,
+              "columnGap": true,
+              "rowGap": true,
+              "justifyContent": true,
+              "left": true,
+              "margin": true,
+              "marginBlockEnd": true,
+              "marginBlockStart": true,
+              "marginInlineEnd": true,
+              "marginInline": true,
+              "marginInlineStart": true,
+              "marginBottom": true,
+              "marginEnd": true,
+              "marginHorizontal": true,
+              "marginLeft": true,
+              "marginRight": true,
+              "marginStart": true,
+              "marginTop": true,
+              "marginVertical": true,
+              "overflow": true,
+              "padding": true,
+              "paddingBottom": true,
+              "paddingInline": true,
+              "paddingBlock": true,
+              "paddingBlockStart": true,
+              "paddingInlineEnd": true,
+              "paddingInlineStart": true,
+              "paddingEnd": true,
+              "paddingHorizontal": true,
+              "paddingLeft": true,
+              "paddingRight": true,
+              "paddingStart": true,
+              "paddingTop": true,
+              "paddingVertical": true,
+              "position": true,
+              "right": true,
+              "start": true,
+              "top": true,
+              "direction": true,
+              "shadowOffset": true,
+              "shadowRadius": true,
+              "backgroundColor": true,
+              "borderColor": true,
+              "borderBlockStartColor": true,
+              "borderBlockEndColor": true,
+              "borderBlockColor": true,
+              "borderBottomColor": true,
+              "borderTopColor": true,
+              "borderLeftColor": true,
+              "borderRightColor": true,
+              "borderEndColor": true,
+              "borderStartColor": true,
+              "shadowColor": true,
+              "color": true,
+              "placeholderTextColor": true,
+              "textDecorationColor": true,
+              "textShadowColor": true,
+              "borderRadius": true,
+              "borderTopLeftRadius": true,
+              "borderTopRightRadius": true,
+              "borderBottomLeftRadius": true,
+              "borderBottomRightRadius": true,
+              "borderStartStartRadius": true,
+              "borderStartEndRadius": true,
+              "borderEndStartRadius": true,
+              "borderEndEndRadius": true,
+              "width": true,
+              "height": true,
+              "minWidth": true,
+              "minHeight": true,
+              "maxWidth": true,
+              "maxHeight": true,
+              "x": true,
+              "y": true,
+              "scale": true,
+              "perspective": true,
+              "scaleX": true,
+              "scaleY": true,
+              "skewX": true,
+              "skewY": true,
+              "matrix": true,
+              "rotate": true,
+              "rotateY": true,
+              "rotateX": true,
+              "rotateZ": true,
+              "WebkitLineClamp": true,
+              "animationIterationCount": true,
+              "aspectRatio": true,
+              "borderImageOutset": true,
+              "borderImageSlice": true,
+              "borderImageWidth": true,
+              "columnCount": true,
+              "flex": true,
+              "flexGrow": true,
+              "flexOrder": true,
+              "flexPositive": true,
+              "flexShrink": true,
+              "flexNegative": true,
+              "fontWeight": true,
+              "gridRow": true,
+              "gridRowEnd": true,
+              "gridRowGap": true,
+              "gridRowStart": true,
+              "gridColumn": true,
+              "gridColumnEnd": true,
+              "gridColumnGap": true,
+              "gridColumnStart": true,
+              "lineClamp": true,
+              "opacity": true,
+              "order": true,
+              "orphans": true,
+              "tabSize": true,
+              "widows": true,
+              "zIndex": true,
+              "zoom": true,
+              "scaleZ": true,
+              "shadowOpacity": true,
+              "fontFamily": true,
+              "fontSize": true,
+              "fontStyle": true,
+              "letterSpacing": true,
+              "lineHeight": true,
+              "textTransform": true,
+              "textAlign": true,
+              "textDecorationLine": true,
+              "textDecorationStyle": true,
+              "textShadowOffset": true,
+              "textShadowRadius": true
+            },
+            "componentName": "DialogTitle",
+            "isReactNative": false,
+            "isStyledHOC": false,
+            "neverFlatten": true,
+            "isHOC": true
+          }
+        },
+        "DialogTrigger": {
+          "staticConfig": {
+            "acceptsClassName": true,
+            "defaultProps": {},
+            "validStyles": {
+              "enterStyle": true,
+              "exitStyle": true,
+              "hoverStyle": true,
+              "pressStyle": true,
+              "focusStyle": true,
+              "backfaceVisibility": true,
+              "borderBottomEndRadius": true,
+              "borderBottomStartRadius": true,
+              "borderBottomWidth": true,
+              "borderLeftWidth": true,
+              "borderRightWidth": true,
+              "borderStyle": true,
+              "borderTopEndRadius": true,
+              "borderTopStartRadius": true,
+              "borderTopWidth": true,
+              "borderWidth": true,
+              "transform": true,
+              "transformOrigin": true,
               "alignContent": true,
               "alignItems": true,
               "alignSelf": true,
@@ -8590,7 +9060,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "tag": "form"
             },
             "validStyles": {
@@ -8611,6 +9080,7 @@
               "borderTopWidth": true,
               "borderWidth": true,
               "transform": true,
+              "transformOrigin": true,
               "alignContent": true,
               "alignItems": true,
               "alignSelf": true,
@@ -8752,7 +9222,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "tag": "form"
             },
             "validStyles": {
@@ -8773,6 +9242,7 @@
               "borderTopWidth": true,
               "borderWidth": true,
               "transform": true,
+              "transformOrigin": true,
               "alignContent": true,
               "alignItems": true,
               "alignSelf": true,
@@ -8911,9 +9381,7 @@
         "FormTrigger": {
           "staticConfig": {
             "acceptsClassName": true,
-            "defaultProps": {
-              "display": "flex"
-            },
+            "defaultProps": {},
             "validStyles": {
               "enterStyle": true,
               "exitStyle": true,
@@ -8932,6 +9400,7 @@
               "borderTopWidth": true,
               "borderWidth": true,
               "transform": true,
+              "transformOrigin": true,
               "alignContent": true,
               "alignItems": true,
               "alignSelf": true,
@@ -9073,7 +9542,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "flexDirection": "column",
               "unstyled": false
             },
@@ -9095,6 +9563,7 @@
               "borderTopWidth": true,
               "borderWidth": true,
               "transform": true,
+              "transformOrigin": true,
               "alignContent": true,
               "alignItems": true,
               "alignSelf": true,
@@ -9346,12 +9815,7 @@
         },
         "Image": {
           "staticConfig": {
-            "defaultProps": {
-              "position": "relative",
-              "source": {
-                "uri": ""
-              }
-            },
+            "defaultProps": {},
             "componentName": "Image",
             "isReactNative": true,
             "isText": false,
@@ -9382,6 +9846,12 @@
                   "lineBreakMode": "clip"
                 }
               },
+              "ellipsis": {
+                "true": {
+                  "numberOfLines": 1,
+                  "lineBreakMode": "clip"
+                }
+              },
               "unstyled": {
                 "false": {
                   "size": "$true",
@@ -9403,7 +9873,6 @@
                 "...": "Function"
               }
             },
-            "deoptProps": {},
             "validStyles": {
               "enterStyle": true,
               "exitStyle": true,
@@ -9422,6 +9891,7 @@
               "borderTopWidth": true,
               "borderWidth": true,
               "transform": true,
+              "transformOrigin": true,
               "alignContent": true,
               "alignItems": true,
               "alignSelf": true,
@@ -9593,6 +10063,12 @@
                   "lineBreakMode": "clip"
                 }
               },
+              "ellipsis": {
+                "true": {
+                  "numberOfLines": 1,
+                  "lineBreakMode": "clip"
+                }
+              },
               "unstyled": {
                 "false": {
                   "size": "$true",
@@ -9614,7 +10090,6 @@
                 "...": "Function"
               }
             },
-            "deoptProps": {},
             "validStyles": {
               "enterStyle": true,
               "exitStyle": true,
@@ -9633,6 +10108,7 @@
               "borderTopWidth": true,
               "borderWidth": true,
               "transform": true,
+              "transformOrigin": true,
               "alignContent": true,
               "alignItems": true,
               "alignSelf": true,
@@ -9785,7 +10261,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "flexDirection": "column",
               "unstyled": false,
               "tag": "li"
@@ -9808,6 +10283,7 @@
               "borderTopWidth": true,
               "borderWidth": true,
               "transform": true,
+              "transformOrigin": true,
               "alignContent": true,
               "alignItems": true,
               "alignSelf": true,
@@ -10087,7 +10563,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "flexDirection": "column",
               "unstyled": false,
               "tag": "li"
@@ -10110,6 +10585,7 @@
               "borderTopWidth": true,
               "borderWidth": true,
               "transform": true,
+              "transformOrigin": true,
               "alignContent": true,
               "alignItems": true,
               "alignSelf": true,
@@ -10403,6 +10879,12 @@
                   "lineBreakMode": "clip"
                 }
               },
+              "ellipsis": {
+                "true": {
+                  "numberOfLines": 1,
+                  "lineBreakMode": "clip"
+                }
+              },
               "unstyled": {
                 "false": {
                   "size": "$true",
@@ -10422,7 +10904,6 @@
                 "...": "Function"
               }
             },
-            "deoptProps": {},
             "validStyles": {
               "enterStyle": true,
               "exitStyle": true,
@@ -10441,6 +10922,7 @@
               "borderTopWidth": true,
               "borderWidth": true,
               "transform": true,
+              "transformOrigin": true,
               "alignContent": true,
               "alignItems": true,
               "alignSelf": true,
@@ -10609,6 +11091,12 @@
                   "lineBreakMode": "clip"
                 }
               },
+              "ellipsis": {
+                "true": {
+                  "numberOfLines": 1,
+                  "lineBreakMode": "clip"
+                }
+              },
               "unstyled": {
                 "false": {
                   "size": "$true",
@@ -10624,7 +11112,6 @@
                 "...": "Function"
               }
             },
-            "deoptProps": {},
             "validStyles": {
               "enterStyle": true,
               "exitStyle": true,
@@ -10643,6 +11130,7 @@
               "borderTopWidth": true,
               "borderWidth": true,
               "transform": true,
+              "transformOrigin": true,
               "alignContent": true,
               "alignItems": true,
               "alignSelf": true,
@@ -10811,6 +11299,12 @@
                   "lineBreakMode": "clip"
                 }
               },
+              "ellipsis": {
+                "true": {
+                  "numberOfLines": 1,
+                  "lineBreakMode": "clip"
+                }
+              },
               "unstyled": {
                 "false": {
                   "size": "$true",
@@ -10826,7 +11320,6 @@
                 "...": "Function"
               }
             },
-            "deoptProps": {},
             "validStyles": {
               "enterStyle": true,
               "exitStyle": true,
@@ -10845,6 +11338,7 @@
               "borderTopWidth": true,
               "borderWidth": true,
               "transform": true,
+              "transformOrigin": true,
               "alignContent": true,
               "alignItems": true,
               "alignSelf": true,
@@ -10994,7 +11488,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "flexDirection": "column",
               "unstyled": false
             },
@@ -11016,6 +11509,7 @@
               "borderTopWidth": true,
               "borderWidth": true,
               "transform": true,
+              "transformOrigin": true,
               "alignContent": true,
               "alignItems": true,
               "alignSelf": true,
@@ -11182,7 +11676,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "flexDirection": "column",
               "unstyled": false
             },
@@ -11204,6 +11697,7 @@
               "borderTopWidth": true,
               "borderWidth": true,
               "transform": true,
+              "transformOrigin": true,
               "alignContent": true,
               "alignItems": true,
               "alignSelf": true,
@@ -11464,7 +11958,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "flexDirection": "column"
             },
             "validStyles": {
@@ -11485,6 +11978,7 @@
               "borderTopWidth": true,
               "borderWidth": true,
               "transform": true,
+              "transformOrigin": true,
               "alignContent": true,
               "alignItems": true,
               "alignSelf": true,
@@ -11640,7 +12134,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "flexDirection": "column",
               "unstyled": false
             },
@@ -11662,6 +12155,7 @@
               "borderTopWidth": true,
               "borderWidth": true,
               "transform": true,
+              "transformOrigin": true,
               "alignContent": true,
               "alignItems": true,
               "alignSelf": true,
@@ -11828,7 +12322,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "flexDirection": "column",
               "unstyled": false
             },
@@ -11850,6 +12343,7 @@
               "borderTopWidth": true,
               "borderWidth": true,
               "transform": true,
+              "transformOrigin": true,
               "alignContent": true,
               "alignItems": true,
               "alignSelf": true,
@@ -12108,7 +12602,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "flexDirection": "column",
               "unstyled": false
             },
@@ -12130,6 +12623,7 @@
               "borderTopWidth": true,
               "borderWidth": true,
               "transform": true,
+              "transformOrigin": true,
               "alignContent": true,
               "alignItems": true,
               "alignSelf": true,
@@ -12389,7 +12883,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "flexDirection": "column",
               "unstyled": false
             },
@@ -12411,6 +12904,7 @@
               "borderTopWidth": true,
               "borderWidth": true,
               "transform": true,
+              "transformOrigin": true,
               "alignContent": true,
               "alignItems": true,
               "alignSelf": true,
@@ -12668,7 +13162,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "flexDirection": "column",
               "unstyled": false
             },
@@ -12690,6 +13183,7 @@
               "borderTopWidth": true,
               "borderWidth": true,
               "transform": true,
+              "transformOrigin": true,
               "alignContent": true,
               "alignItems": true,
               "alignSelf": true,
@@ -12946,7 +13440,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "flexDirection": "column",
               "unstyled": false
             },
@@ -12968,6 +13461,7 @@
               "borderTopWidth": true,
               "borderWidth": true,
               "transform": true,
+              "transformOrigin": true,
               "alignContent": true,
               "alignItems": true,
               "alignSelf": true,
@@ -13222,7 +13716,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "flexDirection": "column"
             },
             "validStyles": {
@@ -13243,6 +13736,7 @@
               "borderTopWidth": true,
               "borderWidth": true,
               "transform": true,
+              "transformOrigin": true,
               "alignContent": true,
               "alignItems": true,
               "alignSelf": true,
@@ -13522,7 +14016,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "flexDirection": "column",
               "width": "100%"
             },
@@ -13544,6 +14037,7 @@
               "borderTopWidth": true,
               "borderWidth": true,
               "transform": true,
+              "transformOrigin": true,
               "alignContent": true,
               "alignItems": true,
               "alignSelf": true,
@@ -13698,7 +14192,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "flexDirection": "row",
               "aria-hidden": true,
               "children": "Component"
@@ -13721,6 +14214,7 @@
               "borderTopWidth": true,
               "borderWidth": true,
               "transform": true,
+              "transformOrigin": true,
               "alignContent": true,
               "alignItems": true,
               "alignSelf": true,
@@ -13876,7 +14370,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "borderColor": "$borderColor",
               "flexShrink": 0,
               "borderWidth": 0,
@@ -13904,6 +14397,7 @@
               "borderTopWidth": true,
               "borderWidth": true,
               "transform": true,
+              "transformOrigin": true,
               "alignContent": true,
               "alignItems": true,
               "alignSelf": true,
@@ -14057,7 +14551,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "borderColor": "$borderColor",
               "flexShrink": 0,
               "borderWidth": 0,
@@ -14085,6 +14578,7 @@
               "borderTopWidth": true,
               "borderWidth": true,
               "transform": true,
+              "transformOrigin": true,
               "alignContent": true,
               "alignItems": true,
               "alignSelf": true,
@@ -14238,8 +14732,8 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "center",
               "flexDirection": "column",
+              "alignItems": "center",
               "justifyContent": "center"
             },
             "validStyles": {
@@ -14260,6 +14754,7 @@
               "borderTopWidth": true,
               "borderWidth": true,
               "transform": true,
+              "transformOrigin": true,
               "alignContent": true,
               "alignItems": true,
               "alignSelf": true,
@@ -14508,8 +15003,8 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "center",
               "flexDirection": "column",
+              "alignItems": "center",
               "justifyContent": "center",
               "circular": true
             },
@@ -14531,6 +15026,7 @@
               "borderTopWidth": true,
               "borderWidth": true,
               "transform": true,
+              "transformOrigin": true,
               "alignContent": true,
               "alignItems": true,
               "alignSelf": true,
@@ -14779,7 +15275,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "flexDirection": "column",
               "unstyled": false
             },
@@ -14801,6 +15296,7 @@
               "borderTopWidth": true,
               "borderWidth": true,
               "transform": true,
+              "transformOrigin": true,
               "alignContent": true,
               "alignItems": true,
               "alignSelf": true,
@@ -14969,7 +15465,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "flexDirection": "row",
               "unstyled": false
             },
@@ -14991,6 +15486,7 @@
               "borderTopWidth": true,
               "borderWidth": true,
               "transform": true,
+              "transformOrigin": true,
               "alignContent": true,
               "alignItems": true,
               "alignSelf": true,
@@ -15171,7 +15667,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "flexDirection": "column",
               "unstyled": false
             },
@@ -15193,6 +15688,7 @@
               "borderTopWidth": true,
               "borderWidth": true,
               "transform": true,
+              "transformOrigin": true,
               "alignContent": true,
               "alignItems": true,
               "alignSelf": true,
@@ -15459,7 +15955,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "flexDirection": "row",
               "unstyled": false
             },
@@ -15481,6 +15976,7 @@
               "borderTopWidth": true,
               "borderWidth": true,
               "transform": true,
+              "transformOrigin": true,
               "alignContent": true,
               "alignItems": true,
               "alignSelf": true,
@@ -15661,7 +16157,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "flexDirection": "column",
               "unstyled": false
             },
@@ -15683,6 +16178,7 @@
               "borderTopWidth": true,
               "borderWidth": true,
               "transform": true,
+              "transformOrigin": true,
               "alignContent": true,
               "alignItems": true,
               "alignSelf": true,
@@ -15949,7 +16445,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "flexDirection": "column",
               "position": "relative"
             },
@@ -15971,6 +16466,7 @@
               "borderTopWidth": true,
               "borderWidth": true,
               "transform": true,
+              "transformOrigin": true,
               "alignContent": true,
               "alignItems": true,
               "alignSelf": true,
@@ -16129,7 +16625,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "flexDirection": "column",
               "unstyled": false
             },
@@ -16151,6 +16646,7 @@
               "borderTopWidth": true,
               "borderWidth": true,
               "transform": true,
+              "transformOrigin": true,
               "alignContent": true,
               "alignItems": true,
               "alignSelf": true,
@@ -16412,7 +16908,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "flexDirection": "column",
               "position": "absolute",
               "backgroundColor": "$background"
@@ -16435,6 +16930,7 @@
               "borderTopWidth": true,
               "borderWidth": true,
               "transform": true,
+              "transformOrigin": true,
               "alignContent": true,
               "alignItems": true,
               "alignSelf": true,
@@ -16594,7 +17090,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "flexDirection": "column",
               "position": "relative",
               "unstyled": false
@@ -16617,6 +17112,7 @@
               "borderTopWidth": true,
               "borderWidth": true,
               "transform": true,
+              "transformOrigin": true,
               "alignContent": true,
               "alignItems": true,
               "alignSelf": true,
@@ -16789,7 +17285,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "flexDirection": "row"
             },
             "validStyles": {
@@ -16810,6 +17305,7 @@
               "borderTopWidth": true,
               "borderWidth": true,
               "transform": true,
+              "transformOrigin": true,
               "alignContent": true,
               "alignItems": true,
               "alignSelf": true,
@@ -16963,7 +17459,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "flexDirection": "column"
             },
             "validStyles": {
@@ -16984,6 +17479,7 @@
               "borderTopWidth": true,
               "borderWidth": true,
               "transform": true,
+              "transformOrigin": true,
               "alignContent": true,
               "alignItems": true,
               "alignSelf": true,
@@ -17137,7 +17633,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "flexDirection": "column",
               "position": "relative"
             },
@@ -17159,6 +17654,7 @@
               "borderTopWidth": true,
               "borderWidth": true,
               "transform": true,
+              "transformOrigin": true,
               "alignContent": true,
               "alignItems": true,
               "alignSelf": true,
@@ -17314,7 +17810,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "flexDirection": "row"
             },
             "validStyles": {
@@ -17335,6 +17830,7 @@
               "borderTopWidth": true,
               "borderWidth": true,
               "transform": true,
+              "transformOrigin": true,
               "alignContent": true,
               "alignItems": true,
               "alignSelf": true,
@@ -17536,7 +18032,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "flexDirection": "column"
             },
             "validStyles": {
@@ -17557,6 +18052,7 @@
               "borderTopWidth": true,
               "borderWidth": true,
               "transform": true,
+              "transformOrigin": true,
               "alignContent": true,
               "alignItems": true,
               "alignSelf": true,
@@ -17800,7 +18296,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "flexDirection": "column",
               "unstyled": false
             },
@@ -17822,6 +18317,7 @@
               "borderTopWidth": true,
               "borderWidth": true,
               "transform": true,
+              "transformOrigin": true,
               "alignContent": true,
               "alignItems": true,
               "alignSelf": true,
@@ -17973,7 +18469,7 @@
                   "borderWidth": 2,
                   "borderColor": "$background",
                   "focusStyle": {
-                    "outlineColor": "$borderColorFocus",
+                    "outlineColor": "$outlineColor",
                     "outlineStyle": "solid",
                     "outlineWidth": 2
                   }
@@ -18005,7 +18501,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "flexDirection": "column",
               "unstyled": false
             },
@@ -18027,6 +18522,7 @@
               "borderTopWidth": true,
               "borderWidth": true,
               "transform": true,
+              "transformOrigin": true,
               "alignContent": true,
               "alignItems": true,
               "alignSelf": true,
@@ -18178,7 +18674,7 @@
                   "borderWidth": 2,
                   "borderColor": "$background",
                   "focusStyle": {
-                    "outlineColor": "$borderColorFocus",
+                    "outlineColor": "$outlineColor",
                     "outlineStyle": "solid",
                     "outlineWidth": 2
                   }
@@ -18209,7 +18705,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "flexDirection": "column",
               "unstyled": false
             },
@@ -18231,6 +18726,7 @@
               "borderTopWidth": true,
               "borderWidth": true,
               "transform": true,
+              "transformOrigin": true,
               "alignContent": true,
               "alignItems": true,
               "alignSelf": true,
@@ -18493,7 +18989,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "flexDirection": "row"
             },
             "validStyles": {
@@ -18514,6 +19009,7 @@
               "borderTopWidth": true,
               "borderWidth": true,
               "transform": true,
+              "transformOrigin": true,
               "alignContent": true,
               "alignItems": true,
               "alignSelf": true,
@@ -18733,6 +19229,12 @@
                   "lineBreakMode": "clip"
                 }
               },
+              "ellipsis": {
+                "true": {
+                  "numberOfLines": 1,
+                  "lineBreakMode": "clip"
+                }
+              },
               "unstyled": {
                 "false": {
                   "size": "$true",
@@ -18744,7 +19246,6 @@
                 "...": "Function"
               }
             },
-            "deoptProps": {},
             "validStyles": {
               "enterStyle": true,
               "exitStyle": true,
@@ -18763,6 +19264,7 @@
               "borderTopWidth": true,
               "borderWidth": true,
               "transform": true,
+              "transformOrigin": true,
               "alignContent": true,
               "alignItems": true,
               "alignSelf": true,
@@ -18935,6 +19437,12 @@
                   "lineBreakMode": "clip"
                 }
               },
+              "ellipsis": {
+                "true": {
+                  "numberOfLines": 1,
+                  "lineBreakMode": "clip"
+                }
+              },
               "unstyled": {
                 "false": {
                   "size": "$true",
@@ -18946,7 +19454,6 @@
                 "...": "Function"
               }
             },
-            "deoptProps": {},
             "validStyles": {
               "enterStyle": true,
               "exitStyle": true,
@@ -18965,6 +19472,7 @@
               "borderTopWidth": true,
               "borderWidth": true,
               "transform": true,
+              "transformOrigin": true,
               "alignContent": true,
               "alignItems": true,
               "alignSelf": true,
@@ -19136,6 +19644,12 @@
                   "lineBreakMode": "clip"
                 }
               },
+              "ellipsis": {
+                "true": {
+                  "numberOfLines": 1,
+                  "lineBreakMode": "clip"
+                }
+              },
               "unstyled": {
                 "false": {
                   "size": "$true",
@@ -19147,7 +19661,6 @@
                 "...": "Function"
               }
             },
-            "deoptProps": {},
             "validStyles": {
               "enterStyle": true,
               "exitStyle": true,
@@ -19166,6 +19679,7 @@
               "borderTopWidth": true,
               "borderWidth": true,
               "transform": true,
+              "transformOrigin": true,
               "alignContent": true,
               "alignItems": true,
               "alignSelf": true,
@@ -19337,6 +19851,12 @@
                   "lineBreakMode": "clip"
                 }
               },
+              "ellipsis": {
+                "true": {
+                  "numberOfLines": 1,
+                  "lineBreakMode": "clip"
+                }
+              },
               "unstyled": {
                 "false": {
                   "size": "$true",
@@ -19348,7 +19868,6 @@
                 "...": "Function"
               }
             },
-            "deoptProps": {},
             "validStyles": {
               "enterStyle": true,
               "exitStyle": true,
@@ -19367,6 +19886,7 @@
               "borderTopWidth": true,
               "borderWidth": true,
               "transform": true,
+              "transformOrigin": true,
               "alignContent": true,
               "alignItems": true,
               "alignSelf": true,
@@ -19538,6 +20058,12 @@
                   "lineBreakMode": "clip"
                 }
               },
+              "ellipsis": {
+                "true": {
+                  "numberOfLines": 1,
+                  "lineBreakMode": "clip"
+                }
+              },
               "unstyled": {
                 "false": {
                   "size": "$true",
@@ -19549,7 +20075,6 @@
                 "...": "Function"
               }
             },
-            "deoptProps": {},
             "validStyles": {
               "enterStyle": true,
               "exitStyle": true,
@@ -19568,6 +20093,7 @@
               "borderTopWidth": true,
               "borderWidth": true,
               "transform": true,
+              "transformOrigin": true,
               "alignContent": true,
               "alignItems": true,
               "alignSelf": true,
@@ -19739,6 +20265,12 @@
                   "lineBreakMode": "clip"
                 }
               },
+              "ellipsis": {
+                "true": {
+                  "numberOfLines": 1,
+                  "lineBreakMode": "clip"
+                }
+              },
               "unstyled": {
                 "false": {
                   "size": "$true",
@@ -19750,7 +20282,6 @@
                 "...": "Function"
               }
             },
-            "deoptProps": {},
             "validStyles": {
               "enterStyle": true,
               "exitStyle": true,
@@ -19769,6 +20300,7 @@
               "borderTopWidth": true,
               "borderWidth": true,
               "transform": true,
+              "transformOrigin": true,
               "alignContent": true,
               "alignItems": true,
               "alignSelf": true,
@@ -19940,6 +20472,12 @@
                   "lineBreakMode": "clip"
                 }
               },
+              "ellipsis": {
+                "true": {
+                  "numberOfLines": 1,
+                  "lineBreakMode": "clip"
+                }
+              },
               "unstyled": {
                 "false": {
                   "size": "$true",
@@ -19951,7 +20489,6 @@
                 "...": "Function"
               }
             },
-            "deoptProps": {},
             "validStyles": {
               "enterStyle": true,
               "exitStyle": true,
@@ -19970,6 +20507,7 @@
               "borderTopWidth": true,
               "borderWidth": true,
               "transform": true,
+              "transformOrigin": true,
               "alignContent": true,
               "alignItems": true,
               "alignSelf": true,
@@ -20141,6 +20679,12 @@
                   "lineBreakMode": "clip"
                 }
               },
+              "ellipsis": {
+                "true": {
+                  "numberOfLines": 1,
+                  "lineBreakMode": "clip"
+                }
+              },
               "unstyled": {
                 "false": {
                   "size": "$true",
@@ -20152,7 +20696,6 @@
                 "...": "Function"
               }
             },
-            "deoptProps": {},
             "validStyles": {
               "enterStyle": true,
               "exitStyle": true,
@@ -20171,6 +20714,7 @@
               "borderTopWidth": true,
               "borderWidth": true,
               "transform": true,
+              "transformOrigin": true,
               "alignContent": true,
               "alignItems": true,
               "alignSelf": true,
@@ -20342,6 +20886,12 @@
                   "lineBreakMode": "clip"
                 }
               },
+              "ellipsis": {
+                "true": {
+                  "numberOfLines": 1,
+                  "lineBreakMode": "clip"
+                }
+              },
               "unstyled": {
                 "false": {
                   "size": "$true",
@@ -20353,7 +20903,6 @@
                 "...": "Function"
               }
             },
-            "deoptProps": {},
             "validStyles": {
               "enterStyle": true,
               "exitStyle": true,
@@ -20372,6 +20921,7 @@
               "borderTopWidth": true,
               "borderWidth": true,
               "transform": true,
+              "transformOrigin": true,
               "alignContent": true,
               "alignItems": true,
               "alignSelf": true,
@@ -20521,7 +21071,6 @@
           "staticConfig": {
             "acceptsClassName": true,
             "defaultProps": {
-              "alignItems": "stretch",
               "position": "absolute",
               "width": 1,
               "height": 1,
@@ -20549,6 +21098,7 @@
               "borderTopWidth": true,
               "borderWidth": true,
               "transform": true,
+              "transformOrigin": true,
               "alignContent": true,
               "alignItems": true,
               "alignSelf": true,
@@ -47666,29 +48216,6 @@
           "val": 48,
           "variable": ""
         }
-      },
-      "icon": {
-        "sm": {
-          "isVar": true,
-          "key": "$sm",
-          "name": "icon-1",
-          "val": 16,
-          "variable": ""
-        },
-        "md": {
-          "isVar": true,
-          "key": "$md",
-          "name": "icon-2",
-          "val": 24,
-          "variable": ""
-        },
-        "lg": {
-          "isVar": true,
-          "key": "$lg",
-          "name": "icon-3",
-          "val": 32,
-          "variable": ""
-        }
       }
     },
     "unset": {},
@@ -49867,27 +50394,6 @@
         "key": "$4.5",
         "name": "size-13",
         "val": 48,
-        "variable": ""
-      },
-      "$icon.sm": {
-        "isVar": true,
-        "key": "$sm",
-        "name": "icon-1",
-        "val": 16,
-        "variable": ""
-      },
-      "$icon.md": {
-        "isVar": true,
-        "key": "$md",
-        "name": "icon-2",
-        "val": 24,
-        "variable": ""
-      },
-      "$icon.lg": {
-        "isVar": true,
-        "key": "$lg",
-        "name": "icon-3",
-        "val": 32,
         "variable": ""
       }
     }

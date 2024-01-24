@@ -1,6 +1,5 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import Settings from "../screens/Settings";
 import { Ionicons, FontAwesome5, Feather } from "@expo/vector-icons";
 import { BlurView } from "expo-blur";
 import HomeScreen from "../screens/main/HomeScreen";
