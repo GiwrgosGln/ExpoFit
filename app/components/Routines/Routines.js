@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -8,42 +8,36 @@ import {
   Modal,
 } from "react-native";
 import { Entypo } from "@expo/vector-icons";
+import useAuthStore from "../../../state/authStore";
+import Loader1 from "../ui/Loader";
+import { useIsFocused, useNavigation } from "@react-navigation/native";
 
 export default function Routines() {
+  const [routines, setRoutines] = useState([]);
   const [selectedWorkout, setSelectedWorkout] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
+  const { uid } = useAuthStore();
+  const isFocused = useIsFocused();
+  const navigation = useNavigation();
 
-  // Dummy workout data
-  const dummyWorkouts = [
-    {
-      _id: "659be8cc6360ebc61ce4f9fa",
-      title: "Full Body",
-      exercises: ["Sit Ups", "Single Arm Lateral Pulldown"],
-    },
-    {
-      _id: "659be8cc6360ebc61ce4f9fa223",
-      title: "Upper Body",
-      exercises: ["Sit Ups", "Single Arm Lateral Pulldown", "Pull Ups"],
-    },
-    {
-      _id: "659be8cc6360ebc61ce4f9fa223dw",
-      title: "Lower Body",
-      exercises: ["Sit Ups", "Single Arm Lateral Pulldown"],
-    },
-    {
-      _id: "659be8cc6360eb21312c61ce4f9fa223dw",
-      title: "Push",
-      exercises: [
-        "Sit Ups",
-        "Overhead Press",
-        "Lateral Raises",
-        "Single Arm Lateral Pulldown",
-        "Sit Ups",
-        "Single Arm Lateral Pulldown",
-      ],
-    },
-    // More Workouts
-  ];
+  useEffect(() => {
+    const fetchRoutines = async () => {
+      try {
+        const response = await fetch(
+          `https://fitness-api-a6wh.onrender.com/routines/${uid}`
+        );
+        const data = await response.json();
+        setRoutines(data);
+      } catch (error) {
+        console.error("Error fetching routines:", error);
+      }
+    };
+
+    // Fetch routines when the screen is focused
+    if (isFocused) {
+      fetchRoutines();
+    }
+  }, [isFocused, uid]);
 
   const handleOptionsPress = (workout) => {
     setSelectedWorkout(workout);
@@ -61,49 +55,59 @@ export default function Routines() {
     console.log("Delete workout for:", selectedWorkout);
     setModalVisible(false);
   };
+
   return (
     <View style={{ marginTop: 20 }}>
-      {dummyWorkouts.map((workout) => (
-        <View
-          key={workout._id}
-          style={{
-            gap: 15,
-            padding: 20,
-            backgroundColor: "#292a3e",
-            borderRadius: 25,
-            marginBottom: 20,
-          }}
-        >
+      {routines.length > 0 ? (
+        routines.map((workout) => (
           <View
+            key={workout._id}
             style={{
-              flexDirection: "row",
-              justifyContent: "space-between",
-              alignItems: "center",
+              gap: 15,
+              padding: 20,
+              backgroundColor: "#292a3e",
+              borderRadius: 25,
+              marginBottom: 20,
             }}
           >
-            <Text style={{ color: "white", fontSize: 20, fontWeight: 700 }}>
-              {workout.title}
-            </Text>
-            <TouchableOpacity onPress={() => handleOptionsPress(workout)}>
-              <Entypo name="dots-three-vertical" size={20} color="white" />
-            </TouchableOpacity>
-          </View>
-          <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
-            {workout.exercises.map((exercise, index) => (
-              <Text
-                key={index}
-                style={{ color: "white", fontSize: 16, fontWeight: 200 }}
-              >
-                {exercise}
-                {index !== workout.exercises.length - 1 && ", "}
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <Text style={{ color: "white", fontSize: 20, fontWeight: 700 }}>
+                {workout.title}
               </Text>
-            ))}
+              <TouchableOpacity onPress={() => handleOptionsPress(workout)}>
+                <Entypo name="dots-three-vertical" size={20} color="white" />
+              </TouchableOpacity>
+            </View>
+            <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
+              {Object.keys(workout.exercises || {}).map(
+                (exercise, index, exercises) => (
+                  <React.Fragment key={exercise}>
+                    <Text
+                      style={{ color: "white", fontSize: 16, fontWeight: 200 }}
+                    >
+                      {exercise}
+                      {index !== exercises.length - 1 && ", "}
+                    </Text>
+                  </React.Fragment>
+                )
+              )}
+            </View>
+            <View style={{ borderRadius: 25, overflow: "hidden" }}>
+              <Button title="Start Workout" color="#6879f8" />
+            </View>
           </View>
-          <View style={{ borderRadius: 25, overflow: "hidden" }}>
-            <Button title="Start Workout" color="#6879f8" />
-          </View>
+        ))
+      ) : (
+        <View style={{ marginTop: 200 }}>
+          <Loader1 />
         </View>
-      ))}
+      )}
       <Modal
         animationType="fade"
         transparent={true}
