@@ -22,8 +22,10 @@ import {
   FontAwesome,
 } from "@expo/vector-icons";
 import SignOut from "../../components/Auth/SignOut";
+import { useNavigation } from "@react-navigation/native";
 
 export default function ProfileScreen() {
+  const navigation = useNavigation();
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor="#161a22" color="white" style="light" />
@@ -34,7 +36,7 @@ export default function ProfileScreen() {
           flexDirection: "column",
         }}
       >
-        <Avatar circular size="$12">
+        <Avatar circular size="$12" style={{ alignSelf: "center" }}>
           <Avatar.Image
             accessibilityLabel="Nate Wienert"
             src="https://i.pinimg.com/280x280_RS/c6/49/70/c64970ce68687694d897decdba92ea85.jpg"
@@ -49,7 +51,7 @@ export default function ProfileScreen() {
             fontWeight: 300,
           }}
         >
-          Cbum
+          Chris Bumstead
         </Text>
       </View>
       <View style={{ paddingHorizontal: 28, paddingTop: 20 }}>
@@ -59,6 +61,7 @@ export default function ProfileScreen() {
               title="Account"
               subTitle="Edit your account"
               backgroundColor={"#292a3e"}
+              onPress={() => navigation.navigate("Account")}
             />
           </YGroup.Item>
           <YGroup.Item>
@@ -66,13 +69,7 @@ export default function ProfileScreen() {
               title="Notifications"
               subTitle="Manage your notifications"
               backgroundColor={"#292a3e"}
-            />
-          </YGroup.Item>
-          <YGroup.Item>
-            <ListItem
-              title="Units"
-              subTitle="Change your preffered units"
-              backgroundColor={"#292a3e"}
+              onPress={() => navigation.navigate("Notifications")}
             />
           </YGroup.Item>
           <YGroup.Item>
@@ -84,9 +81,17 @@ export default function ProfileScreen() {
           </YGroup.Item>
           <YGroup.Item>
             <ListItem
+              title="Feature Request"
+              subTitle="Submit a feature idea"
+              backgroundColor={"#292a3e"}
+            />
+          </YGroup.Item>
+          <YGroup.Item>
+            <ListItem
               title="FAQ"
               subTitle="Frequently Asked Questions"
               backgroundColor={"#292a3e"}
+              onPress={() => navigation.navigate("FrequentlyAskedQuestions")}
             />
           </YGroup.Item>
           <YGroup.Item>
