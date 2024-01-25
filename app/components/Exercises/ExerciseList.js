@@ -11,7 +11,8 @@ import ExerciseItem from "./ExerciseItem";
 import Filters from "./Filters";
 import AddedExercisesButton from "./AddedExercisesButton";
 import Sheet from "../ui/Sheet";
-import { getExercises } from "../../../services/apiService";
+// Import the JSON data
+import exercisesData from "../../../data/exercises.json";
 import useExerciseStore from "../../../state/exerciseStore";
 import { useNavigation } from "@react-navigation/native";
 
@@ -27,16 +28,9 @@ const ExerciseList = () => {
   const { exercises, selectedExercises, addSelectedExercise } =
     useExerciseStore();
 
+  // Set the initial state with the imported JSON data
   useEffect(() => {
-    const fetchExercises = async () => {
-      const exercisesData = await getExercises();
-
-      if (exercisesData) {
-        useExerciseStore.setState({ exercises: exercisesData });
-      }
-    };
-
-    fetchExercises();
+    useExerciseStore.setState({ exercises: exercisesData });
   }, []);
 
   const handleExercisePress = (exercise) => {

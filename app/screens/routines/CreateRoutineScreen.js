@@ -107,7 +107,7 @@ const CreateRoutineScreen = ({ route }) => {
         clearSelectedExercises();
         setSets([]);
         setRoutineTitle("");
-        navigation.goBack();
+        navigation.navigate("Routines");
       } else {
         console.error("Failed to save routine");
       }
