@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { ScrollView, TouchableOpacity, View, Text } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
-import BottomSheet from "../ui/BottomSheet";
+import ExerciseSheet from "../ui/ExerciseSheet";
 import exercisesData from "../../../data/exercises.json";
 
 const ExerciseList = () => {
@@ -53,7 +53,7 @@ const ExerciseList = () => {
 
       {/* Render the BottomSheet */}
       {selectedExercise && (
-        <BottomSheet
+        <ExerciseSheet
           isVisible={true}
           onClose={handleCloseSheet}
           exercise={selectedExercise}

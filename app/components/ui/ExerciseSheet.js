@@ -5,7 +5,7 @@ import BottomSheet, {
 } from "@gorhom/bottom-sheet";
 import { StyleSheet, Text, View, Image, ActivityIndicator } from "react-native";
 
-const BottomSheet = ({ exercise }) => {
+const ExerciseSheet = ({ exercise }) => {
   const sheetRef = useRef(null);
   const [loading, setLoading] = useState(true);
 
@@ -127,4 +127,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default NewSheet;
+export default ExerciseSheet;
