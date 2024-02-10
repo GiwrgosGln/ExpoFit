@@ -21,7 +21,7 @@ export default function SelectExercisesScreen() {
       <StatusBar backgroundColor="#161a22" color="white" style="light" />
       <View
         style={{
-          marginTop: 40,
+          paddingTop: 40,
           paddingHorizontal: 20,
           flexDirection: "row",
           justifyContent: "space-between",
@@ -34,9 +34,7 @@ export default function SelectExercisesScreen() {
         <Text style={{ color: "white", fontSize: 20 }}>Select Exercises</Text>
         <View style={{ width: 24 }}></View>
       </View>
-      <View>
-        <ExerciseList />
-      </View>
+      <ExerciseList />
     </View>
   );
 }
