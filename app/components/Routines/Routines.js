@@ -8,7 +8,7 @@ import {
   Modal,
 } from "react-native";
 import { Entypo } from "@expo/vector-icons";
-import useAuthStore from "../../../state/authStore";
+import { useSelector } from "react-redux";
 import Loader1 from "../ui/Loader";
 import { useIsFocused, useNavigation } from "@react-navigation/native";
 
@@ -16,7 +16,7 @@ export default function Routines() {
   const [routines, setRoutines] = useState([]);
   const [selectedWorkout, setSelectedWorkout] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
-  const { uid } = useAuthStore();
+  const uid = useSelector((state) => state.auth.uid);
   const isFocused = useIsFocused();
   const navigation = useNavigation();
 

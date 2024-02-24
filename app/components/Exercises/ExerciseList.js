@@ -3,9 +3,14 @@ import { ScrollView, TouchableOpacity, View, Text } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import ExerciseSheet from "../ui/ExerciseSheet";
 import exercisesData from "../../../data/exercises.json";
+import { useDispatch, useSelector } from "react-redux";
+import { addExercise } from "../../redux/routine/routineSlice";
+import { useNavigation } from "@react-navigation/native";
 
 const ExerciseList = () => {
+  const navigation = useNavigation();
   const [selectedExercise, setSelectedExercise] = useState(null);
+  const dispatch = useDispatch();
 
   const handleExercisePress = (exercise) => {
     console.log("Exercise pressed:", exercise);
@@ -14,6 +19,10 @@ const ExerciseList = () => {
 
   const handleCloseSheet = () => {
     setSelectedExercise(null);
+  };
+
+  const handleAddExercise = (exercise) => {
+    dispatch(addExercise(exercise));
   };
 
   return (
@@ -43,7 +52,7 @@ const ExerciseList = () => {
               <TouchableOpacity onPress={() => handleExercisePress(exercise)}>
                 <AntDesign name="questioncircleo" size={24} color="white" />
               </TouchableOpacity>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={() => handleAddExercise(exercise)}>
                 <AntDesign name="pluscircleo" size={24} color="#6879f8" />
               </TouchableOpacity>
             </View>
@@ -63,5 +72,4 @@ const ExerciseList = () => {
     </View>
   );
 };
-
 export default ExerciseList;

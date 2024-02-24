@@ -8,7 +8,7 @@ export default function CreateNewRoutine() {
       <Button
         title="Create New Routine"
         color="#6879f8"
-        onPress={() => navigation.navigate("Exercises")}
+        onPress={() => navigation.navigate("CreateRoutine")}
       />
     </View>
   );

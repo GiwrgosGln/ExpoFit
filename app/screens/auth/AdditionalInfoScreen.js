@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import { View } from "react-native";
 import { Input, Button } from "tamagui";
-import useAuthStore from "../../../state/authStore";
-import { useNavigation } from "@react-navigation/core";
+import { useDispatch } from "react-redux";
 import { StatusBar } from "expo-status-bar";
 import { registerUser } from "../../../services/apiService";
+import { setUser } from "../../redux/user/authSlice";
+import { useNavigation } from "@react-navigation/core";
 
 const AdditionalInfoScreen = () => {
-  const { uid, saveUsername } = useAuthStore();
+  const dispatch = useDispatch();
   const navigation = useNavigation();
 
   const [username, setUsername] = useState("");
@@ -15,8 +16,6 @@ const AdditionalInfoScreen = () => {
   const [weight, setWeight] = useState("");
 
   const handleRegister = async () => {
-    console.log(uid);
-
     try {
       // Parse weight as a number
       const registrationResult = await registerUser(
@@ -28,7 +27,7 @@ const AdditionalInfoScreen = () => {
 
       if (registrationResult && registrationResult.id) {
         console.log("Registration successful:", registrationResult);
-        saveUsername(username);
+        dispatch(setUser({ uid, email, username }));
         navigation.navigate("HomeStack");
       } else {
         console.error(

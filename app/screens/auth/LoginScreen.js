@@ -8,30 +8,30 @@ import {
   Image,
 } from "react-native";
 import { Input, Button, Text } from "tamagui";
-import useAuthStore from "../../../state/authStore";
-import { BlurView } from "expo-blur";
+import { useSelector, useDispatch } from "react-redux";
 import { StatusBar } from "expo-status-bar";
 import { auth } from "../../../firebase";
+import { setUser } from "../../redux/user/authSlice";
 
 const LoginScreen = () => {
   const [email, setEmail] = useState("gergegl1999@gmail.com");
   const [password, setPassword] = useState("30031963g");
   const navigation = useNavigation();
-  const { setUser } = useAuthStore();
+  const dispatch = useDispatch();
 
   const image = require("../../../assets/wallpaper3.jpg");
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
-        setUser(user.email, user.uid);
+        dispatch(setUser({ email: user.email, uid: user.uid }));
         console.log(user);
         navigation.navigate("HomeStack");
       }
     });
 
     return unsubscribe;
-  }, [navigation, setUser]);
+  }, [navigation, dispatch]);
 
   const handleSignUp = () => {
     auth
@@ -39,7 +39,7 @@ const LoginScreen = () => {
       .then((userCredentials) => {
         const user = userCredentials.user;
         console.log("Registered with:", user.email);
-        setUser(user.email, user.uid);
+        dispatch(setUser({ email: user.email, uid: user.uid }));
         navigation.navigate("AdditionalInfo");
       })
       .catch((error) => alert(error.message));
@@ -52,7 +52,7 @@ const LoginScreen = () => {
         const user = userCredentials.user;
         console.log("Logged in with:", user.email);
         console.log(user);
-        setUser(user.email, user.uid);
+        dispatch(setUser({ email: user.email, uid: user.uid }));
       })
       .catch((error) => alert(error.message));
   };

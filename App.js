@@ -8,11 +8,13 @@ import { createStackNavigator } from "@react-navigation/stack";
 import TabNavigation from "./app/navigations/TabNavigation";
 import LoginScreen from "./app/screens/auth/LoginScreen";
 import AdditionalInfoScreen from "./app/screens/auth/AdditionalInfoScreen";
-import SelectExercisesScreen from "./app/screens/SelectExercisesScreen";
+import SelectExercisesScreen from "./app/screens/exercises/SelectExercisesScreen";
 import CreateRoutineScreen from "./app/screens/routines/CreateRoutineScreen";
 import AccountScreen from "./app/screens/settings/AccountScreen";
 import NotificationsScreen from "./app/screens/settings/NotificationsScreen";
 import FrequentlyAskedQuestionsScreen from "./app/screens/settings/FrequentlyAskedQuestionsScreen";
+import { Provider } from "react-redux";
+import store from "./app/redux/store/store";
 
 const Stack = createStackNavigator();
 
@@ -28,54 +30,56 @@ export default function App() {
 
   return (
     <TamaguiProvider config={config}>
-      <Theme name={colorScheme === "dark" ? "dark" : "dark"}>
-        <YStack f={1} backgroundColor={"$backgroundSoft"}>
-          <NavigationContainer>
-            <Stack.Navigator>
-              <Stack.Screen
-                name="Login"
-                component={LoginScreen}
-                options={{ headerShown: false }}
-              />
-              <Stack.Screen
-                name="HomeStack"
-                component={TabNavigation}
-                options={{ headerShown: false }}
-              />
-              <Stack.Screen
-                name="AdditionalInfo"
-                component={AdditionalInfoScreen}
-                options={{ headerShown: false }}
-              />
-              <Stack.Screen
-                name="Exercises"
-                component={SelectExercisesScreen}
-                options={{ headerShown: false }}
-              />
-              <Stack.Screen
-                name="CreateRoutine"
-                component={CreateRoutineScreen}
-                options={{ headerShown: false }}
-              />
-              <Stack.Screen
-                name="Account"
-                component={AccountScreen}
-                options={{ headerShown: false }}
-              />
-              <Stack.Screen
-                name="Notifications"
-                component={NotificationsScreen}
-                options={{ headerShown: false }}
-              />
-              <Stack.Screen
-                name="FrequentlyAskedQuestions"
-                component={FrequentlyAskedQuestionsScreen}
-                options={{ headerShown: false }}
-              />
-            </Stack.Navigator>
-          </NavigationContainer>
-        </YStack>
-      </Theme>
+      <Provider store={store}>
+        <Theme name={colorScheme === "dark" ? "dark" : "dark"}>
+          <YStack f={1} backgroundColor={"$backgroundSoft"}>
+            <NavigationContainer>
+              <Stack.Navigator>
+                <Stack.Screen
+                  name="Login"
+                  component={LoginScreen}
+                  options={{ headerShown: false }}
+                />
+                <Stack.Screen
+                  name="HomeStack"
+                  component={TabNavigation}
+                  options={{ headerShown: false }}
+                />
+                <Stack.Screen
+                  name="AdditionalInfo"
+                  component={AdditionalInfoScreen}
+                  options={{ headerShown: false }}
+                />
+                <Stack.Screen
+                  name="Exercises"
+                  component={SelectExercisesScreen}
+                  options={{ headerShown: false }}
+                />
+                <Stack.Screen
+                  name="CreateRoutine"
+                  component={CreateRoutineScreen}
+                  options={{ headerShown: false }}
+                />
+                <Stack.Screen
+                  name="Account"
+                  component={AccountScreen}
+                  options={{ headerShown: false }}
+                />
+                <Stack.Screen
+                  name="Notifications"
+                  component={NotificationsScreen}
+                  options={{ headerShown: false }}
+                />
+                <Stack.Screen
+                  name="FrequentlyAskedQuestions"
+                  component={FrequentlyAskedQuestionsScreen}
+                  options={{ headerShown: false }}
+                />
+              </Stack.Navigator>
+            </NavigationContainer>
+          </YStack>
+        </Theme>
+      </Provider>
     </TamaguiProvider>
   );
 }
