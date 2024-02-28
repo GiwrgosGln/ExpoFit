@@ -2,15 +2,14 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const routineSlice = createSlice({
   name: "routine",
-  initialState: {
-    exercises: [],
-  },
+  initialState: { exercises: [] },
   reducers: {
     addExercise: (state, action) => {
-      const { exercise } = action.payload;
-      const isDuplicate = state.exercises.some((ex) => ex.id === exercise.id);
-      if (!isDuplicate) {
-        state.exercises.push(exercise);
+      const exerciseExists = state.exercises.some(
+        (exercise) => exercise.id === action.payload.id
+      );
+      if (!exerciseExists) {
+        state.exercises.push(action.payload);
       }
     },
   },

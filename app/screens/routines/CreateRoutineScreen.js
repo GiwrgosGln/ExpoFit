@@ -3,11 +3,16 @@ import { View, Text, ScrollView, TouchableOpacity } from "react-native";
 import { Button, Input } from "tamagui";
 import { useNavigation } from "@react-navigation/native";
 import { AntDesign, Feather, FontAwesome } from "@expo/vector-icons";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { addExercise } from "../../redux/routine/routineSlice";
 
 const CreateRoutineScreen = ({ route }) => {
   const [routineTitle, setRoutineTitle] = useState("");
   const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const exercises = useSelector((state) => state.routine.exercises);
+
+  console.log("Exercises in Redux Store:", exercises);
 
   return (
     <ScrollView
@@ -46,6 +51,18 @@ const CreateRoutineScreen = ({ route }) => {
         />
       </View>
 
+      {/* Display added exercises */}
+
+      <View style={{ marginTop: 20 }}>
+        {/* Map through the exercises in the Redux store and display them */}
+        {Array.isArray(exercises) &&
+          exercises.map((exercise, index) => (
+            <Text key={index} style={{ color: "white", fontSize: 18 }}>
+              {exercise.name}
+            </Text>
+          ))}
+      </View>
+
       <View style={{ alignSelf: "center", marginTop: 20, width: "100%" }}>
         <TouchableOpacity
           onPress={() => navigation.navigate("Exercises")}
@@ -59,12 +76,6 @@ const CreateRoutineScreen = ({ route }) => {
           <Text style={{ color: "white", fontSize: 16 }}>Add Exercises</Text>
         </TouchableOpacity>
       </View>
-
-      {/* <View style={{ marginTop: 20 }}>
-        {exercises.map((exercise, index) => (
-          <Text key={index}>{exercise}</Text>
-        ))}
-      </View> */}
     </ScrollView>
   );
 };

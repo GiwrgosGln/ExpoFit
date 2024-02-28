@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 import { ScrollView, TouchableOpacity, View, Text } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
+
 import ExerciseSheet from "../ui/ExerciseSheet";
 import exercisesData from "../../../data/exercises.json";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addExercise } from "../../redux/routine/routineSlice";
-import { useNavigation } from "@react-navigation/native";
 
 const ExerciseList = () => {
-  const navigation = useNavigation();
   const [selectedExercise, setSelectedExercise] = useState(null);
   const dispatch = useDispatch();
 
@@ -17,12 +16,12 @@ const ExerciseList = () => {
     setSelectedExercise(exercise);
   };
 
-  const handleCloseSheet = () => {
-    setSelectedExercise(null);
-  };
-
   const handleAddExercise = (exercise) => {
     dispatch(addExercise(exercise));
+  };
+
+  const handleCloseSheet = () => {
+    setSelectedExercise(null);
   };
 
   return (
@@ -72,4 +71,5 @@ const ExerciseList = () => {
     </View>
   );
 };
+
 export default ExerciseList;
