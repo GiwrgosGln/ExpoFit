@@ -6,6 +6,7 @@ import ExerciseSheet from "../ui/ExerciseSheet";
 import exercisesData from "../../../data/exercises.json";
 import { useDispatch } from "react-redux";
 import { addExercise } from "../../redux/routine/routineSlice";
+import { Separator } from "tamagui";
 
 const ExerciseList = () => {
   const [selectedExercise, setSelectedExercise] = useState(null);
@@ -26,7 +27,7 @@ const ExerciseList = () => {
 
   return (
     <View style={{ flex: 1 }}>
-      <ScrollView style={{}}>
+      <ScrollView>
         {/* Render the exercise items */}
         {exercisesData.map((exercise, index) => (
           <View
@@ -36,8 +37,6 @@ const ExerciseList = () => {
               alignItems: "center",
               justifyContent: "space-between",
               paddingHorizontal: 20,
-              borderBottomColor: "white",
-              borderBottomWidth: 0.1,
               paddingVertical: 10,
             }}
           >

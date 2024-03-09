@@ -23,9 +23,12 @@ export default function SelectExercisesScreen() {
         style={{
           paddingTop: 40,
           paddingHorizontal: 20,
+          paddingBottom: 10,
           flexDirection: "row",
           justifyContent: "space-between",
           alignItems: "center",
+          borderBlockColor: "gray",
+          borderBottomWidth: 1,
         }}
       >
         <TouchableOpacity onPress={() => navigation.goBack()}>

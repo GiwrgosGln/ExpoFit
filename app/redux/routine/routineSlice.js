@@ -1,3 +1,5 @@
+// routineSlice.js
+
 import { createSlice } from "@reduxjs/toolkit";
 
 const routineSlice = createSlice({
@@ -12,9 +14,12 @@ const routineSlice = createSlice({
         state.exercises.push(action.payload);
       }
     },
+    reorderExercises: (state, action) => {
+      state.exercises = action.payload;
+    },
   },
 });
 
-export const { addExercise } = routineSlice.actions;
+export const { addExercise, reorderExercises } = routineSlice.actions;
 
 export default routineSlice.reducer;
