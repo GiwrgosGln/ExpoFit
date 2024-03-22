@@ -36,7 +36,7 @@ const CreateRoutineScreen = ({ route }) => {
       style={{
         flex: 1,
         backgroundColor: "#161a22",
-        paddingTop: 40,
+        paddingTop: 50,
         gap: 30,
         paddingHorizontal: 20,
       }}
