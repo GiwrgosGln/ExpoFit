@@ -24,7 +24,7 @@ export default function Routines() {
     const fetchRoutines = async () => {
       try {
         const response = await fetch(
-          `https://fitness-api-a6wh.onrender.com/routines/${uid}`
+          `https://ginfitapi.onrender.com/routines/${uid}`
         );
         const data = await response.json();
         setRoutines(data);
@@ -85,18 +85,15 @@ export default function Routines() {
               </TouchableOpacity>
             </View>
             <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
-              {Object.keys(workout.exercises || {}).map(
-                (exercise, index, exercises) => (
-                  <React.Fragment key={exercise}>
-                    <Text
-                      style={{ color: "white", fontSize: 16, fontWeight: 200 }}
-                    >
-                      {exercise}
-                      {index !== exercises.length - 1 && ", "}
-                    </Text>
-                  </React.Fragment>
-                )
-              )}
+              {workout.exercises.map((exercise, index) => (
+                <Text
+                  key={index}
+                  style={{ color: "white", fontSize: 16, fontWeight: 200 }}
+                >
+                  {exercise.name}
+                  {index !== workout.exercises.length - 1 && ", "}
+                </Text>
+              ))}
             </View>
             <View style={{ borderRadius: 25, overflow: "hidden" }}>
               <Button title="Start Workout" color="#6879f8" />
