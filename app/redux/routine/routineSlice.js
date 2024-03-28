@@ -1,10 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+const initialState = {
+  exercises: [],
+};
+
 const routineSlice = createSlice({
   name: "routine",
-  initialState: { exercises: [] },
+  initialState,
   reducers: {
-    addExercise: (state, action) => {
+    addExercise(state, action) {
       const exerciseExists = state.exercises.some(
         (exercise) => exercise.id === action.payload.id
       );
@@ -12,12 +16,16 @@ const routineSlice = createSlice({
         state.exercises.push(action.payload);
       }
     },
-    reorderExercises: (state, action) => {
+    reorderExercises(state, action) {
       state.exercises = action.payload;
+    },
+    resetExercises(state) {
+      state.exercises = [];
     },
   },
 });
 
-export const { addExercise, reorderExercises } = routineSlice.actions;
+export const { addExercise, reorderExercises, resetExercises } =
+  routineSlice.actions;
 
 export default routineSlice.reducer;

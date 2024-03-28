@@ -24,7 +24,8 @@ export default function Routines() {
     const fetchRoutines = async () => {
       try {
         const response = await fetch(
-          `https://ginfitapi.onrender.com/routines/${uid}`
+          // `https://ginfitapi.onrender.com/routines/${uid}`
+          `https://ginfitapi.onrender.com/routines/Bhh4BMoakiPssq07cofgDfuc3gm1`
         );
         const data = await response.json();
         setRoutines(data);

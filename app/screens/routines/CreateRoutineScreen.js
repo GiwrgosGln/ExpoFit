@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   addExercise,
   reorderExercises,
+  resetExercises,
 } from "../../redux/routine/routineSlice";
 import DraggableFlatList from "react-native-draggable-flatlist";
 
@@ -53,9 +54,9 @@ const CreateRoutineScreen = () => {
       .then((response) => response.json())
       .then((result) => {
         console.log("Routine created:", result);
-        Alert.alert("Success", "Routine created successfully");
-        // Optionally, you can navigate to another screen
-        // navigation.navigate("Home");
+        dispatch(resetExercises());
+        setRoutineTitle("");
+        navigation.goBack();
       })
       .catch((error) => {
         console.error("Error creating routine:", error);
