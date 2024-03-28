@@ -51,9 +51,29 @@ export default function Routines() {
     setModalVisible(false);
   };
 
-  const handleDeleteWorkout = () => {
-    // Implement logic for deleting workout
-    console.log("Delete workout for:", selectedWorkout);
+  const handleDeleteWorkout = async () => {
+    if (!selectedWorkout) return;
+
+    try {
+      const response = await fetch(
+        `https://ginfitapi.onrender.com/delete-routine/${selectedWorkout._id}`,
+        {
+          method: "DELETE",
+        }
+      );
+      if (response.ok) {
+        // Delete the routine from the local state
+        setRoutines((prevRoutines) =>
+          prevRoutines.filter((routine) => routine._id !== selectedWorkout._id)
+        );
+        console.log("Routine deleted successfully");
+      } else {
+        console.error("Failed to delete routine:", response.status);
+      }
+    } catch (error) {
+      console.error("Error deleting routine:", error);
+    }
+
     setModalVisible(false);
   };
 
