@@ -36,9 +36,10 @@ const LoginScreen = () => {
   const handleSignUp = () => {
     auth
       .createUserWithEmailAndPassword(email, password)
-      .then((userCredentials) => {
-        const user = userCredentials.user;
+      .then((userCredential) => {
+        const user = userCredential.user;
         console.log("Registered with:", user.email);
+        console.log("UID:", user.uid);
         dispatch(setUser({ email: user.email, uid: user.uid }));
         navigation.navigate("AdditionalInfo");
       })
@@ -51,6 +52,7 @@ const LoginScreen = () => {
       .then((userCredentials) => {
         const user = userCredentials.user;
         console.log("Logged in with:", user.email);
+        console.log("UID:", user.uid);
         console.log(user);
         dispatch(setUser({ email: user.email, uid: user.uid }));
       })
@@ -62,7 +64,7 @@ const LoginScreen = () => {
       <StatusBar backgroundColor="#6879f8" color="white" style="light" />
       <View style={{ flex: 1 }}>
         <KeyboardAvoidingView style={styles.container} behavior="height">
-          <View style={{ alignSelf: "center", alignItems: "center" }}>
+          <View>
             <Text style={{ fontSize: 40, color: "white" }}>
               Workout Tracker
             </Text>
@@ -72,8 +74,6 @@ const LoginScreen = () => {
               height: "75%",
               width: "100%",
               borderTopLeftRadius: 100,
-              borderTopWidth: 0.5,
-              borderLeftWidth: 0.5,
               overflow: "hidden",
               justifyContent: "center",
               borderColor: "#6879f8",

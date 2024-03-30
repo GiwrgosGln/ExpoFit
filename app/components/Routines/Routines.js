@@ -23,9 +23,10 @@ export default function Routines() {
   useEffect(() => {
     const fetchRoutines = async () => {
       try {
+        if (!uid) return; // Ensure UID is available before making the request
+
         const response = await fetch(
-          // `https://ginfitapi.onrender.com/routines/${uid}`
-          `https://ginfitapi.onrender.com/routines/Bhh4BMoakiPssq07cofgDfuc3gm1`
+          `https://ginfitapi.onrender.com/routines/${uid}`
         );
         const data = await response.json();
         setRoutines(data);
@@ -34,8 +35,8 @@ export default function Routines() {
       }
     };
 
-    // Fetch routines when the screen is focused
-    if (isFocused) {
+    // Fetch routines when the screen is focused and UID is available
+    if (isFocused && uid) {
       fetchRoutines();
     }
   }, [isFocused, uid]);

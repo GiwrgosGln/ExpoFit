@@ -20,6 +20,7 @@ const CreateRoutineScreen = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const exercises = useSelector((state) => state.routine.exercises);
+  const uid = useSelector((state) => state.auth.uid);
 
   const onDragEnd = useCallback(
     ({ data }) => {
@@ -38,8 +39,13 @@ const CreateRoutineScreen = () => {
       return;
     }
 
+    if (!uid) {
+      Alert.alert("Error", "User not authenticated");
+      return;
+    }
+
     const routineData = {
-      userId: "Bhh4BMoakiPssq07cofgDfuc3gm1",
+      userId: uid,
       title: routineTitle.trim(),
       exercises: exercises,
     };
