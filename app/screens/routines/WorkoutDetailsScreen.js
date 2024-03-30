@@ -11,10 +11,14 @@ import { useNavigation } from "@react-navigation/native";
 import DiscardWorkout from "../../components/Modal/DiscardWorkout";
 import SetType from "../../components/Modal/SetType";
 import Rpe from "../../components/Modal/Rpe";
+import { AntDesign } from "@expo/vector-icons";
+import { useSelector } from "react-redux";
+import ExerciseSheet from "../../components/ui/ExerciseSheet";
 
 const WorkoutDetailsScreen = ({ route }) => {
   const { routine } = route.params;
   const navigation = useNavigation();
+  const uid = useSelector((state) => state.auth.uid);
   const [modalVisible, setModalVisible] = useState(false);
   const [rpeModalVisible, setRpeModalVisible] = useState(false);
   const [rpeValues, setRpeValues] = useState(
@@ -28,7 +32,6 @@ const WorkoutDetailsScreen = ({ route }) => {
       .fill()
       .map(() => ["Working"])
   );
-
   const [selectedExerciseIndex, setSelectedExerciseIndex] = useState(null);
   const [exerciseSetCounts, setExerciseSetCounts] = useState(
     Array(routine.exercises.length).fill(1)
@@ -37,6 +40,17 @@ const WorkoutDetailsScreen = ({ route }) => {
   const [selectedSetIndices, setSelectedSetIndices] = useState(
     Array(routine.exercises.length).fill(null)
   );
+  const [repsValues, setRepsValues] = useState(
+    Array(routine.exercises.length)
+      .fill()
+      .map(() => [])
+  );
+  const [weightValues, setWeightValues] = useState(
+    Array(routine.exercises.length)
+      .fill()
+      .map(() => [])
+  );
+  const [selectedExercise, setSelectedExercise] = useState(null);
 
   const handleCancel = () => {
     setModalVisible(true);
@@ -52,6 +66,7 @@ const WorkoutDetailsScreen = ({ route }) => {
     setModalVisible(false);
   };
 
+  // Inside handleSetTypeSelection function
   const handleSetTypeSelection = (type) => {
     if (selectedExerciseIndex !== null && selectedSetIndex !== null) {
       const updatedSetTypes = [...exerciseSetTypes];
@@ -61,6 +76,7 @@ const WorkoutDetailsScreen = ({ route }) => {
     setTypeModalVisible(false);
   };
 
+  // Inside handleRpeSelection function
   const handleRpeSelection = (rpeValue) => {
     if (selectedExerciseIndex !== null && selectedSetIndex !== null) {
       const updatedRpeValues = [...rpeValues];
@@ -82,6 +98,7 @@ const WorkoutDetailsScreen = ({ route }) => {
     setRpeModalVisible(true);
   };
 
+  // Update addSet function
   const addSet = (index) => {
     const updatedSetCounts = [...exerciseSetCounts];
     updatedSetCounts[index] += 1;
@@ -90,6 +107,68 @@ const WorkoutDetailsScreen = ({ route }) => {
     const updatedSetTypes = [...exerciseSetTypes];
     updatedSetTypes[index].push("Working");
     setExerciseSetTypes(updatedSetTypes);
+
+    // Add empty values for reps and weight for the new set
+    const updatedRepsValues = [...repsValues];
+    updatedRepsValues[index].push("");
+    setRepsValues(updatedRepsValues);
+
+    const updatedWeightValues = [...weightValues];
+    updatedWeightValues[index].push("");
+    setWeightValues(updatedWeightValues);
+  };
+
+  const handleExercisePress = (exercise) => {
+    console.log("Exercise pressed:", exercise);
+    setSelectedExercise(exercise);
+  };
+
+  const handleCloseSheet = () => {
+    setSelectedExercise(null);
+  };
+
+  const finishWorkout = () => {
+    // Gather data from inputs
+    const workoutData = {
+      user_id: uid,
+      date: new Date().toISOString(),
+      exercises: routine.exercises.map((exercise, index) => {
+        return {
+          name: exercise.name,
+          exercise_id: "12312312",
+          sets: Array.from({ length: exerciseSetCounts[index] }).map(
+            (_, setIndex) => {
+              const reps = repsValues[index][setIndex];
+              const weight = weightValues[index][setIndex];
+              return {
+                type: exerciseSetTypes[index][setIndex] || "Type",
+                reps: reps === "" ? null : parseInt(reps),
+                weight: weight === "" ? null : parseInt(weight),
+                rpe: rpeValues[index][setIndex] || "RPE",
+              };
+            }
+          ),
+        };
+      }),
+    };
+
+    // Send data to the endpoint
+    fetch("https://ginfitapi.onrender.com/workouts", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(workoutData),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Workout data sent successfully:", data);
+        // Optionally, you can navigate to another screen after sending data
+        // navigation.navigate("NextScreen");
+      })
+      .catch((error) => {
+        console.error("Error sending workout data:", error);
+      });
   };
 
   return (
@@ -99,7 +178,7 @@ const WorkoutDetailsScreen = ({ route }) => {
           <Text style={styles.cancelText}>Cancel</Text>
         </TouchableOpacity>
         <Text style={styles.title}>{routine.title}</Text>
-        <TouchableOpacity onPress={() => navigation.navigate("Home")}>
+        <TouchableOpacity onPress={finishWorkout}>
           <Text style={styles.finishText}>Finish</Text>
         </TouchableOpacity>
       </View>
@@ -108,6 +187,9 @@ const WorkoutDetailsScreen = ({ route }) => {
           <View key={index} style={styles.exerciseItem}>
             <View style={styles.exerciseHeader}>
               <Text style={styles.exerciseName}>{exercise.name}</Text>
+              <TouchableOpacity onPress={() => handleExercisePress(exercise)}>
+                <AntDesign name="questioncircleo" size={24} color="white" />
+              </TouchableOpacity>
             </View>
             <View style={styles.setDefaultContainer}>
               {/* <View style={styles.setDefaultHeader}>
@@ -134,11 +216,23 @@ const WorkoutDetailsScreen = ({ route }) => {
                       style={styles.setDefaultTextInput}
                       placeholder="Reps"
                       keyboardType="numeric"
+                      value={repsValues[index][setIndex]}
+                      onChangeText={(text) => {
+                        const updatedRepsValues = [...repsValues];
+                        updatedRepsValues[index][setIndex] = text;
+                        setRepsValues(updatedRepsValues);
+                      }}
                     />
                     <Input
                       style={styles.setDefaultTextInput}
                       placeholder="Weight"
                       keyboardType="numeric"
+                      value={weightValues[index][setIndex]}
+                      onChangeText={(text) => {
+                        const updatedWeightValues = [...weightValues];
+                        updatedWeightValues[index][setIndex] = text;
+                        setWeightValues(updatedWeightValues);
+                      }}
                     />
                     <TouchableOpacity
                       onPress={() => openRpeModal(index, setIndex)}
@@ -181,6 +275,15 @@ const WorkoutDetailsScreen = ({ route }) => {
         onClose={() => setRpeModalVisible(false)}
         onSelectRpe={handleRpeSelection}
       />
+      {/* Render the BottomSheet */}
+      {selectedExercise && (
+        <ExerciseSheet
+          isVisible={true}
+          onClose={handleCloseSheet}
+          exercise={selectedExercise}
+          onCloseCallback={handleCloseSheet}
+        />
+      )}
     </View>
   );
 };
@@ -267,7 +370,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     padding: 5,
     color: "white",
-    width: 70,
+    width: 80,
   },
   addSetButton: {
     backgroundColor: "#292a3e",
