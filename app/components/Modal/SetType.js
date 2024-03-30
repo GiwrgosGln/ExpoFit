@@ -15,12 +15,13 @@ const SetType = ({ modalVisible, onClose, onSelectType }) => {
     >
       <View style={styles.modalContainer}>
         <View style={styles.modalContent}>
-          <TouchableOpacity onPress={() => onSelectType("Working")}>
-            <Text style={styles.modalOption}>Working</Text>
-          </TouchableOpacity>
           <TouchableOpacity onPress={() => onSelectType("Warm Up")}>
             <Text style={styles.modalOption}>Warm Up</Text>
           </TouchableOpacity>
+          <TouchableOpacity onPress={() => onSelectType("Working")}>
+            <Text style={styles.modalOption}>Working</Text>
+          </TouchableOpacity>
+
           <TouchableOpacity onPress={() => onSelectType("Failure")}>
             <Text style={styles.modalOption}>Failure</Text>
           </TouchableOpacity>

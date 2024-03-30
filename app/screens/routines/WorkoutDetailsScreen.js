@@ -109,15 +109,14 @@ const WorkoutDetailsScreen = ({ route }) => {
             <View style={styles.exerciseHeader}>
               <Text style={styles.exerciseName}>{exercise.name}</Text>
             </View>
-            {/* Default Set */}
             <View style={styles.setDefaultContainer}>
-              <View style={styles.setDefaultHeader}>
+              {/* <View style={styles.setDefaultHeader}>
                 <Text style={styles.setDefaultHeaderText}>Sets</Text>
                 <Text style={styles.setDefaultHeaderText}>Type</Text>
                 <Text style={styles.setDefaultHeaderText}>Reps</Text>
                 <Text style={styles.setDefaultHeaderText}>Weight</Text>
                 <Text style={styles.setDefaultHeaderText}>RPE</Text>
-              </View>
+              </View> */}
               {/* Render sets */}
               {Array.from({ length: exerciseSetCounts[index] }).map(
                 (_, setIndex) => (
@@ -125,6 +124,7 @@ const WorkoutDetailsScreen = ({ route }) => {
                     <Text style={styles.setDefaultText}>{setIndex + 1}</Text>
                     <TouchableOpacity
                       onPress={() => openSetTypeModal(index, setIndex)}
+                      style={{ width: 80 }}
                     >
                       <Text style={styles.setDefaultText}>
                         {exerciseSetTypes[index][setIndex] || "Type"}
@@ -239,8 +239,9 @@ const styles = StyleSheet.create({
   },
   setDefaultHeader: {
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "space-between", // Adjusted alignment
     alignItems: "center",
+    marginBottom: 5, // Added margin bottom for separation
   },
   setDefaultHeaderText: {
     fontSize: 16,
@@ -251,8 +252,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    marginTop: 10,
+    marginBottom: 8,
   },
+
   setDefaultText: {
     fontSize: 16,
     fontWeight: "bold",
