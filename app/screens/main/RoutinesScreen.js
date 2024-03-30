@@ -19,8 +19,6 @@ export default function RoutinesScreen() {
     <ScrollView style={styles.container}>
       <StatusBar backgroundColor="#161a22" color="white" style="light" />
       <View style={{ marginTop: 50, gap: 10 }}>
-        <Text style={{ fontSize: 20, color: "white" }}>Quick Start</Text>
-        <StartEmptyWorkoutBtn />
         <Text style={{ fontSize: 20, color: "white" }}>My Routines</Text>
         <View style={{ marginBottom: 10 }}>
           <CreateNewRoutine />

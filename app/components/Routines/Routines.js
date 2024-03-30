@@ -1,3 +1,5 @@
+// Routines.js
+
 import React, { useState, useEffect } from "react";
 import {
   View,
@@ -12,10 +14,56 @@ import { useSelector } from "react-redux";
 import Loader1 from "../ui/Loader";
 import { useIsFocused, useNavigation } from "@react-navigation/native";
 
+const RoutineItem = ({ routine, onPressOptions, onPressStartWorkout }) => (
+  <View
+    style={{
+      gap: 15,
+      padding: 20,
+      backgroundColor: "#292a3e",
+      borderRadius: 25,
+      marginBottom: 20,
+    }}
+  >
+    <View
+      style={{
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
+      }}
+    >
+      <Text style={{ color: "white", fontSize: 20, fontWeight: "bold" }}>
+        {routine.title}
+      </Text>
+      <TouchableOpacity onPress={() => onPressOptions(routine)}>
+        <Entypo name="dots-three-vertical" size={20} color="white" />
+      </TouchableOpacity>
+    </View>
+    <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
+      {routine.exercises.map((exercise, index) => (
+        <Text
+          key={index}
+          style={{ color: "white", fontSize: 16, fontWeight: "normal" }}
+        >
+          {exercise.name}
+          {index !== routine.exercises.length - 1 && ", "}
+        </Text>
+      ))}
+    </View>
+    <View style={{ borderRadius: 25, overflow: "hidden" }}>
+      <Button
+        title="Start Workout"
+        color="#6879f8"
+        onPress={() => onPressStartWorkout(routine)}
+      />
+    </View>
+  </View>
+);
+
 export default function Routines() {
   const [routines, setRoutines] = useState([]);
   const [selectedWorkout, setSelectedWorkout] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
+  const [loading, setLoading] = useState(true);
   const uid = useSelector((state) => state.auth.uid);
   const isFocused = useIsFocused();
   const navigation = useNavigation();
@@ -23,19 +71,20 @@ export default function Routines() {
   useEffect(() => {
     const fetchRoutines = async () => {
       try {
-        if (!uid) return; // Ensure UID is available before making the request
+        if (!uid) return;
 
         const response = await fetch(
           `https://ginfitapi.onrender.com/routines/${uid}`
         );
         const data = await response.json();
         setRoutines(data);
+        setLoading(false);
       } catch (error) {
         console.error("Error fetching routines:", error);
+        setLoading(false);
       }
     };
 
-    // Fetch routines when the screen is focused and UID is available
     if (isFocused && uid) {
       fetchRoutines();
     }
@@ -47,7 +96,6 @@ export default function Routines() {
   };
 
   const handleEditWorkout = () => {
-    // Implement logic for editing workout
     console.log("Edit workout for:", selectedWorkout);
     setModalVisible(false);
   };
@@ -63,7 +111,6 @@ export default function Routines() {
         }
       );
       if (response.ok) {
-        // Delete the routine from the local state
         setRoutines((prevRoutines) =>
           prevRoutines.filter((routine) => routine._id !== selectedWorkout._id)
         );
@@ -78,54 +125,26 @@ export default function Routines() {
     setModalVisible(false);
   };
 
+  const handleStartWorkout = (routine) => {
+    navigation.navigate("WorkoutDetails", { routine });
+    console.log(routine);
+  };
+
   return (
     <View style={{ marginTop: 20 }}>
-      {routines.length > 0 ? (
+      {loading ? (
+        <Loader1 />
+      ) : routines.length > 0 ? (
         routines.map((workout) => (
-          <View
+          <RoutineItem
             key={workout._id}
-            style={{
-              gap: 15,
-              padding: 20,
-              backgroundColor: "#292a3e",
-              borderRadius: 25,
-              marginBottom: 20,
-            }}
-          >
-            <View
-              style={{
-                flexDirection: "row",
-                justifyContent: "space-between",
-                alignItems: "center",
-              }}
-            >
-              <Text style={{ color: "white", fontSize: 20, fontWeight: 700 }}>
-                {workout.title}
-              </Text>
-              <TouchableOpacity onPress={() => handleOptionsPress(workout)}>
-                <Entypo name="dots-three-vertical" size={20} color="white" />
-              </TouchableOpacity>
-            </View>
-            <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
-              {workout.exercises.map((exercise, index) => (
-                <Text
-                  key={index}
-                  style={{ color: "white", fontSize: 16, fontWeight: 200 }}
-                >
-                  {exercise.name}
-                  {index !== workout.exercises.length - 1 && ", "}
-                </Text>
-              ))}
-            </View>
-            <View style={{ borderRadius: 25, overflow: "hidden" }}>
-              <Button title="Start Workout" color="#6879f8" />
-            </View>
-          </View>
+            routine={workout}
+            onPressOptions={handleOptionsPress}
+            onPressStartWorkout={handleStartWorkout}
+          />
         ))
       ) : (
-        <View style={{ marginTop: 200 }}>
-          <Loader1 />
-        </View>
+        <Text style={styles.noRoutinesText}>No routines found.</Text>
       )}
       <Modal
         animationType="fade"
@@ -152,10 +171,10 @@ export default function Routines() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#161a22",
-    paddingHorizontal: 20,
+  noRoutinesText: {
+    color: "white",
+    fontSize: 16,
+    textAlign: "center",
   },
   modalContainer: {
     flex: 1,
