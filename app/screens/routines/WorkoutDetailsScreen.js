@@ -18,15 +18,24 @@ const WorkoutDetailsScreen = ({ route }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [rpeModalVisible, setRpeModalVisible] = useState(false);
   const [rpeValues, setRpeValues] = useState(
-    Array(routine.exercises.length).fill(null)
+    Array(routine.exercises.length)
+      .fill()
+      .map(() => [])
   );
   const [typeModalVisible, setTypeModalVisible] = useState(false);
   const [exerciseSetTypes, setExerciseSetTypes] = useState(
-    Array(routine.exercises.length).fill("Working")
+    Array(routine.exercises.length)
+      .fill()
+      .map(() => ["Working"])
   );
+
   const [selectedExerciseIndex, setSelectedExerciseIndex] = useState(null);
   const [exerciseSetCounts, setExerciseSetCounts] = useState(
     Array(routine.exercises.length).fill(1)
+  );
+  const [selectedSetIndex, setSelectedSetIndex] = useState(null);
+  const [selectedSetIndices, setSelectedSetIndices] = useState(
+    Array(routine.exercises.length).fill(null)
   );
 
   const handleCancel = () => {
@@ -44,30 +53,32 @@ const WorkoutDetailsScreen = ({ route }) => {
   };
 
   const handleSetTypeSelection = (type) => {
-    if (selectedExerciseIndex !== null) {
+    if (selectedExerciseIndex !== null && selectedSetIndex !== null) {
       const updatedSetTypes = [...exerciseSetTypes];
-      updatedSetTypes[selectedExerciseIndex] = type;
+      updatedSetTypes[selectedExerciseIndex][selectedSetIndex] = type;
       setExerciseSetTypes(updatedSetTypes);
     }
     setTypeModalVisible(false);
   };
 
   const handleRpeSelection = (rpeValue) => {
-    if (selectedExerciseIndex !== null) {
+    if (selectedExerciseIndex !== null && selectedSetIndex !== null) {
       const updatedRpeValues = [...rpeValues];
-      updatedRpeValues[selectedExerciseIndex] = rpeValue;
+      updatedRpeValues[selectedExerciseIndex][selectedSetIndex] = rpeValue;
       setRpeValues(updatedRpeValues);
     }
     setRpeModalVisible(false);
   };
 
-  const openSetTypeModal = (index) => {
-    setSelectedExerciseIndex(index);
+  const openSetTypeModal = (exerciseIndex, setIndex) => {
+    setSelectedExerciseIndex(exerciseIndex);
+    setSelectedSetIndex(setIndex);
     setTypeModalVisible(true);
   };
 
-  const openRpeModal = (index) => {
-    setSelectedExerciseIndex(index);
+  const openRpeModal = (exerciseIndex, setIndex) => {
+    setSelectedExerciseIndex(exerciseIndex);
+    setSelectedSetIndex(setIndex);
     setRpeModalVisible(true);
   };
 
@@ -75,6 +86,10 @@ const WorkoutDetailsScreen = ({ route }) => {
     const updatedSetCounts = [...exerciseSetCounts];
     updatedSetCounts[index] += 1;
     setExerciseSetCounts(updatedSetCounts);
+
+    const updatedSetTypes = [...exerciseSetTypes];
+    updatedSetTypes[index].push("Working");
+    setExerciseSetTypes(updatedSetTypes);
   };
 
   return (
@@ -107,33 +122,30 @@ const WorkoutDetailsScreen = ({ route }) => {
               {Array.from({ length: exerciseSetCounts[index] }).map(
                 (_, setIndex) => (
                   <View key={setIndex} style={styles.setDefaultRow}>
-                    {/* Set number */}
                     <Text style={styles.setDefaultText}>{setIndex + 1}</Text>
-                    {/* Set type */}
-                    <TouchableOpacity onPress={() => openSetTypeModal(index)}>
+                    <TouchableOpacity
+                      onPress={() => openSetTypeModal(index, setIndex)}
+                    >
                       <Text style={styles.setDefaultText}>
-                        {exerciseSetTypes[index]}
+                        {exerciseSetTypes[index][setIndex] || "Type"}
                       </Text>
                     </TouchableOpacity>
-                    {/* Placeholder for reps */}
                     <Input
                       style={styles.setDefaultTextInput}
                       placeholder="Reps"
                       keyboardType="numeric"
                     />
-                    {/* Placeholder for weight */}
                     <Input
                       style={styles.setDefaultTextInput}
                       placeholder="Weight"
                       keyboardType="numeric"
                     />
-                    {/* Placeholder for RPE */}
                     <TouchableOpacity
-                      onPress={() => openRpeModal(index)}
+                      onPress={() => openRpeModal(index, setIndex)}
                       style={styles.rpeButton}
                     >
                       <Text style={styles.setDefaultText}>
-                        {rpeValues[index] || "RPE"}
+                        {rpeValues[index][setIndex] || "RPE"}
                       </Text>
                     </TouchableOpacity>
                   </View>
