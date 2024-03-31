@@ -127,6 +127,16 @@ const WorkoutDetailsScreen = ({ route }) => {
     setSelectedExercise(null);
   };
 
+  const currentDate = new Date();
+  const offset = currentDate.getTimezoneOffset();
+
+  // Adjust the date by the timezone offset
+  const adjustedDate = new Date(currentDate.getTime() - offset * 60000);
+
+  // Convert the adjusted date to a string in the desired format
+  const formattedDate = adjustedDate.toISOString();
+
+  // Inside the finishWorkout function
   const finishWorkout = () => {
     // Gather data from inputs
     const workoutData = {
@@ -135,16 +145,24 @@ const WorkoutDetailsScreen = ({ route }) => {
       exercises: routine.exercises.map((exercise, index) => {
         return {
           name: exercise.name,
-          exercise_id: "12312312",
+          exercise_id: exercise.id,
           sets: Array.from({ length: exerciseSetCounts[index] }).map(
             (_, setIndex) => {
-              const reps = repsValues[index][setIndex];
-              const weight = weightValues[index][setIndex];
+              const reps = repsValues[index]?.[setIndex];
+              const weight = weightValues[index]?.[setIndex];
+              const rpe = rpeValues[index]?.[setIndex];
+
+              // Convert empty strings to "N/A" instead of null
+              const repsValue = reps?.trim() === "" ? "N/A" : parseInt(reps);
+              const weightValue =
+                weight?.trim() === "" ? "N/A" : parseInt(weight);
+              const rpeValue = rpe?.trim() === "" ? "N/A" : rpe;
+
               return {
-                type: exerciseSetTypes[index][setIndex] || "Type",
-                reps: reps === "" ? null : parseInt(reps),
-                weight: weight === "" ? null : parseInt(weight),
-                rpe: rpeValues[index][setIndex] || "RPE",
+                type: exerciseSetTypes[index]?.[setIndex] || "Type",
+                reps: repsValue,
+                weight: weightValue,
+                rpe: rpeValue,
               };
             }
           ),
