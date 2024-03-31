@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
   ScrollView,
   TouchableOpacity,
+  BackHandler,
   StyleSheet,
 } from "react-native";
 import { Input } from "tamagui";
@@ -51,6 +52,19 @@ const WorkoutDetailsScreen = ({ route }) => {
       .map(() => [])
   );
   const [selectedExercise, setSelectedExercise] = useState(null);
+
+  // Disable back button listener when the component mounts
+  useEffect(() => {
+    const disableBackButton = () => {
+      return true;
+    };
+
+    BackHandler.addEventListener("hardwareBackPress", disableBackButton);
+
+    return () => {
+      BackHandler.removeEventListener("hardwareBackPress", disableBackButton);
+    };
+  }, []);
 
   const handleCancel = () => {
     setModalVisible(true);
@@ -141,7 +155,7 @@ const WorkoutDetailsScreen = ({ route }) => {
     // Gather data from inputs
     const workoutData = {
       user_id: uid,
-      date: new Date().toISOString(),
+      date: formattedDate,
       exercises: routine.exercises.map((exercise, index) => {
         return {
           name: exercise.name,
@@ -181,6 +195,7 @@ const WorkoutDetailsScreen = ({ route }) => {
       .then((response) => response.json())
       .then((data) => {
         console.log("Workout data sent successfully:", data);
+        navigation.navigate("Routines");
         // Optionally, you can navigate to another screen after sending data
         // navigation.navigate("NextScreen");
       })
