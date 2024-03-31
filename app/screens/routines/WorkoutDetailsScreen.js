@@ -158,6 +158,7 @@ const WorkoutDetailsScreen = ({ route }) => {
     const workoutData = {
       user_id: uid,
       date: formattedDate,
+      routine_name: routine.title,
       exercises: routine.exercises.map((exercise, index) => {
         return {
           name: exercise.name,
@@ -197,7 +198,7 @@ const WorkoutDetailsScreen = ({ route }) => {
       .then((response) => response.json())
       .then((data) => {
         console.log("Workout data sent successfully:", data);
-        navigation.navigate("Routines");
+        navigation.navigate("Home");
         // Optionally, you can navigate to another screen after sending data
         // navigation.navigate("NextScreen");
       })

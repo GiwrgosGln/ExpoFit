@@ -2,6 +2,7 @@ import React from "react";
 import { StyleSheet, Text, View, ScrollView } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import globalStyles from "../../styles/globalStyles";
+import WorkoutList from "../../components/Workout/WorkoutList";
 
 const Home = () => {
   return (
@@ -16,6 +17,7 @@ const Home = () => {
             Last Workouts
           </Text>
         </View>
+        <WorkoutList />
       </View>
     </View>
   );
