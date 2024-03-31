@@ -15,6 +15,8 @@ import Rpe from "../../components/Modal/Rpe";
 import { AntDesign } from "@expo/vector-icons";
 import { useSelector } from "react-redux";
 import ExerciseSheet from "../../components/ui/ExerciseSheet";
+import Timer from "../../components/Workout/Timer";
+import { FontAwesome5 } from "@expo/vector-icons";
 
 const WorkoutDetailsScreen = ({ route }) => {
   const { routine } = route.params;
@@ -215,6 +217,28 @@ const WorkoutDetailsScreen = ({ route }) => {
           <Text style={styles.finishText}>Finish</Text>
         </TouchableOpacity>
       </View>
+      {/* <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "space-between",
+          paddingHorizontal: 20,
+          paddingVertical: 10,
+          borderBottomWidth: 1,
+          borderBottomColor: "#333",
+          alignItems: "center",
+        }}
+      >
+        <Timer />
+        <View style={{ flexDirection: "row", gap: 15 }}>
+          <FontAwesome5 name="stopwatch" size={30} color="#6879f8" />
+          <MaterialCommunityIcons
+            name="music-circle"
+            size={34}
+            color="#FE556E"
+          />
+          <FontAwesome5 name="spotify" size={30} color="#1DB954" />
+        </View>
+      </View> */}
       <ScrollView style={styles.scrollView}>
         {routine.exercises.map((exercise, index) => (
           <View key={index} style={styles.exerciseItem}>
