@@ -106,7 +106,9 @@ const WorkoutList = () => {
                 </Text>
                 <Text style={{ fontSize: 14, color: "white" }}>
                   {filteredSets.length}{" "}
-                  {filteredSets.length === 1 ? "working " + "set" : "sets"}
+                  {filteredSets.length === 1
+                    ? "working " + "set"
+                    : "working " + "sets"}
                 </Text>
               </View>
             );
