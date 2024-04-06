@@ -1,32 +1,28 @@
 import { useNavigation } from "@react-navigation/core";
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   KeyboardAvoidingView,
   StyleSheet,
   View,
-  ImageBackground,
-  Image,
   TouchableOpacity,
 } from "react-native";
 import { Input, Button, Text } from "tamagui";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { StatusBar } from "expo-status-bar";
 import { auth } from "../../../firebase";
 import { setUser } from "../../redux/user/authSlice";
 
-const LoginScreen = () => {
-  const [email, setEmail] = useState("gergegl1999@gmail.com");
-  const [password, setPassword] = useState("30031963Gg!");
+const RegisterScreen = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("");
   const navigation = useNavigation();
   const dispatch = useDispatch();
-
-  const image = require("../../../assets/wallpaper3.jpg");
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
         dispatch(setUser({ email: user.email, uid: user.uid }));
-        console.log(user);
         navigation.navigate("HomeStack");
       }
     });
@@ -37,25 +33,36 @@ const LoginScreen = () => {
   const handleSignUp = () => {
     auth
       .createUserWithEmailAndPassword(email, password)
-      .then((userCredential) => {
+      .then(async (userCredential) => {
         const user = userCredential.user;
-        console.log("Registered with:", user.email);
-        console.log("UID:", user.uid);
         dispatch(setUser({ email: user.email, uid: user.uid }));
-        navigation.navigate("AdditionalInfo");
-      })
-      .catch((error) => alert(error.message));
-  };
 
-  const handleLogin = () => {
-    auth
-      .signInWithEmailAndPassword(email, password)
-      .then((userCredentials) => {
-        const user = userCredentials.user;
-        console.log("Logged in with:", user.email);
-        console.log("UID:", user.uid);
-        console.log(user);
-        dispatch(setUser({ email: user.email, uid: user.uid }));
+        // Send HTTP request to MongoDB endpoint
+        try {
+          const response = await fetch(
+            "https://ginfitapi.onrender.com/register",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                id: user.uid,
+                email: user.email,
+                username: username,
+              }),
+            }
+          );
+
+          if (!response.ok) {
+            throw new Error("Failed to register user in MongoDB");
+          }
+
+          navigation.navigate("Home");
+        } catch (error) {
+          console.error("Error sending request to MongoDB endpoint:", error);
+          // Handle error
+        }
       })
       .catch((error) => alert(error.message));
   };
@@ -90,6 +97,15 @@ const LoginScreen = () => {
                 }}
               >
                 <Input
+                  placeholder="Username"
+                  value={username}
+                  onChangeText={(text) => setUsername(text)}
+                  width={"80%"}
+                  backgroundColor={"black"}
+                  color={"white"}
+                  borderColor={"#6879f8"}
+                />
+                <Input
                   placeholder="Email"
                   value={email}
                   onChangeText={(text) => setEmail(text)}
@@ -114,23 +130,26 @@ const LoginScreen = () => {
                 style={{
                   width: "100%",
                   alignItems: "center",
+                  justifyContent: "center",
                   gap: 10,
                 }}
               >
                 <Button
-                  onPress={handleLogin}
+                  onPress={handleSignUp}
                   width={"80%"}
                   backgroundColor={"#6879f8"}
                   color={"white"}
                 >
-                  Login
+                  Register
                 </Button>
-                <View style={{ flexDirection: "row", gap: 5 }}>
+                <View
+                  style={{ flexDirection: "row", gap: 5, alignSelf: "center" }}
+                >
                   <Text style={{ color: "white", fontSize: 16 }}>
-                    Don't have an account?
+                    Already have an account?
                   </Text>
                   <TouchableOpacity
-                    onPress={() => navigation.navigate("Register")}
+                    onPress={() => navigation.navigate("Login")}
                   >
                     <Text
                       style={{
@@ -139,18 +158,10 @@ const LoginScreen = () => {
                         fontSize: 16,
                       }}
                     >
-                      Sign Up
+                      Sign In
                     </Text>
                   </TouchableOpacity>
                 </View>
-                {/* <Button
-                  onPress={handleSignUp}
-                  width={"80%"}
-                  backgroundColor={"#6879f8"}
-                  color={"white"}
-                >
-                  Register
-                </Button> */}
               </View>
             </View>
           </View>
@@ -160,13 +171,13 @@ const LoginScreen = () => {
   );
 };
 
-export default LoginScreen;
+export default RegisterScreen;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "space-between",
     alignItems: "center",
-    marginTop: 140,
+    marginTop: 120,
   },
 });

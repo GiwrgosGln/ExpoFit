@@ -7,6 +7,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import TabNavigation from "./app/navigations/TabNavigation";
 import LoginScreen from "./app/screens/auth/LoginScreen";
+import RegisterScreen from "./app/screens/auth/RegisterScreen";
 import AdditionalInfoScreen from "./app/screens/auth/AdditionalInfoScreen";
 import SelectExercisesScreen from "./app/screens/exercises/SelectExercisesScreen";
 import CreateRoutineScreen from "./app/screens/routines/CreateRoutineScreen";
@@ -39,6 +40,11 @@ export default function App() {
                 <Stack.Screen
                   name="Login"
                   component={LoginScreen}
+                  options={{ headerShown: false }}
+                />
+                <Stack.Screen
+                  name="Register"
+                  component={RegisterScreen}
                   options={{ headerShown: false }}
                 />
                 <Stack.Screen

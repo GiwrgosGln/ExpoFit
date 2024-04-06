@@ -7,6 +7,7 @@ const WorkoutList = () => {
   const [workouts, setWorkouts] = useState([]);
   const isFocused = useIsFocused();
   const uid = useSelector((state) => state.auth.uid);
+  console.log(uid);
 
   useEffect(() => {
     const fetchWorkouts = async () => {
@@ -18,6 +19,13 @@ const WorkoutList = () => {
           throw new Error("Failed to fetch workouts");
         }
         const data = await response.json();
+
+        if (data === null) {
+          // Handle case where data is null (no workouts available)
+          setWorkouts([]); // Set workouts to an empty array
+          return; // Exit early
+        }
+
         // Sort workouts by date in descending order
         const sortedWorkouts = data.sort(
           (a, b) => new Date(b.date) - new Date(a.date)
@@ -27,6 +35,7 @@ const WorkoutList = () => {
         setWorkouts(last3Workouts);
       } catch (error) {
         console.error(error);
+        // Handle error, e.g., display an error message to the user
       }
     };
 
