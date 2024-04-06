@@ -1,9 +1,9 @@
-import { useState, StyleSheet, View, Text } from "react-native";
+import { View, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/core";
-import { Button } from "tamagui";
 import { getAuth } from "firebase/auth";
 import { useDispatch } from "react-redux";
 import { resetUser } from "../../redux/user/authSlice";
+import { MaterialIcons } from "@expo/vector-icons";
 
 export default function SignOut() {
   const auth = getAuth();
@@ -23,14 +23,9 @@ export default function SignOut() {
 
   return (
     <View>
-      <Button
-        onPress={handleSignOut}
-        backgroundColor={"#ff6b6b"}
-        color={"white"}
-        fontSize={16}
-      >
-        Sign Out
-      </Button>
+      <TouchableOpacity onPress={handleSignOut}>
+        <MaterialIcons name="logout" size={30} color="#ff6b6b" />
+      </TouchableOpacity>
     </View>
   );
 }

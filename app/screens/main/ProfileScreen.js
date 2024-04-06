@@ -1,34 +1,38 @@
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  ScrollView,
+} from "react-native";
 import React from "react";
 import { StatusBar } from "expo-status-bar";
 import { Avatar } from "tamagui";
-import {
-  Button,
-  Group,
-  ListItem,
-  Separator,
-  XGroup,
-  YGroup,
-  YStack,
-} from "tamagui";
-import {
-  MaterialCommunityIcons,
-  Ionicons,
-  FontAwesome5,
-  AntDesign,
-  Fontisto,
-  Entypo,
-  MaterialIcons,
-  FontAwesome,
-} from "@expo/vector-icons";
+import { ListItem, Separator, YGroup } from "tamagui";
+import { AntDesign } from "@expo/vector-icons";
 import SignOut from "../../components/Auth/SignOut";
 import { useNavigation } from "@react-navigation/native";
+import { useSelector } from "react-redux";
 
 export default function ProfileScreen() {
+  const { uid, username, email } = useSelector((state) => state.auth);
   const navigation = useNavigation();
+
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <StatusBar backgroundColor="#161a22" color="white" style="light" />
+      <View>
+        <TouchableOpacity
+          onPress={() => navigation.navigate("Home")}
+          style={{
+            paddingHorizontal: 20,
+            flexDirection: "row",
+            justifyContent: "flex-end",
+          }}
+        >
+          <SignOut />
+        </TouchableOpacity>
+      </View>
       <View
         style={{
           paddingTop: 20,
@@ -51,7 +55,7 @@ export default function ProfileScreen() {
             fontWeight: 300,
           }}
         >
-          Chris Bumstead
+          {username}
         </Text>
       </View>
       <View style={{ paddingHorizontal: 28, paddingTop: 20 }}>
@@ -102,11 +106,8 @@ export default function ProfileScreen() {
             />
           </YGroup.Item>
         </YGroup>
-        <View style={{ marginTop: 40 }}>
-          <SignOut />
-        </View>
       </View>
-    </View>
+    </ScrollView>
   );
 }
 

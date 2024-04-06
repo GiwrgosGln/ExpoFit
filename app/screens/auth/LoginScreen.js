@@ -25,26 +25,39 @@ const LoginScreen = () => {
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
-        dispatch(setUser({ email: user.email, uid: user.uid }));
+        dispatch(
+          setUser({ email: user.email, uid: user.uid, username: user.username })
+        );
         console.log(user);
-        navigation.navigate("HomeStack");
+
+        // Make HTTP request after successful login
+        fetchUserData(user.uid);
       }
     });
 
     return unsubscribe;
   }, [navigation, dispatch]);
 
-  const handleSignUp = () => {
-    auth
-      .createUserWithEmailAndPassword(email, password)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        console.log("Registered with:", user.email);
-        console.log("UID:", user.uid);
-        dispatch(setUser({ email: user.email, uid: user.uid }));
-        navigation.navigate("AdditionalInfo");
-      })
-      .catch((error) => alert(error.message));
+  const fetchUserData = async (uid) => {
+    try {
+      const response = await fetch(
+        `https://ginfitapi.onrender.com/user/${uid}`
+      );
+      const userData = await response.json();
+      console.log("User data:", userData);
+      console.log("Usernameeeeeeeeeeeeeeeee:", userData.username);
+
+      dispatch(
+        setUser({
+          email: userData.email,
+          uid: userData.id,
+          username: userData.username,
+        })
+      );
+      navigation.navigate("HomeStack");
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
   };
 
   const handleLogin = () => {
@@ -52,10 +65,6 @@ const LoginScreen = () => {
       .signInWithEmailAndPassword(email, password)
       .then((userCredentials) => {
         const user = userCredentials.user;
-        console.log("Logged in with:", user.email);
-        console.log("UID:", user.uid);
-        console.log(user);
-        dispatch(setUser({ email: user.email, uid: user.uid }));
       })
       .catch((error) => alert(error.message));
   };

@@ -35,7 +35,9 @@ const RegisterScreen = () => {
       .createUserWithEmailAndPassword(email, password)
       .then(async (userCredential) => {
         const user = userCredential.user;
-        dispatch(setUser({ email: user.email, uid: user.uid }));
+        dispatch(
+          setUser({ email: user.email, uid: user.uid, username: username })
+        );
 
         // Send HTTP request to MongoDB endpoint
         try {
