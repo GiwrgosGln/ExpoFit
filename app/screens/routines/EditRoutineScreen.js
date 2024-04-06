@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   addExercise,
   reorderExercises,
+  resetExercises,
 } from "../../redux/routine/routineSlice";
 import {
   AntDesign,
@@ -57,9 +58,8 @@ export default function EditRoutineScreen({ route }) {
         }
       );
       if (response.ok) {
-        // Handle success
-        // For example, show a success message
         console.log("Routine saved successfully!");
+        dispatch(resetExercises());
         navigation.navigate("Routines");
       } else {
         // Handle error
@@ -76,6 +76,11 @@ export default function EditRoutineScreen({ route }) {
   const onDragEnd = ({ data }) => {
     dispatch(reorderExercises(data));
     console.log(data);
+  };
+
+  const handleGoBack = () => {
+    dispatch(resetExercises());
+    navigation.goBack();
   };
 
   return (
@@ -95,7 +100,7 @@ export default function EditRoutineScreen({ route }) {
           alignItems: "center",
         }}
       >
-        <TouchableOpacity onPress={() => navigation.goBack()}>
+        <TouchableOpacity onPress={() => handleGoBack()}>
           <AntDesign name="back" size={24} color="white" />
         </TouchableOpacity>
         <Text style={{ fontSize: 20, color: "white" }}>Edit Routine</Text>

@@ -66,10 +66,6 @@ const CreateRoutineScreen = () => {
       })
       .catch((error) => {
         console.error("Error creating routine:", error);
-        Alert.alert(
-          "Error",
-          "Failed to create routine. Please try again later."
-        );
       });
   };
 
