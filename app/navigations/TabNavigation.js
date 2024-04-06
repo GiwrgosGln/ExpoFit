@@ -6,7 +6,6 @@ import {
   Foundation,
   Feather,
 } from "@expo/vector-icons";
-import { BlurView } from "expo-blur";
 import HomeScreen from "../screens/main/HomeScreen";
 import RoutinesScreen from "../screens/main/RoutinesScreen";
 import GraphsScreen from "../screens/main/GraphsScreen";

@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, FlatList } from "react-native";
+import { View, Text, FlatList, TouchableOpacity } from "react-native";
 import { useIsFocused } from "@react-navigation/native";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigation } from "@react-navigation/core";
 
 const WorkoutList = () => {
   const [workouts, setWorkouts] = useState([]);
   const isFocused = useIsFocused();
   const uid = useSelector((state) => state.auth.uid);
-  console.log(uid);
+  const dispatch = useDispatch();
+  const navigation = useNavigation();
 
   useEffect(() => {
     const fetchWorkouts = async () => {
@@ -23,7 +25,7 @@ const WorkoutList = () => {
         if (data === null) {
           // Handle case where data is null (no workouts available)
           setWorkouts([]); // Set workouts to an empty array
-          return; // Exit early
+          return;
         }
 
         // Sort workouts by date in descending order
@@ -41,6 +43,10 @@ const WorkoutList = () => {
 
     fetchWorkouts();
   }, [isFocused]);
+
+  const handleWorkoutPress = (workout) => {
+    navigation.navigate("Workout", { workout });
+  };
 
   const renderWorkoutItem = ({ item }) => {
     // Parse the ISO 8601 date string into a Date object
@@ -62,7 +68,7 @@ const WorkoutList = () => {
     });
 
     return (
-      <View
+      <TouchableOpacity
         style={{
           marginHorizontal: 20,
           backgroundColor: "#292a3e",
@@ -70,6 +76,7 @@ const WorkoutList = () => {
           borderRadius: 10,
           marginBottom: 15,
         }}
+        onPress={() => handleWorkoutPress(item)}
       >
         <View
           style={{
@@ -124,7 +131,7 @@ const WorkoutList = () => {
           }}
           keyExtractor={(exercise) => exercise.exercise_id}
         />
-      </View>
+      </TouchableOpacity>
     );
   };
 
