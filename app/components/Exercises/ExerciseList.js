@@ -4,25 +4,37 @@ import { AntDesign } from "@expo/vector-icons";
 
 import ExerciseSheet from "../ui/ExerciseSheet";
 import exercisesData from "../../../data/exercises.json";
-import { useDispatch } from "react-redux";
-import { addExercise } from "../../redux/routine/routineSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { addExercise, removeExercise } from "../../redux/routine/routineSlice";
 import { Separator } from "tamagui";
 
 const ExerciseList = () => {
   const [selectedExercise, setSelectedExercise] = useState(null);
   const dispatch = useDispatch();
+  const addedExercises = useSelector((state) => state.routine.exercises);
 
   const handleExercisePress = (exercise) => {
     console.log("Exercise pressed:", exercise);
     setSelectedExercise(exercise);
   };
 
-  const handleAddExercise = (exercise) => {
-    dispatch(addExercise(exercise));
+  const handleAddOrRemoveExercise = (exercise) => {
+    if (isExerciseAdded(exercise)) {
+      dispatch(removeExercise(exercise.id)); // Remove exercise if already added
+    } else {
+      dispatch(addExercise(exercise)); // Add exercise if not added
+    }
   };
 
   const handleCloseSheet = () => {
     setSelectedExercise(null);
+  };
+
+  // Function to check if an exercise is already added
+  const isExerciseAdded = (exercise) => {
+    return addedExercises.some(
+      (addedExercise) => addedExercise.id === exercise.id
+    );
   };
 
   return (
@@ -50,8 +62,14 @@ const ExerciseList = () => {
               <TouchableOpacity onPress={() => handleExercisePress(exercise)}>
                 <AntDesign name="questioncircleo" size={24} color="white" />
               </TouchableOpacity>
-              <TouchableOpacity onPress={() => handleAddExercise(exercise)}>
-                <AntDesign name="pluscircleo" size={24} color="#6879f8" />
+              <TouchableOpacity
+                onPress={() => handleAddOrRemoveExercise(exercise)}
+              >
+                {isExerciseAdded(exercise) ? ( // Check if exercise is added
+                  <AntDesign name="minuscircleo" size={24} color="#ff6b6b" />
+                ) : (
+                  <AntDesign name="pluscircleo" size={24} color="#6879f8" />
+                )}
               </TouchableOpacity>
             </View>
           </View>

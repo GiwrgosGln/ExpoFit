@@ -16,6 +16,11 @@ const routineSlice = createSlice({
         state.exercises.push(action.payload);
       }
     },
+    removeExercise(state, action) {
+      state.exercises = state.exercises.filter(
+        (exercise) => exercise.id !== action.payload
+      );
+    },
     reorderExercises(state, action) {
       state.exercises = action.payload;
     },
@@ -25,7 +30,7 @@ const routineSlice = createSlice({
   },
 });
 
-export const { addExercise, reorderExercises, resetExercises } =
+export const { addExercise, removeExercise, reorderExercises, resetExercises } =
   routineSlice.actions;
 
 export default routineSlice.reducer;
