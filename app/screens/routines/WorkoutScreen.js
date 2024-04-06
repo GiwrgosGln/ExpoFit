@@ -1,9 +1,13 @@
 import React from "react";
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity, Alert } from "react-native";
+import { useNavigation } from "@react-navigation/core";
+import { StatusBar } from "expo-status-bar";
+import { AntDesign } from "@expo/vector-icons";
 
 export default function WorkoutScreen({ route }) {
   // Extract workout data from the route params
   const { workout } = route.params;
+  const navigation = useNavigation();
 
   // Format the workout date
   const workoutDate = new Date(workout.date);
@@ -20,8 +24,46 @@ export default function WorkoutScreen({ route }) {
     );
   };
 
+  // Function to delete the workout
+  const deleteWorkout = () => {
+    // Assuming you're using fetch for your API requests
+    fetch(`https://ginfitapi.onrender.com/delete-workout/${workout.id}`, {
+      method: "DELETE",
+    })
+      .then((response) => {
+        if (response.ok) {
+          // If deletion is successful, navigate back to the previous screen
+          navigation.goBack();
+        } else {
+          // If deletion fails, show an alert
+          Alert.alert("Error", "Failed to delete workout.");
+        }
+      })
+      .catch((error) => {
+        console.error("Error deleting workout:", error);
+        // Handle error as needed
+        Alert.alert("Error", "Failed to delete workout.");
+      });
+  };
+
   return (
-    <View style={{ flex: 1, paddingTop: 60, backgroundColor: "#161a22" }}>
+    <View style={{ flex: 1, paddingTop: 40, backgroundColor: "#161a22" }}>
+      <StatusBar backgroundColor="#161a22" color="white" style="light" />
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "space-between",
+          marginBottom: 40,
+          alignItems: "center",
+          paddingHorizontal: 20,
+        }}
+      >
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <AntDesign name="back" size={24} color="white" />
+        </TouchableOpacity>
+        <Text style={{ fontSize: 20, color: "white" }}>Workout</Text>
+        <View style={{ width: 24 }} />
+      </View>
       <View
         style={{
           flexDirection: "row",
@@ -66,12 +108,14 @@ export default function WorkoutScreen({ route }) {
       </View>
       <View style={{ alignSelf: "center" }}>
         <TouchableOpacity
+          onPress={deleteWorkout}
           style={{
             backgroundColor: "#ff6b6b",
-            width: "400",
+            width: 200,
             paddingVertical: 5,
             paddingHorizontal: 10,
             borderRadius: 5,
+            alignItems: "center",
           }}
         >
           <Text style={{ color: "white", fontSize: 18 }}>Delete Workout</Text>

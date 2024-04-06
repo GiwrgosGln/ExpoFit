@@ -250,13 +250,6 @@ const WorkoutDetailsScreen = ({ route }) => {
               </TouchableOpacity>
             </View>
             <View style={styles.setDefaultContainer}>
-              {/* <View style={styles.setDefaultHeader}>
-                <Text style={styles.setDefaultHeaderText}>Sets</Text>
-                <Text style={styles.setDefaultHeaderText}>Type</Text>
-                <Text style={styles.setDefaultHeaderText}>Reps</Text>
-                <Text style={styles.setDefaultHeaderText}>Weight</Text>
-                <Text style={styles.setDefaultHeaderText}>RPE</Text>
-              </View> */}
               {/* Render sets */}
               {Array.from({ length: exerciseSetCounts[index] }).map(
                 (_, setIndex) => (
