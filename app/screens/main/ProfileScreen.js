@@ -9,7 +9,6 @@ import React from "react";
 import { StatusBar } from "expo-status-bar";
 import { Avatar } from "tamagui";
 import { ListItem, Separator, YGroup } from "tamagui";
-import { AntDesign } from "@expo/vector-icons";
 import SignOut from "../../components/Auth/SignOut";
 import { useNavigation } from "@react-navigation/native";
 import { useSelector } from "react-redux";

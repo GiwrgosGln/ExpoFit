@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
-import { StyleSheet, Text, View, BackHandler, ScrollView } from "react-native";
+import { StyleSheet, Text, View, BackHandler } from "react-native";
+import { Avatar } from "tamagui";
 import { StatusBar } from "expo-status-bar";
 import globalStyles from "../../styles/globalStyles";
 import WorkoutList from "../../components/Workout/WorkoutList";
@@ -31,8 +32,21 @@ const Home = () => {
     <View style={globalStyles.container}>
       <StatusBar backgroundColor="#161a22" color="white" style="light" />
       <View>
-        <View style={{ paddingHorizontal: 20 }}>
+        <View
+          style={{
+            paddingHorizontal: 20,
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
           <Text style={globalStyles.title}>Hello, {username}!</Text>
+          <Avatar circular size="$4" style={{ alignSelf: "center" }}>
+            <Avatar.Image
+              accessibilityLabel="Nate Wienert"
+              src="https://i.pinimg.com/280x280_RS/c6/49/70/c64970ce68687694d897decdba92ea85.jpg"
+            />
+          </Avatar>
         </View>
         <View style={{ marginTop: 20, paddingHorizontal: 20 }}>
           <Text style={{ fontSize: 20, color: "white", alignSelf: "center" }}>

@@ -1,10 +1,16 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Ionicons, FontAwesome5, Feather } from "@expo/vector-icons";
+import {
+  Ionicons,
+  FontAwesome5,
+  Foundation,
+  Feather,
+} from "@expo/vector-icons";
 import { BlurView } from "expo-blur";
 import HomeScreen from "../screens/main/HomeScreen";
-import ProfileScreen from "../screens/main/ProfileScreen";
 import RoutinesScreen from "../screens/main/RoutinesScreen";
+import GraphsScreen from "../screens/main/GraphsScreen";
+import ProfileScreen from "../screens/main/ProfileScreen";
 
 export default function TabNavigation() {
   const Tab = createBottomTabNavigator();
@@ -46,6 +52,25 @@ export default function TabNavigation() {
           tabBarLabel: "Routines",
           tabBarIcon: ({ color, size }) => (
             <FontAwesome5 name="dumbbell" color={color} size={size} />
+          ),
+          tabBarLabelStyle: {
+            fontFamily: "Inter",
+          },
+          tabBarActiveTintColor: "white",
+          tabBarStyle: {
+            backgroundColor: "#161a22",
+            borderTopWidth: 0,
+            height: 50,
+          },
+        }}
+      />
+      <Tab.Screen
+        name="Graphs"
+        component={GraphsScreen}
+        options={{
+          tabBarLabel: "Graphs",
+          tabBarIcon: ({ color, size }) => (
+            <Foundation name="graph-pie" color={color} size={size} />
           ),
           tabBarLabelStyle: {
             fontFamily: "Inter",
