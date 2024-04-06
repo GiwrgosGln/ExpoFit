@@ -18,6 +18,7 @@ import { Provider } from "react-redux";
 import store from "./app/redux/store/store";
 import WorkoutDetailsScreen from "./app/screens/routines/WorkoutDetailsScreen";
 import WorkoutScreen from "./app/screens/routines/WorkoutScreen";
+import EditRoutineScreen from "./app/screens/routines/EditRoutineScreen";
 
 const Stack = createStackNavigator();
 
@@ -66,6 +67,11 @@ export default function App() {
                 <Stack.Screen
                   name="CreateRoutine"
                   component={CreateRoutineScreen}
+                  options={{ headerShown: false }}
+                />
+                <Stack.Screen
+                  name="EditRoutine"
+                  component={EditRoutineScreen}
                   options={{ headerShown: false }}
                 />
                 <Stack.Screen

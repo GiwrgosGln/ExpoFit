@@ -147,7 +147,7 @@ const CreateRoutineScreen = () => {
           marginTop: 20,
         }}
       >
-        <Text style={{ color: "white", fontSize: 16 }}>Add Exercise</Text>
+        <Text style={{ color: "white", fontSize: 16 }}>Select Exercises</Text>
       </TouchableOpacity>
     </View>
   );

@@ -97,6 +97,7 @@ export default function Routines() {
 
   const handleEditWorkout = () => {
     console.log("Edit workout for:", selectedWorkout);
+    navigation.navigate("EditRoutine", { routine: selectedWorkout });
     setModalVisible(false);
   };
 
