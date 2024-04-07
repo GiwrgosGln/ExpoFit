@@ -1,13 +1,21 @@
 import React, { useEffect } from "react";
-import { StyleSheet, Text, View, BackHandler } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  BackHandler,
+  TouchableOpacity,
+} from "react-native";
 import { Avatar } from "tamagui";
 import { StatusBar } from "expo-status-bar";
 import globalStyles from "../../styles/globalStyles";
 import WorkoutList from "../../components/Workout/WorkoutList";
 import { useSelector } from "react-redux";
+import { useNavigation } from "@react-navigation/core";
 
 const Home = () => {
   const { uid, username, email } = useSelector((state) => state.auth);
+  const navigation = useNavigation();
 
   useEffect(() => {
     // Log uid, username, and email
@@ -40,19 +48,24 @@ const Home = () => {
             alignItems: "center",
           }}
         >
-          <Text style={globalStyles.title}>Hello, {username}!</Text>
-          <Avatar circular size="$4" style={{ alignSelf: "center" }}>
-            <Avatar.Image
-              accessibilityLabel="Nate Wienert"
-              src="https://i.pinimg.com/280x280_RS/c6/49/70/c64970ce68687694d897decdba92ea85.jpg"
-            />
-          </Avatar>
+          <View style={{ flexDirection: "column" }}>
+            <Text style={{ fontSize: 16, color: "white", fontWeight: 300 }}>
+              Hello 👋
+            </Text>
+            <Text style={{ fontSize: 16, color: "white", fontWeight: 700 }}>
+              {username}
+            </Text>
+          </View>
+          <TouchableOpacity onPress={() => navigation.navigate("Profile")}>
+            <Avatar circular size="$5" style={{ alignSelf: "center" }}>
+              <Avatar.Image
+                accessibilityLabel="Nate Wienert"
+                src="https://i.pinimg.com/280x280_RS/c6/49/70/c64970ce68687694d897decdba92ea85.jpg"
+              />
+            </Avatar>
+          </TouchableOpacity>
         </View>
-        <View style={{ marginTop: 20, paddingHorizontal: 20 }}>
-          <Text style={{ fontSize: 20, color: "white", alignSelf: "center" }}>
-            Last Workouts
-          </Text>
-        </View>
+        <View></View>
         <WorkoutList />
       </View>
     </View>

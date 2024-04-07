@@ -22,7 +22,9 @@ const RegisterScreen = () => {
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
-        dispatch(setUser({ email: user.email, uid: user.uid }));
+        dispatch(
+          setUser({ email: user.email, uid: user.uid, username: user.username })
+        );
         navigation.navigate("HomeStack");
       }
     });
@@ -30,43 +32,42 @@ const RegisterScreen = () => {
     return unsubscribe;
   }, [navigation, dispatch]);
 
-  const handleSignUp = () => {
-    auth
-      .createUserWithEmailAndPassword(email, password)
-      .then(async (userCredential) => {
-        const user = userCredential.user;
-        dispatch(
-          setUser({ email: user.email, uid: user.uid, username: username })
-        );
+  const handleSignUp = async () => {
+    try {
+      const userCredential = await auth.createUserWithEmailAndPassword(
+        email,
+        password
+      );
+      const user = userCredential.user;
 
-        // Send HTTP request to MongoDB endpoint
-        try {
-          const response = await fetch(
-            "https://ginfitapi.onrender.com/register",
-            {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({
-                id: user.uid,
-                email: user.email,
-                username: username,
-              }),
-            }
-          );
+      // Send HTTP request to MongoDB endpoint
+      const response = await fetch("https://ginfitapi.onrender.com/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          id: user.uid,
+          email: user.email,
+          username: username,
+        }),
+      });
 
-          if (!response.ok) {
-            throw new Error("Failed to register user in MongoDB");
-          }
+      if (!response.ok) {
+        throw new Error("Failed to register user in MongoDB");
+      }
 
-          navigation.navigate("Home");
-        } catch (error) {
-          console.error("Error sending request to MongoDB endpoint:", error);
-          // Handle error
-        }
-      })
-      .catch((error) => alert(error.message));
+      // Dispatch setUser action
+      dispatch(
+        setUser({ email: user.email, uid: user.uid, username: username })
+      );
+
+      // Navigate to Home
+      navigation.navigate("Home");
+    } catch (error) {
+      console.error("Error signing up:", error);
+      alert(error.message);
+    }
   };
 
   return (
