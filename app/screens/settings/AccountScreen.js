@@ -1,16 +1,21 @@
 import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/core";
-import { View, Text, TouchableOpacity, Alert } from "react-native";
+import { View, Text, TouchableOpacity, Alert, Modal } from "react-native";
 import { Input } from "tamagui";
 import { AntDesign, FontAwesome } from "@expo/vector-icons";
 import { StatusBar } from "expo-status-bar";
 import { useSelector, useDispatch } from "react-redux";
 import { setUser } from "../../redux/user/authSlice";
 
+// Define the functional component
 export default function AccountScreen() {
   const navigation = useNavigation();
   const auth = useSelector((state) => state.auth);
   const [username, setUsername] = useState(auth.username);
+  const [genderModalVisible, setGenderModalVisible] = useState(false);
+  const [gender, setGender] = useState(
+    auth.gender ? auth.gender : "Choose Gender"
+  ); // Set initial gender state based on authSlice
   const dispatch = useDispatch();
 
   const handleUpdateUsername = async () => {
@@ -24,6 +29,8 @@ export default function AccountScreen() {
           },
           body: JSON.stringify({
             username: username,
+            email: auth.email,
+            gender: gender,
           }),
         }
       );
@@ -93,7 +100,89 @@ export default function AccountScreen() {
             onChangeText={(text) => setUsername(text)}
           />
         </View>
+        <View style={{ marginTop: 20 }}>
+          <Text
+            style={{
+              color: "white",
+              marginBottom: 5,
+              alignSelf: "center",
+              fontSize: 16,
+            }}
+          >
+            Gender
+          </Text>
+
+          <TouchableOpacity
+            onPress={() => setGenderModalVisible(true)}
+            style={{
+              borderColor: "#6879f8",
+              borderWidth: 1,
+              padding: 10,
+              borderRadius: 5,
+              flexDirection: "row",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <Text style={{ color: "white" }}>{gender}</Text>
+            <AntDesign name="caretdown" size={15} color="white" />
+          </TouchableOpacity>
+        </View>
       </View>
+
+      {/* Gender Modal */}
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={genderModalVisible}
+        onRequestClose={() => {
+          setGenderModalVisible(!genderModalVisible);
+        }}
+      >
+        <View
+          style={{
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+            backgroundColor: "rgba(0, 0, 0, 0.5)",
+          }}
+        >
+          <View
+            style={{
+              backgroundColor: "#292a3e",
+              padding: 20,
+              borderRadius: 10,
+              gap: 5,
+            }}
+          >
+            <TouchableOpacity
+              onPress={() => {
+                setGender("Male");
+                setGenderModalVisible(false);
+              }}
+            >
+              <Text style={{ fontSize: 20, color: "white" }}>Male</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                setGender("Female");
+                setGenderModalVisible(false);
+              }}
+            >
+              <Text style={{ fontSize: 20, color: "white" }}>Female</Text>
+            </TouchableOpacity>
+            {/* Close button */}
+            <TouchableOpacity
+              onPress={() => setGenderModalVisible(false)}
+              style={{
+                marginTop: 10,
+              }}
+            >
+              <Text style={{ fontSize: 20, color: "white" }}>Close</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 }

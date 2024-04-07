@@ -26,7 +26,12 @@ const LoginScreen = () => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
         dispatch(
-          setUser({ email: user.email, uid: user.uid, username: user.username })
+          setUser({
+            email: user.email,
+            uid: user.uid,
+            username: user.username,
+            gender: user.gender,
+          })
         );
         console.log(user);
 
@@ -52,6 +57,7 @@ const LoginScreen = () => {
           email: userData.email,
           uid: userData.id,
           username: userData.username,
+          gender: userData.gender,
         })
       );
       navigation.navigate("HomeStack");

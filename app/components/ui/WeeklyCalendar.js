@@ -20,6 +20,7 @@ const WeeklyCalendar = ({ setSelectedDate }) => {
     <View>
       <FlatList
         horizontal
+        showsHorizontalScrollIndicator={false}
         data={days}
         keyExtractor={(item, index) => index.toString()}
         renderItem={({ item, index }) => (
