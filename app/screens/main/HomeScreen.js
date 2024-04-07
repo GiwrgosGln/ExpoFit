@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -12,30 +12,13 @@ import globalStyles from "../../styles/globalStyles";
 import WorkoutList from "../../components/Workout/WorkoutList";
 import { useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/core";
+import WeeklyCalendar from "../../components/ui/WeeklyCalendar";
 
 const Home = () => {
   const { uid, username, email } = useSelector((state) => state.auth);
   const navigation = useNavigation();
+  const [selectedDate, setSelectedDate] = useState(new Date()); // Initialize with current date
 
-  useEffect(() => {
-    // Log uid, username, and email
-    console.log("UID:", uid);
-    console.log("Username:", username);
-    console.log("Email:", email);
-  }, [uid, username, email]);
-
-  // Disable back button listener when the component mounts
-  useEffect(() => {
-    const disableBackButton = () => {
-      return true;
-    };
-
-    BackHandler.addEventListener("hardwareBackPress", disableBackButton);
-
-    return () => {
-      BackHandler.removeEventListener("hardwareBackPress", disableBackButton);
-    };
-  }, []);
   return (
     <View style={globalStyles.container}>
       <StatusBar backgroundColor="#161a22" color="white" style="light" />
@@ -65,8 +48,15 @@ const Home = () => {
             </Avatar>
           </TouchableOpacity>
         </View>
-        <View></View>
-        <WorkoutList />
+        <View style={{ marginTop: 10, paddingHorizontal: 10 }}>
+          {/* Pass selectedDate to WeeklyCalendar */}
+          <WeeklyCalendar
+            selectedDate={selectedDate}
+            setSelectedDate={setSelectedDate}
+          />
+        </View>
+        {/* Pass selectedDate to WorkoutList */}
+        <WorkoutList selectedDate={selectedDate} />
       </View>
     </View>
   );

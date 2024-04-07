@@ -4,7 +4,7 @@ import { useIsFocused } from "@react-navigation/native";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigation } from "@react-navigation/core";
 
-const WorkoutList = () => {
+const WorkoutList = ({ selectedDate }) => {
   const [workouts, setWorkouts] = useState([]);
   const isFocused = useIsFocused();
   const uid = useSelector((state) => state.auth.uid);
@@ -28,13 +28,19 @@ const WorkoutList = () => {
           return;
         }
 
+        // Filter workouts by the selected date
+        const filteredWorkouts = data.filter(
+          (workout) =>
+            new Date(workout.date).toDateString() ===
+            selectedDate.toDateString()
+        );
+
         // Sort workouts by date in descending order
-        const sortedWorkouts = data.sort(
+        const sortedWorkouts = filteredWorkouts.sort(
           (a, b) => new Date(b.date) - new Date(a.date)
         );
-        // Get the last 3 workouts
-        const last3Workouts = sortedWorkouts.slice(0, 2);
-        setWorkouts(last3Workouts);
+
+        setWorkouts(sortedWorkouts);
       } catch (error) {
         console.error(error);
         // Handle error, e.g., display an error message to the user
@@ -42,7 +48,7 @@ const WorkoutList = () => {
     };
 
     fetchWorkouts();
-  }, [isFocused]);
+  }, [isFocused, selectedDate]);
 
   const handleWorkoutPress = (workout) => {
     navigation.navigate("Workout", { workout });
@@ -70,7 +76,7 @@ const WorkoutList = () => {
     return (
       <TouchableOpacity
         style={{
-          marginHorizontal: 20,
+          marginHorizontal: 10,
           backgroundColor: "#292a3e",
           padding: 10,
           borderRadius: 10,
