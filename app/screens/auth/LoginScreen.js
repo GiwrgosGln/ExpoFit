@@ -31,9 +31,9 @@ const LoginScreen = () => {
             uid: user.uid,
             username: user.username,
             gender: user.gender,
+            dateofbirth: user.dateofbirth,
           })
         );
-        console.log(user);
 
         // Make HTTP request after successful login
         fetchUserData(user.uid);
@@ -58,6 +58,7 @@ const LoginScreen = () => {
           uid: userData.id,
           username: userData.username,
           gender: userData.gender,
+          dateofbirth: userData.dateofbirth,
         })
       );
       navigation.navigate("HomeStack");

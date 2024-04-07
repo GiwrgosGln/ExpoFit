@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/core";
 import { View, Text, TouchableOpacity, Alert, Modal } from "react-native";
 import { Input } from "tamagui";
@@ -6,8 +6,8 @@ import { AntDesign, FontAwesome } from "@expo/vector-icons";
 import { StatusBar } from "expo-status-bar";
 import { useSelector, useDispatch } from "react-redux";
 import { setUser } from "../../redux/user/authSlice";
+import DateTimePicker from "@react-native-community/datetimepicker";
 
-// Define the functional component
 export default function AccountScreen() {
   const navigation = useNavigation();
   const auth = useSelector((state) => state.auth);
@@ -15,11 +15,20 @@ export default function AccountScreen() {
   const [genderModalVisible, setGenderModalVisible] = useState(false);
   const [gender, setGender] = useState(
     auth.gender ? auth.gender : "Choose Gender"
-  ); // Set initial gender state based on authSlice
+  );
+  const [selectedDateOfBirth, setSelectedDateOfBirth] = useState(
+    auth.dateofbirth ? new Date(auth.dateofbirth) : new Date()
+  );
+  const [datePickerVisible, setDatePickerVisible] = useState(false);
   const dispatch = useDispatch();
+
+  console.log(auth.dateofbirth, "dateofbirth v2");
 
   const handleUpdateUsername = async () => {
     try {
+      const dobDate = new Date(selectedDateOfBirth);
+      const formattedDOB = dobDate.toISOString().split("T")[0];
+
       const response = await fetch(
         `https://ginfitapi.onrender.com/users/${auth.uid}`,
         {
@@ -31,6 +40,7 @@ export default function AccountScreen() {
             username: username,
             email: auth.email,
             gender: gender,
+            dateofbirth: formattedDOB,
           }),
         }
       );
@@ -39,8 +49,15 @@ export default function AccountScreen() {
         throw new Error("Failed to update username");
       }
 
-      // Update username in Redux
-      dispatch(setUser({ ...auth, username: username }));
+      dispatch(
+        setUser({
+          ...auth,
+          username: username,
+          gender: gender,
+          dateofbirth: formattedDOB,
+        })
+      );
+
       navigation.navigate("Home");
     } catch (error) {
       console.error("Error updating username:", error);
@@ -52,12 +69,7 @@ export default function AccountScreen() {
   };
 
   return (
-    <View
-      style={{
-        flex: 1,
-        backgroundColor: "#161a22",
-      }}
-    >
+    <View style={{ flex: 1, backgroundColor: "#161a22" }}>
       <StatusBar backgroundColor="#161a22" style="light" />
       <View
         style={{
@@ -128,6 +140,35 @@ export default function AccountScreen() {
             <AntDesign name="caretdown" size={15} color="white" />
           </TouchableOpacity>
         </View>
+        <View style={{ marginTop: 20 }}>
+          <Text
+            style={{
+              color: "white",
+              marginBottom: 5,
+              alignSelf: "center",
+              fontSize: 16,
+            }}
+          >
+            Date of Birth
+          </Text>
+          <TouchableOpacity
+            onPress={() => setDatePickerVisible(true)}
+            style={{
+              borderColor: "#6879f8",
+              borderWidth: 1,
+              padding: 10,
+              borderRadius: 5,
+              flexDirection: "row",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <Text style={{ color: "white" }}>
+              {selectedDateOfBirth.toDateString()}
+            </Text>
+            <AntDesign name="caretdown" size={15} color="white" />
+          </TouchableOpacity>
+        </View>
       </View>
 
       {/* Gender Modal */}
@@ -181,6 +222,44 @@ export default function AccountScreen() {
               <Text style={{ fontSize: 20, color: "white" }}>Close</Text>
             </TouchableOpacity>
           </View>
+        </View>
+      </Modal>
+
+      {/* Date Picker Modal */}
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={datePickerVisible}
+        onRequestClose={() => {
+          setDatePickerVisible(false);
+        }}
+      >
+        <View
+          style={{
+            backgroundColor: "#292a3e",
+            padding: 20,
+            borderRadius: 10,
+            alignItems: "center",
+          }}
+        >
+          <DateTimePicker
+            value={selectedDateOfBirth}
+            mode="date"
+            display="spinner"
+            onChange={(event, selectedDate) => {
+              const currentDate = selectedDate || selectedDateOfBirth;
+              setSelectedDateOfBirth(currentDate);
+              setDatePickerVisible(false);
+            }}
+          />
+          <TouchableOpacity
+            onPress={() => setDatePickerVisible(false)}
+            style={{
+              marginTop: 10,
+            }}
+          >
+            <Text style={{ fontSize: 20, color: "white" }}>Close</Text>
+          </TouchableOpacity>
         </View>
       </Modal>
     </View>

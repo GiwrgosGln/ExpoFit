@@ -7,6 +7,7 @@ const authSlice = createSlice({
     uid: "",
     username: "",
     gender: "",
+    dateofbirth: "",
   },
   reducers: {
     setUser: (state, action) => {
@@ -14,12 +15,14 @@ const authSlice = createSlice({
       state.uid = action.payload.uid;
       state.username = action.payload.username;
       state.gender = action.payload.gender;
+      state.dateofbirth = action.payload.dateofbirth;
     },
     resetUser: (state) => {
       state.email = "";
       state.uid = "";
       state.username = "";
       state.gender = "";
+      state.dateofbirth = "";
     },
   },
 });

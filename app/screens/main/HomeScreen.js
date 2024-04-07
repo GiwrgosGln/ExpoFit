@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   Text,
@@ -16,9 +16,15 @@ import WeeklyCalendar from "../../components/ui/WeeklyCalendar";
 import WorkoutProgress from "../../components/Workout/WorkoutProgress";
 
 const Home = () => {
-  const { uid, username, email } = useSelector((state) => state.auth);
+  const { uid, username, email, dateofbirth } = useSelector(
+    (state) => state.auth
+  );
   const navigation = useNavigation();
-  const [selectedDate, setSelectedDate] = useState(new Date()); // Initialize with current date
+  const [selectedDate, setSelectedDate] = useState(new Date());
+
+  useEffect(() => {
+    console.log("Date of Birth from Redux:", dateofbirth);
+  }, [dateofbirth]);
 
   return (
     <View style={globalStyles.container}>

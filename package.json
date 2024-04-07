@@ -18,6 +18,7 @@
     "@react-navigation/native": "^6.1.9",
     "@react-navigation/native-stack": "^6.9.17",
     "@react-navigation/stack": "^6.3.18",
+    "@react-native-community/datetimepicker": "7.2.0",
     "@reduxjs/toolkit": "^2.2.1",
     "@tamagui/animations-react-native": "^1.69.3",
     "@tamagui/babel-plugin": "^1.69.3",
