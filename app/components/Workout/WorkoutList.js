@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, FlatList, TouchableOpacity } from "react-native";
+import { View, Text, ScrollView, TouchableOpacity } from "react-native";
 import { useIsFocused } from "@react-navigation/native";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigation } from "@react-navigation/core";
@@ -54,106 +54,101 @@ const WorkoutList = ({ selectedDate }) => {
     navigation.navigate("Workout", { workout });
   };
 
-  const renderWorkoutItem = ({ item }) => {
-    // Parse the ISO 8601 date string into a Date object
-    const workoutDate = new Date(item.date);
-
-    // Format the date in a readable format (e.g., "Day, Month Date, Year")
-    const formattedDate = workoutDate.toLocaleDateString("en-US", {
-      //   weekday: "long",
-      year: "numeric",
-      month: "long",
-      day: "numeric",
+  const findBestSet = (sets) => {
+    let bestSet = null;
+    sets.forEach((set) => {
+      if (!bestSet || (set.weight && set.weight > bestSet.weight)) {
+        bestSet = set;
+      }
     });
-
-    // Format the time in 12-hour format with AM/PM
-    const formattedTime = workoutDate.toLocaleTimeString("en-US", {
-      hour: "numeric",
-      minute: "numeric",
-      hour12: true,
-    });
-
-    return (
-      <TouchableOpacity
-        style={{
-          marginHorizontal: 10,
-          backgroundColor: "#292a3e",
-          padding: 10,
-          borderRadius: 10,
-          marginBottom: 15,
-        }}
-        onPress={() => handleWorkoutPress(item)}
-      >
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "center",
-          }}
-        >
-          <Text style={{ fontSize: 18, fontWeight: "bold", color: "white" }}>
-            {item.routine_name}
-          </Text>
-          <Text style={{ fontSize: 14, fontWeight: "bold", color: "white" }}>
-            {formattedDate}
-          </Text>
-        </View>
-        <FlatList
-          style={{ gap: 10, marginTop: 20, marginBottom: 10 }}
-          data={item.exercises.filter((exercise) =>
-            exercise.sets.some(
-              (set) =>
-                (set.weight !== null || set.reps !== null) &&
-                (set.type === "Working" || set.type === "Failure")
-            )
-          )}
-          renderItem={({ item: exercise }) => {
-            const filteredSets = exercise.sets.filter(
-              (set) =>
-                (set.weight !== null || set.reps !== null) &&
-                (set.type === "Working" || set.type === "Failure")
-            );
-            if (filteredSets.length === 0) {
-              return null;
-            }
-            return (
-              <View
-                style={{
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                }}
-              >
-                <Text style={{ fontSize: 16, color: "white" }}>
-                  {exercise.name}
-                </Text>
-                <Text style={{ fontSize: 14, color: "white" }}>
-                  {filteredSets.length}{" "}
-                  {filteredSets.length === 1
-                    ? "working " + "set"
-                    : "working " + "sets"}
-                </Text>
-              </View>
-            );
-          }}
-          keyExtractor={(exercise) => exercise.exercise_id}
-        />
-      </TouchableOpacity>
-    );
+    return bestSet;
   };
+
   return (
-    <View style={{ paddingTop: 20 }}>
+    <ScrollView style={{ paddingTop: 20 }}>
       {workouts.length === 0 ? (
         <Text style={{ fontSize: 16, color: "white", alignSelf: "center" }}>
           No workouts available for this date.
         </Text>
       ) : (
-        <FlatList
-          data={workouts}
-          renderItem={renderWorkoutItem}
-          keyExtractor={(workout) => workout.id}
-        />
+        workouts.map((workout) => (
+          <TouchableOpacity
+            key={workout.id}
+            style={{
+              marginHorizontal: 10,
+              backgroundColor: "#292a3e",
+              padding: 10,
+              borderRadius: 10,
+            }}
+            onPress={() => handleWorkoutPress(workout)}
+          >
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <Text
+                style={{ fontSize: 18, fontWeight: "bold", color: "white" }}
+              >
+                {workout.routine_name}
+              </Text>
+              <Text
+                style={{ fontSize: 14, fontWeight: "bold", color: "white" }}
+              >
+                {new Date(workout.date).toLocaleDateString("en-US", {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                })}
+              </Text>
+            </View>
+            <View
+              style={{
+                marginTop: 20,
+                marginBottom: 5,
+                flexDirection: "row",
+                justifyContent: "space-between",
+              }}
+            >
+              <Text style={{ fontSize: 16, color: "white", fontWeight: 700 }}>
+                Exercise
+              </Text>
+              <Text style={{ fontSize: 16, color: "white", fontWeight: 700 }}>
+                Best Set
+              </Text>
+            </View>
+            {workout.exercises.map((exercise) => {
+              const bestSet = findBestSet(exercise.sets);
+              if (!bestSet || (!bestSet.weight && !bestSet.reps)) {
+                return null;
+              }
+              return (
+                <View
+                  key={exercise.exercise_id}
+                  style={{
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <Text
+                    style={{ fontSize: 16, color: "white", fontWeight: 300 }}
+                  >
+                    {exercise.name}
+                  </Text>
+                  <Text
+                    style={{ fontSize: 14, color: "white", fontWeight: 300 }}
+                  >
+                    {bestSet.weight} kg x {bestSet.reps} reps
+                  </Text>
+                </View>
+              );
+            })}
+          </TouchableOpacity>
+        ))
       )}
-    </View>
+    </ScrollView>
   );
 };
 

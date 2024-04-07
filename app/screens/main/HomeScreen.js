@@ -3,7 +3,7 @@ import {
   StyleSheet,
   Text,
   View,
-  BackHandler,
+  ScrollView,
   TouchableOpacity,
 } from "react-native";
 import { Avatar } from "tamagui";
@@ -14,6 +14,9 @@ import { useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/core";
 import WeeklyCalendar from "../../components/ui/WeeklyCalendar";
 import WorkoutProgress from "../../components/Workout/WorkoutProgress";
+import { FontAwesome5 } from "@expo/vector-icons";
+import SampleWorkouts from "../../components/Workout/SampleWorkouts";
+import GoogleFit from "../../components/ui/GoogleFit";
 
 const Home = () => {
   const { uid, username, email, dateofbirth } = useSelector(
@@ -27,7 +30,7 @@ const Home = () => {
   }, [dateofbirth]);
 
   return (
-    <View style={globalStyles.container}>
+    <ScrollView style={globalStyles.container} nestedScrollEnabled={true}>
       <StatusBar backgroundColor="#161a22" color="white" style="light" />
       <View>
         <View
@@ -81,7 +84,29 @@ const Home = () => {
         {/* Pass selectedDate to WorkoutList */}
         <WorkoutList selectedDate={selectedDate} />
       </View>
-    </View>
+
+      <View
+        style={{
+          marginTop: 30,
+          flexDirection: "column",
+        }}
+      >
+        <Text
+          style={{
+            color: "white",
+            paddingHorizontal: 10,
+            marginBottom: 10,
+            fontSize: 20,
+          }}
+        >
+          Recommended Routines
+        </Text>
+        <SampleWorkouts />
+      </View>
+      <View>
+        <GoogleFit />
+      </View>
+    </ScrollView>
   );
 };
 

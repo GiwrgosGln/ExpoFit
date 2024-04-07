@@ -22,6 +22,7 @@ const WeeklyCalendar = ({ setSelectedDate }) => {
         horizontal
         showsHorizontalScrollIndicator={false}
         data={days}
+        nestedScrollEnabled={true}
         keyExtractor={(item, index) => index.toString()}
         renderItem={({ item, index }) => (
           <TouchableOpacity
