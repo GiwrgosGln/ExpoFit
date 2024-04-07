@@ -53,30 +53,43 @@ export default function WorkoutScreen({ route }) {
         style={{
           flexDirection: "row",
           justifyContent: "space-between",
-          marginBottom: 40,
+          marginBottom: 20,
           alignItems: "center",
           paddingHorizontal: 20,
         }}
       >
-        <TouchableOpacity onPress={() => navigation.goBack()}>
+        <TouchableOpacity
+          style={{ flex: 1 }}
+          onPress={() => navigation.goBack()}
+        >
           <AntDesign name="back" size={24} color="white" />
         </TouchableOpacity>
-        <Text style={{ fontSize: 20, color: "white" }}>Workout</Text>
-        <View style={{ width: 24 }} />
-      </View>
-      <View
-        style={{
-          flexDirection: "row",
-          justifyContent: "space-between",
-          alignItems: "center",
-          paddingHorizontal: 20,
-          marginBottom: 40,
-        }}
-      >
-        <Text style={{ color: "white", fontSize: 24 }}>
-          {workout.routine_name}
+        <Text
+          style={{
+            flex: 2,
+            fontSize: 20,
+            color: "white",
+            textAlign: "center",
+            fontWeight: 700,
+          }}
+        >
+          {workout.routine_name.length > 10
+            ? workout.routine_name.substring(0, 10) + "..."
+            : workout.routine_name}
         </Text>
-        <Text style={{ color: "white", fontSize: 18 }}>{formattedDate}</Text>
+
+        <View>
+          <Text
+            style={{
+              fontSize: 16,
+              color: "white",
+              textAlign: "right",
+              fontWeight: 300,
+            }}
+          >
+            {formattedDate}
+          </Text>
+        </View>
       </View>
 
       {/* Render exercises */}
@@ -92,14 +105,25 @@ export default function WorkoutScreen({ route }) {
                 {exercise.sets.map(
                   (set, setIndex) =>
                     (set.weight !== null || set.reps !== null) && (
-                      <Text
+                      <View
                         key={setIndex}
-                        style={{ color: "white", fontSize: 16 }}
+                        style={{
+                          flexDirection: "row",
+                          justifyContent: "space-between",
+                        }}
                       >
-                        {setIndex + 1}: {set.type} Set{" "}
-                        {set.weight !== null ? `${set.weight} kgs - ` : ""}
-                        {set.reps !== null ? `${set.reps} reps` : ""}
-                      </Text>
+                        <Text style={{ color: "white", fontSize: 16 }}>
+                          {setIndex + 1}. {set.type} Set
+                        </Text>
+                        <Text style={{ color: "white", fontSize: 16 }}>
+                          {set.weight !== null && set.weight !== 0
+                            ? `${set.weight} kg - `
+                            : ""}
+
+                          {set.reps !== null ? `${set.reps} reps ` : ""}
+                          {set.rpe !== null ? `${set.rpe} - RPE` : ""}
+                        </Text>
+                      </View>
                     )
                 )}
               </View>
