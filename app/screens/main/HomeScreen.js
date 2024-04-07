@@ -13,6 +13,7 @@ import WorkoutList from "../../components/Workout/WorkoutList";
 import { useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/core";
 import WeeklyCalendar from "../../components/ui/WeeklyCalendar";
+import WorkoutProgress from "../../components/Workout/WorkoutProgress";
 
 const Home = () => {
   const { uid, username, email } = useSelector((state) => state.auth);
@@ -48,6 +49,14 @@ const Home = () => {
             </Avatar>
           </TouchableOpacity>
         </View>
+        {/* <View
+          style={{
+            paddingHorizontal: 10,
+            marginTop: 20,
+          }}
+        >
+          <WorkoutProgress />
+        </View> */}
         <View style={{ marginTop: 10, paddingHorizontal: 10 }}>
           {/* Pass selectedDate to WeeklyCalendar */}
           <WeeklyCalendar

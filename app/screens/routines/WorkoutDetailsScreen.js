@@ -15,8 +15,6 @@ import Rpe from "../../components/Modal/Rpe";
 import { AntDesign } from "@expo/vector-icons";
 import { useSelector } from "react-redux";
 import ExerciseSheet from "../../components/ui/ExerciseSheet";
-import Timer from "../../components/Workout/Timer";
-import { FontAwesome5 } from "@expo/vector-icons";
 
 const WorkoutDetailsScreen = ({ route }) => {
   const { routine } = route.params;

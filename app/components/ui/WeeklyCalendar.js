@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity, FlatList } from "react-native";
 import { FontAwesome5 } from "@expo/vector-icons";
 
 const WeeklyCalendar = ({ setSelectedDate }) => {
@@ -18,36 +18,43 @@ const WeeklyCalendar = ({ setSelectedDate }) => {
 
   return (
     <View>
-      <View
-        style={{
-          flexDirection: "row",
-          justifyContent: "space-around",
-          alignItems: "center",
-          paddingVertical: 10,
-        }}
-      >
-        {days.map((day, index) => (
+      <FlatList
+        horizontal
+        data={days}
+        keyExtractor={(item, index) => index.toString()}
+        renderItem={({ item, index }) => (
           <TouchableOpacity
             key={index}
             style={{
               alignItems: "center",
-              backgroundColor: activeDay === day ? "#6879f8" : "#292a3e",
-              paddingHorizontal: 8,
-              paddingVertical: 3,
-              borderRadius: 5,
-              width: 45,
+              backgroundColor: activeDay === item ? "#6879f8" : "#292a3e",
+              paddingHorizontal: 12,
+              paddingVertical: 8,
+              borderRadius: 8,
+              marginRight: 10,
+              width: 60,
             }}
-            onPress={() => handleDayPress(day)}
+            onPress={() => handleDayPress(item)}
           >
-            <Text style={{ fontSize: 14, fontWeight: "bold", color: "white" }}>
-              {day}
+            <Text style={{ fontSize: 16, fontWeight: "bold", color: "white" }}>
+              {item}
             </Text>
-            <Text style={{ fontSize: 14, marginTop: 5, color: "white" }}>
+            <Text
+              style={{
+                fontSize: 20,
+                marginTop: 5,
+                color: "white",
+                fontWeight: 700,
+              }}
+            >
               {currentDate.getDate() + index}
             </Text>
           </TouchableOpacity>
-        ))}
-      </View>
+        )}
+        contentContainerStyle={{
+          paddingVertical: 10,
+        }}
+      />
     </View>
   );
 };

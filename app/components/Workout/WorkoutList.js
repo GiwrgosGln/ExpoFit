@@ -140,14 +140,19 @@ const WorkoutList = ({ selectedDate }) => {
       </TouchableOpacity>
     );
   };
-
   return (
     <View style={{ paddingTop: 20 }}>
-      <FlatList
-        data={workouts}
-        renderItem={renderWorkoutItem}
-        keyExtractor={(workout) => workout.id}
-      />
+      {workouts.length === 0 ? (
+        <Text style={{ fontSize: 16, color: "white", alignSelf: "center" }}>
+          No workouts available for this date.
+        </Text>
+      ) : (
+        <FlatList
+          data={workouts}
+          renderItem={renderWorkoutItem}
+          keyExtractor={(workout) => workout.id}
+        />
+      )}
     </View>
   );
 };
