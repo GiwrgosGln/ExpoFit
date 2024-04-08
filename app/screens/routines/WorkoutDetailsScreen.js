@@ -52,6 +52,7 @@ const WorkoutDetailsScreen = ({ route }) => {
       .map(() => [])
   );
   const [selectedExercise, setSelectedExercise] = useState(null);
+  const [isProcessingRequest, setIsProcessingRequest] = useState(false); // New state variable to track request processing
 
   // Disable back button listener when the component mounts
   useEffect(() => {
@@ -80,7 +81,6 @@ const WorkoutDetailsScreen = ({ route }) => {
     setModalVisible(false);
   };
 
-  // Inside handleSetTypeSelection function
   const handleSetTypeSelection = (type) => {
     if (selectedExerciseIndex !== null && selectedSetIndex !== null) {
       const updatedSetTypes = [...exerciseSetTypes];
@@ -90,7 +90,6 @@ const WorkoutDetailsScreen = ({ route }) => {
     setTypeModalVisible(false);
   };
 
-  // Inside handleRpeSelection function
   const handleRpeSelection = (rpeValue) => {
     if (selectedExerciseIndex !== null && selectedSetIndex !== null) {
       const updatedRpeValues = [...rpeValues];
@@ -112,7 +111,6 @@ const WorkoutDetailsScreen = ({ route }) => {
     setRpeModalVisible(true);
   };
 
-  // Update addSet function
   const addSet = (index) => {
     const updatedSetCounts = [...exerciseSetCounts];
     updatedSetCounts[index] += 1;
@@ -122,7 +120,6 @@ const WorkoutDetailsScreen = ({ route }) => {
     updatedSetTypes[index].push("Working");
     setExerciseSetTypes(updatedSetTypes);
 
-    // Add empty values for reps and weight for the new set
     const updatedRepsValues = [...repsValues];
     updatedRepsValues[index].push("");
     setRepsValues(updatedRepsValues);
@@ -144,15 +141,18 @@ const WorkoutDetailsScreen = ({ route }) => {
   const currentDate = new Date();
   const offset = currentDate.getTimezoneOffset();
 
-  // Adjust the date by the timezone offset
   const adjustedDate = new Date(currentDate.getTime() - offset * 60000);
 
-  // Convert the adjusted date to a string in the desired format
   const formattedDate = adjustedDate.toISOString();
 
-  // Inside the finishWorkout function
   const finishWorkout = () => {
-    // Gather data from inputs
+    if (isProcessingRequest) {
+      // Check if request is already being processed
+      return;
+    }
+
+    setIsProcessingRequest(true);
+
     const workoutData = {
       user_id: uid,
       date: formattedDate,
@@ -167,7 +167,6 @@ const WorkoutDetailsScreen = ({ route }) => {
               const weight = weightValues[index]?.[setIndex];
               const rpe = rpeValues[index]?.[setIndex];
 
-              // Convert empty strings to "N/A" instead of null
               const repsValue = reps?.trim() === "" ? "N/A" : parseInt(reps);
               const weightValue =
                 weight?.trim() === "" ? "N/A" : parseInt(weight);
@@ -185,7 +184,6 @@ const WorkoutDetailsScreen = ({ route }) => {
       }),
     };
 
-    // Send data to the endpoint
     fetch("https://ginfitapi.onrender.com/workouts", {
       method: "POST",
       headers: {
@@ -197,11 +195,11 @@ const WorkoutDetailsScreen = ({ route }) => {
       .then((data) => {
         console.log("Workout data sent successfully:", data);
         navigation.navigate("Home");
-        // Optionally, you can navigate to another screen after sending data
-        // navigation.navigate("NextScreen");
+        setIsProcessingRequest(false); // Reset isProcessingRequest once request completes
       })
       .catch((error) => {
         console.error("Error sending workout data:", error);
+        setIsProcessingRequest(false); // Reset isProcessingRequest on error
       });
   };
 
@@ -250,7 +248,6 @@ const WorkoutDetailsScreen = ({ route }) => {
               </TouchableOpacity>
             </View>
             <View style={styles.setDefaultContainer}>
-              {/* Render sets */}
               {Array.from({ length: exerciseSetCounts[index] }).map(
                 (_, setIndex) => (
                   <View key={setIndex} style={styles.setDefaultRow}>
@@ -332,26 +329,21 @@ const WorkoutDetailsScreen = ({ route }) => {
           </View>
         ))}
       </ScrollView>
-      {/* Cancel Modal */}
       <DiscardWorkout
         modalVisible={modalVisible}
         onCancel={cancelCancel}
         onConfirm={confirmCancel}
       />
-      {/* Set Type Modal */}
       <SetType
         modalVisible={typeModalVisible}
         onClose={() => setTypeModalVisible(false)}
         onSelectType={handleSetTypeSelection}
       />
-
-      {/* RPE Modal */}
       <Rpe
         modalVisible={rpeModalVisible}
         onClose={() => setRpeModalVisible(false)}
         onSelectRpe={handleRpeSelection}
       />
-      {/* Render the BottomSheet */}
       {selectedExercise && (
         <ExerciseSheet
           isVisible={true}
@@ -416,24 +408,12 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginTop: 10,
   },
-  setDefaultHeader: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    marginBottom: 5,
-  },
-  setDefaultHeaderText: {
-    fontSize: 16,
-    fontWeight: "bold",
-    color: "white",
-  },
   setDefaultRow: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
     marginBottom: 8,
   },
-
   setDefaultText: {
     fontSize: 16,
     fontWeight: "bold",
@@ -448,7 +428,6 @@ const styles = StyleSheet.create({
     color: "white",
     width: 80,
   },
-
   addSetText: {
     color: "white",
   },
