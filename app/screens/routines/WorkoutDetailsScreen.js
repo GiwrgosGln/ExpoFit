@@ -205,6 +205,30 @@ const WorkoutDetailsScreen = ({ route }) => {
       });
   };
 
+  const removeSet = (index) => {
+    if (exerciseSetCounts[index] > 1) {
+      const updatedSetCounts = [...exerciseSetCounts];
+      updatedSetCounts[index] -= 1;
+      setExerciseSetCounts(updatedSetCounts);
+
+      const updatedSetTypes = [...exerciseSetTypes];
+      updatedSetTypes[index].pop();
+      setExerciseSetTypes(updatedSetTypes);
+
+      const updatedRepsValues = [...repsValues];
+      updatedRepsValues[index].pop();
+      setRepsValues(updatedRepsValues);
+
+      const updatedWeightValues = [...weightValues];
+      updatedWeightValues[index].pop();
+      setWeightValues(updatedWeightValues);
+
+      const updatedRpeValues = [...rpeValues];
+      updatedRpeValues[index].pop();
+      setRpeValues(updatedRpeValues);
+    }
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -273,13 +297,38 @@ const WorkoutDetailsScreen = ({ route }) => {
                 )
               )}
             </View>
-
-            <TouchableOpacity
-              onPress={() => addSet(index)}
-              style={styles.addSetButton}
+            <View
+              style={{ flexDirection: "row", justifyContent: "space-between" }}
             >
-              <Text style={styles.addSetText}>Add Set</Text>
-            </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => removeSet(index)}
+                style={{
+                  backgroundColor: "#292a3e",
+                  alignSelf: "center",
+                  width: "45%",
+                  paddingVertical: 10,
+                  alignItems: "center",
+                  borderRadius: 5,
+                  marginTop: 10,
+                }}
+              >
+                <Text style={styles.addSetText}>Remove Set</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => addSet(index)}
+                style={{
+                  backgroundColor: "#292a3e",
+                  alignSelf: "center",
+                  width: "45%",
+                  paddingVertical: 10,
+                  alignItems: "center",
+                  borderRadius: 5,
+                  marginTop: 10,
+                }}
+              >
+                <Text style={styles.addSetText}>Add Set</Text>
+              </TouchableOpacity>
+            </View>
           </View>
         ))}
       </ScrollView>
@@ -399,15 +448,7 @@ const styles = StyleSheet.create({
     color: "white",
     width: 80,
   },
-  addSetButton: {
-    backgroundColor: "#292a3e",
-    alignSelf: "center",
-    width: "100%",
-    paddingVertical: 10,
-    alignItems: "center",
-    borderRadius: 5,
-    marginTop: 10,
-  },
+
   addSetText: {
     color: "white",
   },
