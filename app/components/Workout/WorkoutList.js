@@ -23,19 +23,25 @@ const WorkoutList = ({ selectedDate }) => {
         const data = await response.json();
 
         if (data === null) {
-          // Handle case where data is null (no workouts available)
-          setWorkouts([]); // Set workouts to an empty array
+          setWorkouts([]);
           return;
         }
 
-        // Filter workouts by the selected date
         const filteredWorkouts = data.filter(
           (workout) =>
-            new Date(workout.date).toDateString() ===
-            selectedDate.toDateString()
+            new Date(workout.date).toLocaleDateString("en-US", {
+              timeZone: "UTC", // Set timezone to UTC to match the backend
+              year: "numeric",
+              month: "2-digit",
+              day: "2-digit",
+            }) ===
+            selectedDate.toLocaleDateString("en-US", {
+              year: "numeric",
+              month: "2-digit",
+              day: "2-digit",
+            })
         );
 
-        // Sort workouts by date in descending order
         const sortedWorkouts = filteredWorkouts.sort(
           (a, b) => new Date(b.date) - new Date(a.date)
         );
@@ -43,7 +49,6 @@ const WorkoutList = ({ selectedDate }) => {
         setWorkouts(sortedWorkouts);
       } catch (error) {
         console.error(error);
-        // Handle error, e.g., display an error message to the user
       }
     };
 
@@ -71,14 +76,15 @@ const WorkoutList = ({ selectedDate }) => {
           No workouts available for this date.
         </Text>
       ) : (
-        workouts.map((workout) => (
+        workouts.map((workout, index) => (
           <TouchableOpacity
-            key={workout.id}
+            key={`${workout._id}_${index}`}
             style={{
               marginHorizontal: 10,
               backgroundColor: "#292a3e",
               padding: 10,
               borderRadius: 10,
+              marginTop: 20,
             }}
             onPress={() => handleWorkoutPress(workout)}
           >
@@ -98,6 +104,7 @@ const WorkoutList = ({ selectedDate }) => {
                 style={{ fontSize: 14, fontWeight: "bold", color: "white" }}
               >
                 {new Date(workout.date).toLocaleDateString("en-US", {
+                  timeZone: "UTC", // Set timezone to UTC to match the backend
                   year: "numeric",
                   month: "long",
                   day: "numeric",
@@ -126,7 +133,7 @@ const WorkoutList = ({ selectedDate }) => {
               }
               return (
                 <View
-                  key={exercise.exercise_id}
+                  key={exercise._id}
                   style={{
                     flexDirection: "row",
                     justifyContent: "space-between",

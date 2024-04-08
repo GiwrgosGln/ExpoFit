@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 import { View, Text, TouchableOpacity, FlatList } from "react-native";
-import { FontAwesome5 } from "@expo/vector-icons";
 
 const WeeklyCalendar = ({ setSelectedDate }) => {
-  const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
   const currentDate = new Date();
-  const [activeDay, setActiveDay] = useState(days[currentDate.getDay()]); // Initialize with current day
+  const currentDayIndex = (currentDate.getDay() + 6) % 7;
+  const [activeDay, setActiveDay] = useState(days[currentDayIndex]);
 
   const handleDayPress = (day) => {
     setActiveDay(day);
-    const selectedDate = new Date();
-    const daysUntilSelectedDay = days.indexOf(day) - currentDate.getDay();
+    const selectedDate = new Date(currentDate);
+    const daysUntilSelectedDay = (days.indexOf(day) - currentDayIndex + 7) % 7;
     selectedDate.setDate(currentDate.getDate() + daysUntilSelectedDay);
     setSelectedDate(selectedDate);
     console.log(`You pressed ${day}`);
@@ -46,7 +46,7 @@ const WeeklyCalendar = ({ setSelectedDate }) => {
                 fontSize: 20,
                 marginTop: 5,
                 color: "white",
-                fontWeight: 700,
+                fontWeight: "700", // Changed to string since React Native doesn't support numeric fontWeight
               }}
             >
               {currentDate.getDate() + index}
