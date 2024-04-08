@@ -57,7 +57,7 @@ export default function ProfileScreen() {
           {username}
         </Text>
       </View>
-      <View style={{ paddingHorizontal: 28, paddingTop: 20 }}>
+      <View style={{ paddingHorizontal: 28, marginTop: 40 }}>
         <YGroup separator={<Separator />}>
           <YGroup.Item>
             <ListItem
@@ -65,21 +65,6 @@ export default function ProfileScreen() {
               subTitle="Edit your account"
               backgroundColor={"#292a3e"}
               onPress={() => navigation.navigate("Account")}
-            />
-          </YGroup.Item>
-          <YGroup.Item>
-            <ListItem
-              title="Notifications"
-              subTitle="Manage your notifications"
-              backgroundColor={"#292a3e"}
-              onPress={() => navigation.navigate("Notifications")}
-            />
-          </YGroup.Item>
-          <YGroup.Item>
-            <ListItem
-              title="Guide"
-              subTitle="Getting Started Guide"
-              backgroundColor={"#292a3e"}
             />
           </YGroup.Item>
           <YGroup.Item>
@@ -99,8 +84,22 @@ export default function ProfileScreen() {
           </YGroup.Item>
           <YGroup.Item>
             <ListItem
+              title="Contact Support"
+              subTitle="Need assistance? Contact us"
+              backgroundColor={"#292a3e"}
+            />
+          </YGroup.Item>
+          <YGroup.Item>
+            <ListItem
               title="Play Store"
               subTitle="Review ExpoFit on the Play Store"
+              backgroundColor={"#292a3e"}
+            />
+          </YGroup.Item>
+          <YGroup.Item>
+            <ListItem
+              title="Terms and Conditions"
+              subTitle="Read our terms of service"
               backgroundColor={"#292a3e"}
             />
           </YGroup.Item>
