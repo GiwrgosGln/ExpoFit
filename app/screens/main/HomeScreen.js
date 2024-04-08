@@ -16,7 +16,6 @@ import WeeklyCalendar from "../../components/ui/WeeklyCalendar";
 import WorkoutProgress from "../../components/Workout/WorkoutProgress";
 import { FontAwesome5 } from "@expo/vector-icons";
 import SampleWorkouts from "../../components/Workout/SampleWorkouts";
-import GoogleFit from "../../components/ui/GoogleFit";
 
 const Home = () => {
   const { uid, username, email, dateofbirth } = useSelector(
@@ -102,9 +101,6 @@ const Home = () => {
           Recommended Routines
         </Text>
         <SampleWorkouts />
-      </View>
-      <View>
-        <GoogleFit />
       </View>
     </ScrollView>
   );

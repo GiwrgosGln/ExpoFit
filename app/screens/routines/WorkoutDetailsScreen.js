@@ -216,28 +216,6 @@ const WorkoutDetailsScreen = ({ route }) => {
           <Text style={styles.finishText}>Finish</Text>
         </TouchableOpacity>
       </View>
-      {/* <View
-        style={{
-          flexDirection: "row",
-          justifyContent: "space-between",
-          paddingHorizontal: 20,
-          paddingVertical: 10,
-          borderBottomWidth: 1,
-          borderBottomColor: "#333",
-          alignItems: "center",
-        }}
-      >
-        <Timer />
-        <View style={{ flexDirection: "row", gap: 15 }}>
-          <FontAwesome5 name="stopwatch" size={30} color="#6879f8" />
-          <MaterialCommunityIcons
-            name="music-circle"
-            size={34}
-            color="#FE556E"
-          />
-          <FontAwesome5 name="spotify" size={30} color="#1DB954" />
-        </View>
-      </View> */}
       <ScrollView style={styles.scrollView}>
         {routine.exercises.map((exercise, index) => (
           <View key={index} style={styles.exerciseItem}>
@@ -368,7 +346,6 @@ const styles = StyleSheet.create({
   scrollView: {
     flex: 1,
     marginTop: 20,
-    paddingHorizontal: 20,
   },
   exerciseItem: {
     marginBottom: 15,
@@ -377,6 +354,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
+    paddingHorizontal: 10,
   },
   exerciseName: {
     fontSize: 18,
@@ -391,9 +369,9 @@ const styles = StyleSheet.create({
   },
   setDefaultHeader: {
     flexDirection: "row",
-    justifyContent: "space-between", // Adjusted alignment
+    justifyContent: "space-between",
     alignItems: "center",
-    marginBottom: 5, // Added margin bottom for separation
+    marginBottom: 5,
   },
   setDefaultHeaderText: {
     fontSize: 16,
