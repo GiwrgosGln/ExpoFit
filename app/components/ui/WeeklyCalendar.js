@@ -11,7 +11,7 @@ const WeeklyCalendar = ({ setSelectedDate }) => {
     currentDayIndex +
     (currentDayIndex === 0 ? -6 : 1);
   currentMondayDate.setDate(offset);
-  const [activeDay, setActiveDay] = useState(days[currentDayIndex]);
+  const [activeDay, setActiveDay] = useState(days[currentDayIndex - 1]);
 
   const handleDayPress = (day) => {
     setActiveDay(day);
