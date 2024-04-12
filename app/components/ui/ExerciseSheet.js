@@ -3,7 +3,8 @@ import BottomSheet, {
   BottomSheetBackdrop,
   BottomSheetScrollView,
 } from "@gorhom/bottom-sheet";
-import { StyleSheet, Text, View, Image, ActivityIndicator } from "react-native";
+import { StyleSheet, Text, View, ActivityIndicator } from "react-native";
+import { Image } from "expo-image";
 
 const ExerciseSheet = ({ exercise }) => {
   const sheetRef = useRef(null);
