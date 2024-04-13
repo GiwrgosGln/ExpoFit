@@ -27,7 +27,7 @@ export default function GraphsScreen() {
           }}
         >
           <Text style={{ color: "white", alignSelf: "center", fontSize: 20 }}>
-            Calendar
+            Goals
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
