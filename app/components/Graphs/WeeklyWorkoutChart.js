@@ -49,7 +49,7 @@ export default function WeeklyWorkoutChart({ workoutData }) {
         marginHorizontal: 10,
         marginTop: 20,
         backgroundColor: "#292a3e",
-        borderRadius: 20,
+        borderRadius: 5,
       }}
     >
       <View
