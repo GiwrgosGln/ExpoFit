@@ -1,6 +1,5 @@
 import { StatusBar } from "expo-status-bar";
 import { Text, View, StyleSheet } from "react-native";
-import { BarChart } from "../../components/Graphs/BarChart";
 
 export default function GraphsScreen() {
   return (
@@ -9,7 +8,6 @@ export default function GraphsScreen() {
       <Text style={{ color: "white", alignSelf: "center", fontSize: 20 }}>
         Graphs
       </Text>
-      <BarChart />
     </View>
   );
 }
