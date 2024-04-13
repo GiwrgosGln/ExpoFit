@@ -27,7 +27,7 @@ export default function GraphsScreen() {
           }}
         >
           <Text style={{ color: "white", alignSelf: "center", fontSize: 20 }}>
-            Goals
+            Statistics
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
