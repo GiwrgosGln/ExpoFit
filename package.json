@@ -20,6 +20,7 @@
     "@react-navigation/native-stack": "^6.9.17",
     "@react-navigation/stack": "^6.3.18",
     "@reduxjs/toolkit": "^2.2.1",
+    "@shopify/react-native-skia": "0.1.196",
     "@tamagui/animations-react-native": "^1.69.3",
     "@tamagui/babel-plugin": "^1.69.3",
     "@tamagui/config": "^1.69.3",
@@ -30,6 +31,7 @@
     "@types/react": "~18.2.14",
     "axios": "^1.6.2",
     "babel-plugin-transform-inline-environment-variables": "^0.4.4",
+    "d3": "^7.9.0",
     "expo": "^49.0.21",
     "expo-blur": "~12.4.1",
     "expo-font": "~11.4.0",
@@ -58,6 +60,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
+    "@types/d3": "^7.4.3",
     "@types/lodash": "^4.14.202",
     "tailwindcss": "3.3.2"
   },

@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import { useColorScheme, Text } from "react-native";
+import { useColorScheme, LogBox } from "react-native";
 import { TamaguiProvider, Theme, YStack } from "tamagui";
 import { useFonts } from "expo-font";
 import config from "./tamagui.config";
@@ -31,6 +31,12 @@ export default function App() {
   if (!loaded) {
     return null;
   }
+
+  // Ignore log notification by message
+  LogBox.ignoreLogs(["Warning: ..."]);
+
+  //Ignore all log notifications
+  LogBox.ignoreAllLogs();
 
   return (
     <TamaguiProvider config={config}>
