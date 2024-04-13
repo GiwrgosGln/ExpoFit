@@ -5,7 +5,9 @@ export default function GraphsScreen() {
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor="#161a22" color="white" style="light" />
-      <Text>Graphs Screen</Text>
+      <Text style={{ color: "white", alignSelf: "center", fontSize: 20 }}>
+        Graphs
+      </Text>
     </View>
   );
 }

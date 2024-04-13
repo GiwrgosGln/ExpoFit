@@ -4,6 +4,7 @@ import {
   Text,
   View,
   ScrollView,
+  BackHandler,
   TouchableOpacity,
 } from "react-native";
 import { Avatar } from "tamagui";
@@ -27,6 +28,19 @@ const Home = () => {
   useEffect(() => {
     console.log("Date of Birth from Redux:", dateofbirth);
   }, [dateofbirth]);
+
+  // Disable back button listener when the component mounts
+  useEffect(() => {
+    const disableBackButton = () => {
+      return true;
+    };
+
+    BackHandler.addEventListener("hardwareBackPress", disableBackButton);
+
+    return () => {
+      BackHandler.removeEventListener("hardwareBackPress", disableBackButton);
+    };
+  }, []);
 
   return (
     <ScrollView style={globalStyles.container} nestedScrollEnabled={true}>
@@ -88,13 +102,13 @@ const Home = () => {
         style={{
           marginTop: 30,
           flexDirection: "column",
+          marginBottom: 100,
         }}
       >
         <Text
           style={{
             color: "white",
             paddingHorizontal: 10,
-            marginBottom: 10,
             fontSize: 20,
           }}
         >
