@@ -19,6 +19,8 @@ import store from "./app/redux/store/store";
 import WorkoutDetailsScreen from "./app/screens/routines/WorkoutDetailsScreen";
 import WorkoutScreen from "./app/screens/routines/WorkoutScreen";
 import EditRoutineScreen from "./app/screens/routines/EditRoutineScreen";
+import ContactSupportScreen from "./app/screens/settings/ContactSupportScreen";
+import FeatureRequestScreen from "./app/screens/settings/FeatureRequestScreen";
 
 const Stack = createStackNavigator();
 
@@ -103,6 +105,16 @@ export default function App() {
                 <Stack.Screen
                   name="FrequentlyAskedQuestions"
                   component={FrequentlyAskedQuestionsScreen}
+                  options={{ headerShown: false }}
+                />
+                <Stack.Screen
+                  name="ContactSupport"
+                  component={ContactSupportScreen}
+                  options={{ headerShown: false }}
+                />
+                <Stack.Screen
+                  name="FeatureRequest"
+                  component={FeatureRequestScreen}
                   options={{ headerShown: false }}
                 />
               </Stack.Navigator>

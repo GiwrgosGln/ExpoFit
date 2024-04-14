@@ -72,6 +72,7 @@ export default function ProfileScreen() {
               title="Feature Request"
               subTitle="Submit a feature idea"
               backgroundColor={"#292a3e"}
+              onPress={() => navigation.navigate("FeatureRequest")}
             />
           </YGroup.Item>
           <YGroup.Item>
@@ -87,6 +88,7 @@ export default function ProfileScreen() {
               title="Contact Support"
               subTitle="Need assistance? Contact us"
               backgroundColor={"#292a3e"}
+              onPress={() => navigation.navigate("ContactSupport")}
             />
           </YGroup.Item>
           <YGroup.Item>
