@@ -5,10 +5,8 @@ import { View, Text } from "react-native";
 export default function BodyWeightChart() {
   const lineData = [
     { date: "2024-04-01", value: 70, dataPointText: "70" },
-    { date: "2024-04-02", value: 20, dataPointText: "20" },
-    { date: "2024-04-03", value: 18, dataPointText: "18" },
-    { date: "2024-04-04", value: 40, dataPointText: "40" },
-    { date: "2024-04-05", value: 36, dataPointText: "36" },
+    { date: "2024-04-04", value: 62, dataPointText: "62" },
+    { date: "2024-04-05", value: 72, dataPointText: "72" },
     { date: "2024-04-06", value: 60, dataPointText: "60" },
     { date: "2024-04-07", value: 54, dataPointText: "54" },
     { date: "2024-04-08", value: 85, dataPointText: "85" },
@@ -17,11 +15,6 @@ export default function BodyWeightChart() {
     { date: "2024-04-11", value: 85, dataPointText: "85" },
     { date: "2024-04-12", value: 85, dataPointText: "85" },
     { date: "2024-04-13", value: 85, dataPointText: "85" },
-    { date: "2024-04-14", value: 70, dataPointText: "70" },
-    { date: "2024-04-15", value: 20, dataPointText: "20" },
-    { date: "2024-04-16", value: 18, dataPointText: "18" },
-    { date: "2024-04-17", value: 40, dataPointText: "40" },
-    { date: "2024-04-18", value: 36, dataPointText: "36" },
     { date: "2024-04-19", value: 60, dataPointText: "60" },
     { date: "2024-04-20", value: 54.5, dataPointText: "54.5" },
     { date: "2024-04-21", value: 78, dataPointText: "78" },
@@ -29,7 +22,7 @@ export default function BodyWeightChart() {
     { date: "2024-04-23", value: 80, dataPointText: "80" },
     { date: "2024-04-24", value: 82, dataPointText: "82" },
     { date: "2024-04-25", value: 84, dataPointText: "84" },
-    { date: "2024-04-26", value: 85, dataPointText: "85" },
+    { date: "2024-04-26", value: 110, dataPointText: "110" },
   ];
 
   // Function to find the latest date and weight
@@ -70,10 +63,11 @@ export default function BodyWeightChart() {
       <LineChart
         initialSpacing={0}
         data={lineData}
-        width={320}
-        height={150}
+        width={325}
+        height={120}
         spacing={50}
         scrollToEnd={true}
+        endSpacing={0}
         pointerConfig={{
           pointerStripHeight: 160,
           pointerStripColor: "#6879f8",
@@ -123,16 +117,20 @@ export default function BodyWeightChart() {
             );
           },
         }}
-        maxValue={120}
+        maxValue={200}
         startIndex1={0}
         textColor1="white"
         textShiftY={-8}
-        textShiftX={-4}
+        textShiftX={-17}
         textFontSize={13}
-        thickness={3}
+        thickness={5}
         curved={true}
+        dataPointsColor="white"
         isAnimated
         animationDuration={1600}
+        startFillColor={"#161a22"}
+        endFillColor={"#6879f8"}
+        areaChart
         hideRules
         hideYAxisText
         hideAxesAndRules
