@@ -40,12 +40,20 @@ export default function App() {
   //Ignore all log notifications
   LogBox.ignoreAllLogs();
 
+  const MyTheme = {
+    colors: {
+      primary: "#f0f0f0",
+      card: "#292a3e",
+      text: "#f0f0f0",
+    },
+  };
+
   return (
     <TamaguiProvider config={config}>
       <Provider store={store}>
         <Theme name={colorScheme === "dark" ? "dark" : "dark"}>
-          <YStack f={1} backgroundColor={"$backgroundSoft"}>
-            <NavigationContainer>
+          <YStack f={1} backgroundColor={"#161a22"}>
+            <NavigationContainer theme={MyTheme}>
               <Stack.Navigator>
                 <Stack.Screen
                   name="Login"
