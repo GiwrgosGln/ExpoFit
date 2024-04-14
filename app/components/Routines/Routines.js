@@ -20,7 +20,7 @@ const RoutineItem = ({ routine, onPressOptions, onPressStartWorkout }) => (
       gap: 15,
       padding: 20,
       backgroundColor: "#292a3e",
-      borderRadius: 25,
+      borderRadius: 15,
       marginBottom: 20,
     }}
   >
@@ -49,7 +49,7 @@ const RoutineItem = ({ routine, onPressOptions, onPressStartWorkout }) => (
         </Text>
       ))}
     </View>
-    <View style={{ borderRadius: 25, overflow: "hidden" }}>
+    <View style={{ borderRadius: 5, overflow: "hidden" }}>
       <Button
         title="Start Workout"
         color="#6879f8"
