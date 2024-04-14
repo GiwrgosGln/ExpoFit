@@ -46,9 +46,9 @@ export default function WeeklyWorkoutChart() {
   return (
     <View
       style={{
-        padding: 10,
         marginHorizontal: 10,
         marginTop: 20,
+        paddingVertical: 10,
         backgroundColor: "#292a3e",
         borderRadius: 5,
       }}

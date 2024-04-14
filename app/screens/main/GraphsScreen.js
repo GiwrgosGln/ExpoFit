@@ -26,7 +26,7 @@ export default function GraphsScreen() {
             borderRadius: 5,
           }}
         >
-          <Text style={{ color: "white", alignSelf: "center", fontSize: 20 }}>
+          <Text style={{ color: "white", alignSelf: "center", fontSize: 18 }}>
             Statistics
           </Text>
         </TouchableOpacity>
@@ -38,7 +38,7 @@ export default function GraphsScreen() {
             borderRadius: 5,
           }}
         >
-          <Text style={{ color: "white", alignSelf: "center", fontSize: 20 }}>
+          <Text style={{ color: "white", alignSelf: "center", fontSize: 18 }}>
             Measurements
           </Text>
         </TouchableOpacity>
@@ -52,5 +52,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#161a22",
     paddingTop: 52,
+    paddingHorizontal: 10,
   },
 });
