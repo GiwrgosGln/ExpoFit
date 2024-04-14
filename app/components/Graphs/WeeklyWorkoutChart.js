@@ -1,46 +1,47 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Text, View } from "react-native";
 import { BarChart } from "react-native-gifted-charts";
+import { useSelector } from "react-redux";
+import { useIsFocused } from "@react-navigation/native";
 
-export default function WeeklyWorkoutChart({ workoutData }) {
-  console.log("Workout data:", workoutData);
+export default function WeeklyWorkoutChart() {
+  const [workoutData, setWorkoutData] = useState({});
+  const uid = useSelector((state) => state.auth.uid);
+  const isFocused = useIsFocused();
 
-  // Function to get the first day of the week for the last 5 weeks
-  const getWeekStartDates = () => {
-    const today = new Date();
-    const weekStartDates = [];
+  useEffect(() => {
+    const fetchWorkoutData = async () => {
+      try {
+        const response = await fetch(
+          `https://ginfitapi.onrender.com/workouts-last5weeks/${uid}`
+        );
+        if (!response.ok) {
+          throw new Error("Failed to fetch workout data");
+        }
+        const data = await response.json();
+        setWorkoutData(data);
+      } catch (error) {
+        console.error("Error fetching workout data:", error);
+      }
+    };
 
-    for (let i = 0; i < 5; i++) {
-      const firstDayOfWeek = new Date(
-        today.getFullYear(),
-        today.getMonth(),
-        today.getDate() - today.getDay() - i * 7
-      );
-      weekStartDates.push(firstDayOfWeek);
-    }
-
-    return weekStartDates.reverse(); // Reverse the array
-  };
+    fetchWorkoutData();
+  }, [uid, isFocused]);
 
   // Format date to "DD/MM" format
   const formatDate = (date) => {
-    const day = date.getDate().toString().padStart(2, "0");
-    const month = (date.getMonth() + 1).toString().padStart(2, "0");
-    return `${day}/${month}`;
+    const [year, month, day] = date.split("-");
+    return `${day.padStart(2, "0")}/${month.padStart(2, "0")}`;
   };
 
-  const weekStartDates = getWeekStartDates();
-
-  // Reverse the workoutData array before passing it to the chart
-  const reversedWorkoutData = [...workoutData].reverse();
-
   // Transform workoutData into the desired format for barData
-  const barData = reversedWorkoutData.map((value) => ({
+  const barData = Object.values(workoutData).map((value) => ({
     value: value,
     topLabelComponent: () => <Text style={{ color: "white" }}>{value}</Text>,
   }));
 
-  console.log("Bar data:", barData);
+  // Get the dates from the response object and format them for the X-axis labels
+  const xAxisLabels = Object.keys(workoutData).map((date) => formatDate(date));
 
   return (
     <View
@@ -79,8 +80,10 @@ export default function WeeklyWorkoutChart({ workoutData }) {
         height={100}
         width={280}
         barTopLabelColor={"white"} // Set color for the number on top of the bars
-        barTopLabelTexts={reversedWorkoutData.map((data) => data.toString())} // Use the values as labels on top of the bars
-        xAxisLabelTexts={weekStartDates.map((date) => formatDate(date))}
+        barTopLabelTexts={Object.values(workoutData).map((data) =>
+          data.toString()
+        )} // Use the values as labels on top of the bars
+        xAxisLabelTexts={xAxisLabels}
         xAxisColor={"#292a3e"}
         yAxisColor={"#292a3e"}
         yAxisTextStyle={{ color: "#292a3e" }}
