@@ -1,6 +1,7 @@
 import { StatusBar } from "expo-status-bar";
 import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
 import WeeklyWorkoutChart from "../../components/Graphs/WeeklyWorkoutChart";
+import BodyWeightChart from "../../components/Graphs/BodyWeightChart";
 
 export default function GraphsScreen() {
   return (
@@ -9,7 +10,6 @@ export default function GraphsScreen() {
       <Text style={{ color: "white", alignSelf: "center", fontSize: 20 }}>
         Graphs
       </Text>
-      <WeeklyWorkoutChart />
       <View
         style={{
           paddingHorizontal: 10,
@@ -42,6 +42,11 @@ export default function GraphsScreen() {
             Measurements
           </Text>
         </TouchableOpacity>
+      </View>
+      <WeeklyWorkoutChart />
+
+      <View style={{ paddingHorizontal: 10, marginTop: 20 }}>
+        <BodyWeightChart />
       </View>
     </View>
   );
