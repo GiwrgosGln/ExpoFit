@@ -11,7 +11,8 @@ const WeeklyCalendar = ({ setSelectedDate }) => {
     currentDayIndex +
     (currentDayIndex === 0 ? -6 : 1);
   currentMondayDate.setDate(offset);
-  const [activeDay, setActiveDay] = useState(days[currentDayIndex - 1]);
+  const activeDayIndex = currentDayIndex === 0 ? 6 : currentDayIndex - 1;
+  const [activeDay, setActiveDay] = useState(days[activeDayIndex]);
 
   const handleDayPress = (day) => {
     setActiveDay(day);
@@ -32,7 +33,6 @@ const WeeklyCalendar = ({ setSelectedDate }) => {
         nestedScrollEnabled={true}
         keyExtractor={(item, index) => index.toString()}
         renderItem={({ item, index }) => {
-          const dayIndex = (currentDayIndex + index) % 7;
           const date = new Date(currentMondayDate);
           date.setDate(currentMondayDate.getDate() + index);
 
