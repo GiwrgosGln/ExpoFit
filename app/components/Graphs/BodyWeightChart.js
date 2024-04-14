@@ -23,7 +23,7 @@ export default function BodyWeightChart() {
     { date: "2024-04-17", value: 40, dataPointText: "40" },
     { date: "2024-04-18", value: 36, dataPointText: "36" },
     { date: "2024-04-19", value: 60, dataPointText: "60" },
-    { date: "2024-04-20", value: 54.5, dataPointText: "54" },
+    { date: "2024-04-20", value: 54.5, dataPointText: "54.5" },
     { date: "2024-04-21", value: 78, dataPointText: "78" },
     { date: "2024-04-22", value: 79, dataPointText: "79" },
     { date: "2024-04-23", value: 80, dataPointText: "80" },
@@ -73,6 +73,7 @@ export default function BodyWeightChart() {
         width={320}
         height={150}
         spacing={50}
+        scrollToEnd={true}
         pointerConfig={{
           pointerStripHeight: 160,
           pointerStripColor: "#6879f8",
