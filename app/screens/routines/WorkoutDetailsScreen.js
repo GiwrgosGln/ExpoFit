@@ -260,17 +260,7 @@ const WorkoutDetailsScreen = ({ route }) => {
                         {exerciseSetTypes[index][setIndex] || "Type"}
                       </Text>
                     </TouchableOpacity>
-                    <Input
-                      style={styles.setDefaultTextInput}
-                      placeholder="Reps"
-                      keyboardType="numeric"
-                      value={repsValues[index][setIndex]}
-                      onChangeText={(text) => {
-                        const updatedRepsValues = [...repsValues];
-                        updatedRepsValues[index][setIndex] = text;
-                        setRepsValues(updatedRepsValues);
-                      }}
-                    />
+
                     <Input
                       style={styles.setDefaultTextInput}
                       placeholder="Weight"
@@ -280,6 +270,17 @@ const WorkoutDetailsScreen = ({ route }) => {
                         const updatedWeightValues = [...weightValues];
                         updatedWeightValues[index][setIndex] = text;
                         setWeightValues(updatedWeightValues);
+                      }}
+                    />
+                    <Input
+                      style={styles.setDefaultTextInput}
+                      placeholder="Reps"
+                      keyboardType="numeric"
+                      value={repsValues[index][setIndex]}
+                      onChangeText={(text) => {
+                        const updatedRepsValues = [...repsValues];
+                        updatedRepsValues[index][setIndex] = text;
+                        setRepsValues(updatedRepsValues);
                       }}
                     />
                     <TouchableOpacity

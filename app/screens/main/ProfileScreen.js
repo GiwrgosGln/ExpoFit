@@ -12,6 +12,7 @@ import { ListItem, Separator, YGroup } from "tamagui";
 import SignOut from "../../components/Auth/SignOut";
 import { useNavigation } from "@react-navigation/native";
 import { useSelector } from "react-redux";
+import AvatarIcon from "../../components/ui/AvatarIcon";
 
 export default function ProfileScreen() {
   const { uid, username, email } = useSelector((state) => state.auth);
@@ -39,12 +40,7 @@ export default function ProfileScreen() {
           flexDirection: "column",
         }}
       >
-        <Avatar circular size="$12" style={{ alignSelf: "center" }}>
-          <Avatar.Image
-            accessibilityLabel="Nate Wienert"
-            src="https://i.pinimg.com/280x280_RS/c6/49/70/c64970ce68687694d897decdba92ea85.jpg"
-          />
-        </Avatar>
+        <AvatarIcon />
         <Text
           style={{
             paddingTop: 15,

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, TouchableOpacity, FlatList } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 
 const WeeklyCalendar = ({ setSelectedDate }) => {
   const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
@@ -25,53 +25,41 @@ const WeeklyCalendar = ({ setSelectedDate }) => {
   };
 
   return (
-    <View>
-      <FlatList
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        data={days}
-        nestedScrollEnabled={true}
-        keyExtractor={(item, index) => index.toString()}
-        renderItem={({ item, index }) => {
-          const date = new Date(currentMondayDate);
-          date.setDate(currentMondayDate.getDate() + index);
+    <View style={{ flexDirection: "row", marginTop: 10 }}>
+      {days.map((item, index) => {
+        const date = new Date(currentMondayDate);
+        date.setDate(currentMondayDate.getDate() + index);
 
-          return (
-            <TouchableOpacity
-              key={index}
+        return (
+          <TouchableOpacity
+            key={index}
+            style={{
+              alignItems: "center",
+              backgroundColor: activeDay === item ? "#6879f8" : "#292a3e",
+              paddingHorizontal: 12,
+              paddingVertical: 8,
+              borderRadius: 8,
+              marginRight: 10,
+              width: 45,
+            }}
+            onPress={() => handleDayPress(item)}
+          >
+            <Text style={{ fontSize: 16, fontWeight: "300", color: "white" }}>
+              {item.charAt(0)}
+            </Text>
+            <Text
               style={{
-                alignItems: "center",
-                backgroundColor: activeDay === item ? "#6879f8" : "#292a3e",
-                paddingHorizontal: 12,
-                paddingVertical: 8,
-                borderRadius: 8,
-                marginRight: 10,
-                width: 60,
+                fontSize: 16,
+                marginTop: 5,
+                color: "white",
+                fontWeight: "700",
               }}
-              onPress={() => handleDayPress(item)}
             >
-              <Text
-                style={{ fontSize: 16, fontWeight: "bold", color: "white" }}
-              >
-                {item}
-              </Text>
-              <Text
-                style={{
-                  fontSize: 20,
-                  marginTop: 5,
-                  color: "white",
-                  fontWeight: "700",
-                }}
-              >
-                {date.getDate()}
-              </Text>
-            </TouchableOpacity>
-          );
-        }}
-        contentContainerStyle={{
-          paddingVertical: 10,
-        }}
-      />
+              {date.getDate()}
+            </Text>
+          </TouchableOpacity>
+        );
+      })}
     </View>
   );
 };

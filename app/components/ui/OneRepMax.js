@@ -1,8 +1,9 @@
-import { useState, useEffect } from "react";
-import { LineChart } from "react-native-gifted-charts";
+import React, { useState, useEffect } from "react";
 import { View, Text } from "react-native";
+import { LineChart } from "react-native-gifted-charts";
+import { Picker } from "@react-native-picker/picker";
 
-export default function BodyWeightChart() {
+const OneRepMaxComponent = () => {
   const lineData = [
     { date: "2024-04-01", value: 70, dataPointText: "70" },
     { date: "2024-04-04", value: 62, dataPointText: "62" },
@@ -25,6 +26,8 @@ export default function BodyWeightChart() {
     { date: "2024-04-26", value: 110, dataPointText: "110" },
   ];
 
+  const exerciseOptions = ["Incline Row", "Exercise 2", "Exercise 3"];
+
   // Function to find the latest date and weight
   const findLatestData = () => {
     const latestDataPoint = lineData[lineData.length - 1];
@@ -34,6 +37,7 @@ export default function BodyWeightChart() {
   // State variables to hold selected date and value
   const [selectedDate, setSelectedDate] = useState("");
   const [selectedValue, setSelectedValue] = useState("");
+  const [selectedExercise, setSelectedExercise] = useState(exerciseOptions[0]);
 
   // Set the latest date and weight as default values
   useEffect(() => {
@@ -52,8 +56,29 @@ export default function BodyWeightChart() {
           alignItems: "center",
         }}
       >
-        <View style={{ alignItems: "flex-start", flexDirection: "column" }}>
-          <Text style={{ color: "white", fontSize: 18 }}>Bodyweight</Text>
+        <View
+          style={{
+            alignItems: "flex-start",
+            flexDirection: "column",
+            gap: -10,
+          }}
+        >
+          <Picker
+            selectedValue={selectedExercise}
+            style={{ color: "white", width: 200, height: 10 }}
+            onValueChange={(itemValue, itemIndex) =>
+              setSelectedExercise(itemValue)
+            }
+          >
+            {exerciseOptions.map((exercise, index) => (
+              <Picker.Item
+                key={index}
+                label={exercise}
+                value={exercise}
+                color="blue"
+              />
+            ))}
+          </Picker>
           <Text style={{ color: "white", fontSize: 18, fontWeight: 200 }}>
             {selectedDate}
           </Text>
@@ -78,7 +103,6 @@ export default function BodyWeightChart() {
           activatePointersOnLongPress: true,
           autoAdjustPointerLabelPosition: false,
           pointerLabelComponent: (items) => {
-            // Update selected date and value when hovering over a data point
             setSelectedDate(items[0].date);
             setSelectedValue(items[0].value);
             return (
@@ -126,6 +150,8 @@ export default function BodyWeightChart() {
         thickness={5}
         curved={true}
         dataPointsColor="white"
+        isAnimated
+        animationDuration={1600}
         startFillColor={"#161a22"}
         endFillColor={"#6879f8"}
         areaChart
@@ -139,4 +165,6 @@ export default function BodyWeightChart() {
       />
     </View>
   );
-}
+};
+
+export default OneRepMaxComponent;
