@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { LineChart } from "react-native-gifted-charts";
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity, Modal, Alert } from "react-native";
 import { useIsFocused } from "@react-navigation/native";
 import { useSelector } from "react-redux";
 
@@ -9,6 +9,8 @@ export default function BodyWeightChart({ refresh }) {
   const [measurements, setMeasurements] = useState([]);
   const uid = useSelector((state) => state.auth.uid);
   const isFocused = useIsFocused();
+  const [modalVisible, setModalVisible] = useState(false);
+  const [selectedMeasurementId, setSelectedMeasurementId] = useState("");
 
   // Fetch data from the endpoint
   useEffect(() => {
@@ -25,7 +27,7 @@ export default function BodyWeightChart({ refresh }) {
     };
 
     fetchData();
-  }, [uid, isFocused, refresh]);
+  }, [uid, isFocused, refresh, modalVisible]);
 
   // Function to find the latest date and weight
   const findLatestData = () => {
@@ -47,6 +49,31 @@ export default function BodyWeightChart({ refresh }) {
     setSelectedDate(date);
     setSelectedValue(value);
   }, [measurements]);
+
+  const openModal = (itemId) => {
+    console.log("Selected Measurement ID:", itemId);
+    setSelectedMeasurementId(itemId);
+    setModalVisible(true);
+  };
+
+  const handleDeleteMeasurement = async () => {
+    try {
+      const response = await fetch(
+        `https://ginfitapi.onrender.com/delete-measurement/${selectedMeasurementId}`,
+        {
+          method: "DELETE",
+        }
+      );
+      if (response.ok) {
+        setModalVisible(false);
+      } else {
+        Alert.alert("Failed to delete measurement");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      Alert.alert("Failed to delete measurement");
+    }
+  };
 
   return (
     <View>
@@ -175,6 +202,7 @@ export default function BodyWeightChart({ refresh }) {
                   paddingHorizontal: 20,
                   borderRadius: 10,
                 }}
+                onPress={() => openModal(item._id)}
               >
                 <Text style={{ fontSize: 18, color: "white", marginRight: 10 }}>
                   {item.body_weight}
@@ -186,6 +214,67 @@ export default function BodyWeightChart({ refresh }) {
             ))}
         </View>
       </View>
+
+      {/* Modal for confirming deletion */}
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => setModalVisible(false)}
+      >
+        <View
+          style={{
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+            backgroundColor: "rgba(0, 0, 0, 0.5)",
+          }}
+        >
+          <View
+            style={{
+              backgroundColor: "white",
+              padding: 20,
+              borderRadius: 10,
+              width: "80%",
+            }}
+          >
+            <Text style={{ fontSize: 20, marginBottom: 20 }}>
+              Delete Measurement
+            </Text>
+            <Text style={{ marginBottom: 20 }}>
+              Do you want to delete the measurement?
+            </Text>
+            <View
+              style={{ flexDirection: "row", justifyContent: "space-between" }}
+            >
+              <TouchableOpacity
+                style={{
+                  backgroundColor: "#007bff",
+                  padding: 10,
+                  borderRadius: 5,
+                  alignItems: "center",
+                  width: "40%",
+                }}
+                onPress={handleDeleteMeasurement}
+              >
+                <Text style={{ color: "white", fontSize: 16 }}>Yes</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={{
+                  backgroundColor: "#ff4444",
+                  padding: 10,
+                  borderRadius: 5,
+                  alignItems: "center",
+                  width: "40%",
+                }}
+                onPress={() => setModalVisible(false)}
+              >
+                <Text style={{ color: "white", fontSize: 16 }}>No</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 }
