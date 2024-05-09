@@ -73,7 +73,7 @@ export default function WeeklyWorkoutChart() {
         frontColor={"#6879f8"}
         barWidth={35}
         disableScroll={true}
-        data={barData} // Pass the transformed barData to the BarChart
+        data={barData}
         dashWidth={0}
         isAnimated
         maxValue={8}

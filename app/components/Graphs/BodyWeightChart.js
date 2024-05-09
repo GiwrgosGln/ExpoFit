@@ -178,6 +178,7 @@ export default function BodyWeightChart({ refresh }) {
           color="#6879f8"
         />
       </View>
+
       {/* Map with measurements */}
       <View
         style={{
