@@ -1,17 +1,21 @@
 import React, { useState, useEffect } from "react";
 import { LineChart } from "react-native-gifted-charts";
 import { View, Text, TouchableOpacity } from "react-native";
+import { useIsFocused } from "@react-navigation/native";
+import { useSelector } from "react-redux";
 
-export default function BodyWeightChart() {
+export default function BodyWeightChart({ refresh }) {
   // State variables to hold measurement data
   const [measurements, setMeasurements] = useState([]);
+  const uid = useSelector((state) => state.auth.uid);
+  const isFocused = useIsFocused();
 
   // Fetch data from the endpoint
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          "https://ginfitapi.onrender.com/measurements/GFxKCRB3aBOTaownKuU0BRCYGxa2"
+          `https://ginfitapi.onrender.com/measurements/${uid}`
         );
         const data = await response.json();
         setMeasurements(data);
@@ -21,7 +25,7 @@ export default function BodyWeightChart() {
     };
 
     fetchData();
-  }, []);
+  }, [uid, isFocused, refresh]);
 
   // Function to find the latest date and weight
   const findLatestData = () => {
