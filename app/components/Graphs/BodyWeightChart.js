@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { LineChart } from "react-native-gifted-charts";
-import { View, Text } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 
 export default function BodyWeightChart() {
   const lineData = [
@@ -43,100 +43,134 @@ export default function BodyWeightChart() {
   }, []);
 
   return (
-    <View style={{ backgroundColor: "#292a3e", width: 350 }}>
+    <View>
       <View
-        style={{
-          padding: 10,
-          flexDirection: "row",
-          justifyContent: "space-between",
-          alignItems: "center",
-        }}
+        style={{ backgroundColor: "#292a3e", width: 350, borderRadius: 10 }}
       >
-        <View style={{ alignItems: "flex-start", flexDirection: "column" }}>
-          <Text style={{ color: "white", fontSize: 18 }}>Bodyweight</Text>
-          <Text style={{ color: "white", fontSize: 18, fontWeight: 200 }}>
-            {selectedDate}
-          </Text>
+        <View
+          style={{
+            padding: 10,
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <View style={{ alignItems: "flex-start", flexDirection: "column" }}>
+            <Text style={{ color: "white", fontSize: 18 }}>Bodyweight</Text>
+            <Text style={{ color: "white", fontSize: 18, fontWeight: 200 }}>
+              {selectedDate}
+            </Text>
+          </View>
+          <Text style={{ color: "white", fontSize: 24 }}>{selectedValue}</Text>
         </View>
-        <Text style={{ color: "white", fontSize: 24 }}>{selectedValue}</Text>
-      </View>
-      <LineChart
-        initialSpacing={0}
-        data={lineData}
-        width={325}
-        height={120}
-        spacing={50}
-        scrollToEnd={true}
-        endSpacing={0}
-        pointerConfig={{
-          pointerStripHeight: 160,
-          pointerStripColor: "#6879f8",
-          pointerStripWidth: 1,
-          pointerColor: "#6879f8",
-          radius: 6,
-          pointerLabelWidth: 100,
-          activatePointersOnLongPress: true,
-          autoAdjustPointerLabelPosition: false,
-          pointerLabelComponent: (items) => {
-            // Update selected date and value when hovering over a data point
-            setSelectedDate(items[0].date);
-            setSelectedValue(items[0].value);
-            return (
-              <View
-                style={{
-                  height: 90,
-                  width: 100,
-                  justifyContent: "center",
-                  marginTop: -30,
-                  marginLeft: -40,
-                }}
-              >
-                <Text
-                  style={{
-                    color: "white",
-                    fontSize: 14,
-                    marginBottom: 6,
-                    textAlign: "center",
-                  }}
-                >
-                  {items[0].date}
-                </Text>
+        <LineChart
+          initialSpacing={0}
+          data={lineData}
+          width={325}
+          height={120}
+          spacing={50}
+          scrollToEnd={true}
+          endSpacing={0}
+          pointerConfig={{
+            pointerStripHeight: 160,
+            pointerStripColor: "#6879f8",
+            pointerStripWidth: 1,
+            pointerColor: "#6879f8",
+            radius: 6,
+            pointerLabelWidth: 100,
+            activatePointersOnLongPress: true,
+            autoAdjustPointerLabelPosition: false,
+            pointerLabelComponent: (items) => {
+              // Update selected date and value when hovering over a data point
+              setSelectedDate(items[0].date);
+              setSelectedValue(items[0].value);
+              return (
                 <View
                   style={{
-                    paddingHorizontal: 14,
-                    paddingVertical: 6,
-                    borderRadius: 16,
-                    backgroundColor: "white",
+                    height: 90,
+                    width: 100,
+                    justifyContent: "center",
+                    marginTop: -30,
+                    marginLeft: -40,
                   }}
                 >
-                  <Text style={{ fontWeight: "bold", textAlign: "center" }}>
-                    {"$" + items[0].value + ".0"}
+                  <Text
+                    style={{
+                      color: "white",
+                      fontSize: 14,
+                      marginBottom: 6,
+                      textAlign: "center",
+                    }}
+                  >
+                    {items[0].date}
                   </Text>
+                  <View
+                    style={{
+                      paddingHorizontal: 14,
+                      paddingVertical: 6,
+                      borderRadius: 16,
+                      backgroundColor: "white",
+                    }}
+                  >
+                    <Text style={{ fontWeight: "bold", textAlign: "center" }}>
+                      {"$" + items[0].value + ".0"}
+                    </Text>
+                  </View>
                 </View>
-              </View>
-            );
-          },
+              );
+            },
+          }}
+          maxValue={200}
+          startIndex1={0}
+          textColor1="white"
+          textShiftY={-8}
+          textShiftX={-17}
+          textFontSize={13}
+          thickness={5}
+          curved={true}
+          dataPointsColor="white"
+          startFillColor={"#161a22"}
+          endFillColor={"#6879f8"}
+          areaChart
+          hideRules
+          hideYAxisText
+          hideAxesAndRules
+          yAxisColor="#6879f8"
+          verticalLinesColor="#6879f8"
+          xAxisColor="#6879f8"
+          color="#6879f8"
+        />
+      </View>
+      {/* Map with measurements */}
+      <View
+        style={{
+          marginTop: 20,
+          marginBottom: 80,
+          borderRadius: 10,
         }}
-        maxValue={200}
-        startIndex1={0}
-        textColor1="white"
-        textShiftY={-8}
-        textShiftX={-17}
-        textFontSize={13}
-        thickness={5}
-        curved={true}
-        dataPointsColor="white"
-        startFillColor={"#161a22"}
-        endFillColor={"#6879f8"}
-        areaChart
-        hideRules
-        hideYAxisText
-        hideAxesAndRules
-        yAxisColor="#6879f8"
-        verticalLinesColor="#6879f8"
-        xAxisColor="#6879f8"
-        color="#6879f8"
-      />
+      >
+        <View>
+          {lineData.map((item, index) => (
+            <TouchableOpacity
+              key={index}
+              style={{
+                flexDirection: "row",
+                justifyContent: "space-between",
+                marginBottom: 10,
+                backgroundColor: "#292a3e",
+                paddingVertical: 10,
+                paddingHorizontal: 20,
+                borderRadius: 10,
+              }}
+            >
+              <Text style={{ fontSize: 18, color: "white", marginRight: 10 }}>
+                {item.value}
+              </Text>
+              <Text style={{ fontSize: 18, color: "white" }}>{item.date}</Text>
+            </TouchableOpacity>
+          ))}
+        </View>
+      </View>
     </View>
   );
 }

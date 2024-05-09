@@ -21,6 +21,7 @@ import WorkoutScreen from "./app/screens/routines/WorkoutScreen";
 import EditRoutineScreen from "./app/screens/routines/EditRoutineScreen";
 import ContactSupportScreen from "./app/screens/settings/ContactSupportScreen";
 import FeatureRequestScreen from "./app/screens/settings/FeatureRequestScreen";
+import MeasurementsScreen from "./app/screens/graphs/MeasurementsScreen";
 
 const Stack = createStackNavigator();
 
@@ -98,6 +99,11 @@ export default function App() {
                 <Stack.Screen
                   name="Workout"
                   component={WorkoutScreen}
+                  options={{ headerShown: false }}
+                />
+                <Stack.Screen
+                  name="Measurements"
+                  component={MeasurementsScreen}
                   options={{ headerShown: false }}
                 />
                 <Stack.Screen

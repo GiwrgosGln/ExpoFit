@@ -14,8 +14,6 @@ import WorkoutList from "../../components/Workout/WorkoutList";
 import { useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/core";
 import WeeklyCalendar from "../../components/ui/WeeklyCalendar";
-import WorkoutProgress from "../../components/Workout/WorkoutProgress";
-import { FontAwesome5 } from "@expo/vector-icons";
 import SampleWorkouts from "../../components/Workout/SampleWorkouts";
 
 const Home = () => {
