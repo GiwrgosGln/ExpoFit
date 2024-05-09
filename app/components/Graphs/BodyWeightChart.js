@@ -1,34 +1,36 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { LineChart } from "react-native-gifted-charts";
 import { View, Text, TouchableOpacity } from "react-native";
 
 export default function BodyWeightChart() {
-  const lineData = [
-    { date: "2024-04-01", value: 70, dataPointText: "70" },
-    { date: "2024-04-04", value: 62, dataPointText: "62" },
-    { date: "2024-04-05", value: 72, dataPointText: "72" },
-    { date: "2024-04-06", value: 60, dataPointText: "60" },
-    { date: "2024-04-07", value: 54, dataPointText: "54" },
-    { date: "2024-04-08", value: 85, dataPointText: "85" },
-    { date: "2024-04-09", value: 85, dataPointText: "85" },
-    { date: "2024-04-10", value: 85, dataPointText: "85" },
-    { date: "2024-04-11", value: 85, dataPointText: "85" },
-    { date: "2024-04-12", value: 85, dataPointText: "85" },
-    { date: "2024-04-13", value: 85, dataPointText: "85" },
-    { date: "2024-04-19", value: 60, dataPointText: "60" },
-    { date: "2024-04-20", value: 54.5, dataPointText: "54.5" },
-    { date: "2024-04-21", value: 78, dataPointText: "78" },
-    { date: "2024-04-22", value: 79, dataPointText: "79" },
-    { date: "2024-04-23", value: 80, dataPointText: "80" },
-    { date: "2024-04-24", value: 82, dataPointText: "82" },
-    { date: "2024-04-25", value: 84, dataPointText: "84" },
-    { date: "2024-04-26", value: 110, dataPointText: "110" },
-  ];
+  // State variables to hold measurement data
+  const [measurements, setMeasurements] = useState([]);
+
+  // Fetch data from the endpoint
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          "https://ginfitapi.onrender.com/measurements/GFxKCRB3aBOTaownKuU0BRCYGxa2"
+        );
+        const data = await response.json();
+        setMeasurements(data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   // Function to find the latest date and weight
   const findLatestData = () => {
-    const latestDataPoint = lineData[lineData.length - 1];
-    return { date: latestDataPoint.date, value: latestDataPoint.value };
+    if (measurements.length > 0) {
+      const latestDataPoint = measurements[measurements.length - 1];
+      return { date: latestDataPoint.date, value: latestDataPoint.body_weight };
+    } else {
+      return { date: "", value: "" };
+    }
   };
 
   // State variables to hold selected date and value
@@ -40,7 +42,7 @@ export default function BodyWeightChart() {
     const { date, value } = findLatestData();
     setSelectedDate(date);
     setSelectedValue(value);
-  }, []);
+  }, [measurements]);
 
   return (
     <View>
@@ -58,14 +60,18 @@ export default function BodyWeightChart() {
           <View style={{ alignItems: "flex-start", flexDirection: "column" }}>
             <Text style={{ color: "white", fontSize: 18 }}>Bodyweight</Text>
             <Text style={{ color: "white", fontSize: 18, fontWeight: 200 }}>
-              {selectedDate}
+              {selectedDate.slice(0, 10)}
             </Text>
           </View>
           <Text style={{ color: "white", fontSize: 24 }}>{selectedValue}</Text>
         </View>
         <LineChart
           initialSpacing={0}
-          data={lineData}
+          data={measurements.map((item) => ({
+            date: item.date.slice(0, 10),
+            value: item.body_weight,
+            dataPointText: item.body_weight.toString(),
+          }))}
           width={325}
           height={120}
           spacing={50}
@@ -150,25 +156,30 @@ export default function BodyWeightChart() {
         }}
       >
         <View>
-          {lineData.map((item, index) => (
-            <TouchableOpacity
-              key={index}
-              style={{
-                flexDirection: "row",
-                justifyContent: "space-between",
-                marginBottom: 10,
-                backgroundColor: "#292a3e",
-                paddingVertical: 10,
-                paddingHorizontal: 20,
-                borderRadius: 10,
-              }}
-            >
-              <Text style={{ fontSize: 18, color: "white", marginRight: 10 }}>
-                {item.value}
-              </Text>
-              <Text style={{ fontSize: 18, color: "white" }}>{item.date}</Text>
-            </TouchableOpacity>
-          ))}
+          {measurements
+            .slice()
+            .reverse()
+            .map((item, index) => (
+              <TouchableOpacity
+                key={index}
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  marginBottom: 10,
+                  backgroundColor: "#292a3e",
+                  paddingVertical: 10,
+                  paddingHorizontal: 20,
+                  borderRadius: 10,
+                }}
+              >
+                <Text style={{ fontSize: 18, color: "white", marginRight: 10 }}>
+                  {item.body_weight}
+                </Text>
+                <Text style={{ fontSize: 18, color: "white" }}>
+                  {item.date.slice(0, 10)}
+                </Text>
+              </TouchableOpacity>
+            ))}
         </View>
       </View>
     </View>
