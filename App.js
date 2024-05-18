@@ -22,6 +22,7 @@ import EditRoutineScreen from "./app/screens/routines/EditRoutineScreen";
 import ContactSupportScreen from "./app/screens/settings/ContactSupportScreen";
 import FeatureRequestScreen from "./app/screens/settings/FeatureRequestScreen";
 import MeasurementsScreen from "./app/screens/graphs/MeasurementsScreen";
+import ExercisesGraphsScreen from "./app/screens/graphs/ExercisesGraphsScreen";
 
 const Stack = createStackNavigator();
 
@@ -104,6 +105,11 @@ export default function App() {
                 <Stack.Screen
                   name="Measurements"
                   component={MeasurementsScreen}
+                  options={{ headerShown: false }}
+                />
+                <Stack.Screen
+                  name="ExercisesGraphs"
+                  component={ExercisesGraphsScreen}
                   options={{ headerShown: false }}
                 />
                 <Stack.Screen

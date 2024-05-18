@@ -2,167 +2,184 @@ import React, { useState, useEffect } from "react";
 import { View, Text } from "react-native";
 import { LineChart } from "react-native-gifted-charts";
 import { Picker } from "@react-native-picker/picker";
+import { useSelector } from "react-redux";
+import exerciseData from "../../../data/exercises.json";
 
 const OneRepMaxComponent = () => {
-  const lineData = [
-    { date: "2024-04-01", value: 70, dataPointText: "70" },
-    { date: "2024-04-04", value: 62, dataPointText: "62" },
-    { date: "2024-04-05", value: 72, dataPointText: "72" },
-    { date: "2024-04-06", value: 60, dataPointText: "60" },
-    { date: "2024-04-07", value: 54, dataPointText: "54" },
-    { date: "2024-04-08", value: 85, dataPointText: "85" },
-    { date: "2024-04-09", value: 85, dataPointText: "85" },
-    { date: "2024-04-10", value: 85, dataPointText: "85" },
-    { date: "2024-04-11", value: 85, dataPointText: "85" },
-    { date: "2024-04-12", value: 85, dataPointText: "85" },
-    { date: "2024-04-13", value: 85, dataPointText: "85" },
-    { date: "2024-04-19", value: 60, dataPointText: "60" },
-    { date: "2024-04-20", value: 54.5, dataPointText: "54.5" },
-    { date: "2024-04-21", value: 78, dataPointText: "78" },
-    { date: "2024-04-22", value: 79, dataPointText: "79" },
-    { date: "2024-04-23", value: 80, dataPointText: "80" },
-    { date: "2024-04-24", value: 82, dataPointText: "82" },
-    { date: "2024-04-25", value: 84, dataPointText: "84" },
-    { date: "2024-04-26", value: 110, dataPointText: "110" },
+  const [lineData, setLineData] = useState([]);
+  const [selectedExercise, setSelectedExercise] = useState("Select Exercise");
+  const uid = useSelector((state) => state.auth.uid);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          `https://ginfitapi.onrender.com/one-rep-max?userid=${uid}&exercise=${selectedExercise}`
+        );
+        const data = await response.json();
+        console.log("API Response:", data);
+        if (data && data.length > 0) {
+          // Check if data is not null or empty
+          const formattedData = data.map(({ date, max }) => ({
+            date,
+            value: max,
+            dataPointText: `${max.toFixed(2)}`,
+          }));
+
+          // Sort the formattedData array by date
+          formattedData.sort((a, b) => new Date(a.date) - new Date(b.date));
+
+          console.log("Formatted Data:", formattedData);
+          setLineData(formattedData);
+
+          // Extracting dates from the sorted data to use as x-axis labels
+          const xLabels = formattedData.map(({ date }) => {
+            const [year, month, day] = date.split("-");
+            return (
+              <Text style={{ color: "white", fontSize: 12 }}>
+                {day}/{month}
+              </Text>
+            );
+          });
+
+          // Set the xLabels state
+          setXLabels(xLabels);
+        } else {
+          console.error("Error: Response data is null or empty.");
+          // If data is null or empty, set lineData to an empty array
+          setLineData([]);
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    if (selectedExercise !== "Select Exercise") {
+      fetchData();
+    }
+  }, [selectedExercise, uid]);
+
+  // Define xLabels state
+  const [xLabels, setXLabels] = useState([]);
+
+  const exerciseOptions = [
+    "Select Exercise",
+    ...exerciseData.map((exercise) => exercise.name),
   ];
 
-  const exerciseOptions = ["Incline Row", "Exercise 2", "Exercise 3"];
-
-  // Function to find the latest date and weight
-  const findLatestData = () => {
-    const latestDataPoint = lineData[lineData.length - 1];
-    return { date: latestDataPoint.date, value: latestDataPoint.value };
-  };
-
-  // State variables to hold selected date and value
-  const [selectedDate, setSelectedDate] = useState("");
-  const [selectedValue, setSelectedValue] = useState("");
-  const [selectedExercise, setSelectedExercise] = useState(exerciseOptions[0]);
-
-  // Set the latest date and weight as default values
-  useEffect(() => {
-    const { date, value } = findLatestData();
-    setSelectedDate(date);
-    setSelectedValue(value);
-  }, []);
-
   return (
-    <View style={{ backgroundColor: "#292a3e", width: 350 }}>
-      <View
+    <View>
+      <Picker
+        selectedValue={selectedExercise}
         style={{
-          padding: 10,
-          flexDirection: "row",
-          justifyContent: "space-between",
-          alignItems: "center",
+          color: "white",
+          width: 350,
+          height: 10,
+          backgroundColor: "#292a3e",
+          borderRadius: 10,
         }}
+        onValueChange={(itemValue, itemIndex) => setSelectedExercise(itemValue)}
       >
+        {exerciseOptions.map((exercise, index) => (
+          <Picker.Item
+            key={index}
+            label={exercise}
+            value={exercise}
+            color={index === 0 ? "#7e7e7e" : "black"}
+          />
+        ))}
+      </Picker>
+
+      {selectedExercise === "Select Exercise" ? (
         <View
           style={{
-            alignItems: "flex-start",
-            flexDirection: "column",
-            gap: -10,
+            backgroundColor: "#292a3e",
+            width: 350,
+            height: 250,
+            marginTop: 20,
+            borderRadius: 10,
+            alignItems: "center",
+            justifyContent: "center",
           }}
         >
-          <Picker
-            selectedValue={selectedExercise}
-            style={{ color: "white", width: 200, height: 10 }}
-            onValueChange={(itemValue, itemIndex) =>
-              setSelectedExercise(itemValue)
-            }
+          <Text
+            style={{
+              color: "white",
+              fontSize: 18,
+              textAlign: "center",
+              fontWeight: 100,
+              paddingHorizontal: 50,
+            }}
           >
-            {exerciseOptions.map((exercise, index) => (
-              <Picker.Item
-                key={index}
-                label={exercise}
-                value={exercise}
-                color="blue"
-              />
-            ))}
-          </Picker>
-          <Text style={{ color: "white", fontSize: 18, fontWeight: 200 }}>
-            {selectedDate}
+            Select an Exercise to check your one rep max
           </Text>
         </View>
-        <Text style={{ color: "white", fontSize: 24 }}>{selectedValue}</Text>
-      </View>
-      <LineChart
-        initialSpacing={0}
-        data={lineData}
-        width={325}
-        height={120}
-        spacing={50}
-        scrollToEnd={true}
-        endSpacing={0}
-        pointerConfig={{
-          pointerStripHeight: 160,
-          pointerStripColor: "#6879f8",
-          pointerStripWidth: 1,
-          pointerColor: "#6879f8",
-          radius: 6,
-          pointerLabelWidth: 100,
-          activatePointersOnLongPress: true,
-          autoAdjustPointerLabelPosition: false,
-          pointerLabelComponent: (items) => {
-            setSelectedDate(items[0].date);
-            setSelectedValue(items[0].value);
-            return (
-              <View
-                style={{
-                  height: 90,
-                  width: 100,
-                  justifyContent: "center",
-                  marginTop: -30,
-                  marginLeft: -40,
-                }}
-              >
-                <Text
-                  style={{
-                    color: "white",
-                    fontSize: 14,
-                    marginBottom: 6,
-                    textAlign: "center",
-                  }}
-                >
-                  {items[0].date}
-                </Text>
-                <View
-                  style={{
-                    paddingHorizontal: 14,
-                    paddingVertical: 6,
-                    borderRadius: 16,
-                    backgroundColor: "white",
-                  }}
-                >
-                  <Text style={{ fontWeight: "bold", textAlign: "center" }}>
-                    {"$" + items[0].value + ".0"}
-                  </Text>
-                </View>
-              </View>
-            );
-          },
-        }}
-        maxValue={200}
-        startIndex1={0}
-        textColor1="white"
-        textShiftY={-8}
-        textShiftX={-17}
-        textFontSize={13}
-        thickness={5}
-        curved={true}
-        dataPointsColor="white"
-        isAnimated
-        animationDuration={1600}
-        startFillColor={"#161a22"}
-        endFillColor={"#6879f8"}
-        areaChart
-        hideRules
-        hideYAxisText
-        hideAxesAndRules
-        yAxisColor="#6879f8"
-        verticalLinesColor="#6879f8"
-        xAxisColor="#6879f8"
-        color="#6879f8"
-      />
+      ) : lineData.length === 0 ? (
+        <View
+          style={{
+            backgroundColor: "#292a3e",
+            width: 350,
+            height: 250,
+            marginTop: 20,
+            borderRadius: 10,
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <Text
+            style={{
+              color: "white",
+              fontSize: 18,
+              textAlign: "center",
+              fontWeight: 100,
+              paddingHorizontal: 50,
+            }}
+          >
+            No data for this exercise
+          </Text>
+        </View>
+      ) : (
+        <View
+          style={{
+            backgroundColor: "#292a3e",
+            width: 350,
+            height: 250,
+            marginTop: 20,
+            borderRadius: 10,
+          }}
+        >
+          <LineChart
+            data={lineData}
+            width={325}
+            height={120}
+            spacing={50}
+            scrollToEnd={true}
+            initialSpacing={30}
+            endSpacing={30}
+            xAxisLabelTexts={xLabels}
+            maxValue={400}
+            startIndex1={0}
+            textColor1="white"
+            textShiftY={-8}
+            textShiftX={-17}
+            textFontSize={13}
+            thickness={5}
+            curved={true}
+            dataPointsColor="white"
+            isAnimated
+            animationDuration={1600}
+            startFillColor={"#161a22"}
+            endFillColor={"#6879f8"}
+            areaChart
+            hideRules
+            hideYAxisText
+            hideAxesAndRules
+            color="#6879f8"
+            xAxisLabelContainerStyle={(color = "red")}
+            rotateLabel
+          />
+        </View>
+      )}
     </View>
   );
 };
