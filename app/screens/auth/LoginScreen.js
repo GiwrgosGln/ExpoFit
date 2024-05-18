@@ -20,8 +20,6 @@ const LoginScreen = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
-  const image = require("../../../assets/wallpaper3.jpg");
-
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
