@@ -1,0 +1,237 @@
+{
+  "workouts": [
+    {
+      "title": "Upper Body",
+      "exercises": [
+        {
+          "_id": "657fe9e1c69031a968f80f61",
+          "id": "0007",
+          "name": "Bench Press",
+          "target": "Pectorals",
+          "bodypart": "Chest",
+          "equipment": "Barbell",
+          "gifurl": "https://fitness-app-glns.s3.eu-north-1.amazonaws.com/barbell/bench-press.webp",
+          "secondarymuscles": ["Triceps", "Shoulders"],
+          "instructions": [
+            "Lie flat on a bench with your feet flat on the ground and your back pressed against the bench.",
+            "Grasp the barbell with an overhand grip slightly wider than shoulder-width apart.",
+            "Lift the barbell off the rack and hold it directly above your chest with your arms fully extended.",
+            "Lower the barbell slowly towards your chest, keeping your elbows tucked in.",
+            "Pause for a moment when the barbell touches your chest.",
+            "Push the barbell back up to the starting position by extending your arms.",
+            "Repeat for the desired number of repetitions."
+          ]
+        },
+        {
+          "_id": "657fe9e1c69031a968f80f69",
+          "id": "0012",
+          "name": "Biceps Curl",
+          "target": "Biceps",
+          "bodypart": "Upper Arms",
+          "equipment": "Barbell",
+          "gifurl": "https://fitness-app-glns.s3.eu-north-1.amazonaws.com/barbell/bicep-curls.webp",
+          "secondarymuscles": ["Forearms"],
+          "instructions": [
+            "Stand up straight with your feet shoulder-width apart and hold a barbell with an underhand grip, palms facing forward.",
+            "Keep your elbows close to your torso and exhale as you curl the weights while contracting your biceps.",
+            "Continue to raise the bar until your biceps are fully contracted and the bar is at shoulder level.",
+            "Hold the contracted position for a brief pause as you squeeze your biceps.",
+            "Inhale as you slowly begin to lower the bar back to the starting position.",
+            "Repeat for the desired number of repetitions."
+          ]
+        },
+        {
+          "_id": "657fe9e3c69031a968f80f81",
+          "id": "0018",
+          "name": "Incline Bench Press",
+          "target": "Pectorals",
+          "bodypart": "Chest",
+          "equipment": "Barbell",
+          "gifurl": "https://fitness-app-glns.s3.eu-north-1.amazonaws.com/barbell/incline-press.webp",
+          "secondarymuscles": ["Shoulders", "Triceps"],
+          "instructions": [
+            "Set up an incline bench at a 45-degree angle.",
+            "Lie down on the bench with your feet flat on the ground.",
+            "Grasp the barbell with an overhand grip, slightly wider than shoulder-width apart.",
+            "Unrack the barbell and lower it slowly towards your chest, keeping your elbows at a 45-degree angle.",
+            "Pause for a moment at the bottom, then push the barbell back up to the starting position.",
+            "Repeat for the desired number of repetitions."
+          ]
+        },
+        {
+          "_id": "657fe9e2c69031a968f80f74",
+          "id": "0016",
+          "name": "Front Raise",
+          "target": "Delts",
+          "bodypart": "Shoulders",
+          "equipment": "Barbell",
+          "gifurl": "https://fitness-app-glns.s3.eu-north-1.amazonaws.com/barbell/front-raise.webp",
+          "secondarymuscles": ["Biceps", "Triceps"],
+          "instructions": [
+            "Stand with your feet shoulder-width apart and hold a barbell in front of your thighs with an overhand grip.",
+            "Keep your arms straight and lift the barbell forward and upward until it reaches shoulder level.",
+            "Pause for a moment at the top, then slowly lower the barbell back down to the starting position.",
+            "Repeat for the desired number of repetitions."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Lower Body",
+      "exercises": [
+        {
+          "_id": "657fe9e2c69031a968f80f77",
+          "id": "0022",
+          "name": "Squat",
+          "target": "Glutes",
+          "bodypart": "Upper Legs",
+          "equipment": "Barbell",
+          "gifurl": "https://fitness-app-glns.s3.eu-north-1.amazonaws.com/barbell/squat.webp",
+          "secondarymuscles": ["Quadriceps", "Hamstrings", "Calves", "Core"],
+          "instructions": [
+            "Stand with your feet shoulder-width apart, toes slightly turned out.",
+            "Hold the barbell across your upper back, resting it on your traps or rear delts.",
+            "Engage your core and keep your chest up as you begin to lower your body down.",
+            "Bend at the knees and hips, pushing your hips back and down as if sitting into a chair.",
+            "Lower yourself until your thighs are parallel to the ground or slightly below.",
+            "Keep your knees in line with your toes and your weight in your heels.",
+            "Drive through your heels to stand back up, extending your hips and knees.",
+            "Repeat for the desired number of repetitions."
+          ]
+        },
+        {
+          "_id": "657fe9e1c69031a968f80f67",
+          "id": "0010",
+          "name": "Front Squat Clean Grip",
+          "target": "Glutes",
+          "bodypart": "Upper Legs",
+          "equipment": "Barbell",
+          "gifurl": "https://fitness-app-glns.s3.eu-north-1.amazonaws.com/barbell/front-squat-clean-grip.webp",
+          "secondarymuscles": ["Quadriceps", "Hamstrings", "Calves", "Core"],
+          "instructions": [
+            "Start by standing with your feet shoulder-width apart and the barbell resting on your upper chest, with your elbows pointing forward.",
+            "Lower your body by bending your knees and pushing your hips back, as if you are sitting back into a chair.",
+            "Keep your chest up and your back straight as you lower down, making sure your knees do not go past your toes.",
+            "Continue lowering until your thighs are parallel to the ground, or as low as you can comfortably go.",
+            "Pause for a moment at the bottom, then push through your heels to stand back up, extending your hips and knees.",
+            "Repeat for the desired number of repetitions."
+          ]
+        },
+        {
+          "_id": "657fe9e3c69031a968f80f8b",
+          "id": "0020",
+          "name": "Lunges",
+          "target": "Glutes",
+          "bodypart": "Upper Legs",
+          "equipment": "Barbell",
+          "gifurl": "https://fitness-app-glns.s3.eu-north-1.amazonaws.com/barbell/lunge.webp",
+          "secondarymuscles": ["Quadriceps", "Hamstrings", "Calves"],
+          "instructions": [
+            "Start by standing with your feet shoulder-width apart and a barbell resting on your upper back.",
+            "Take a step forward with your right foot, keeping your torso upright.",
+            "Lower your body by bending your right knee until your thigh is parallel to the ground.",
+            "Push through your right heel to return to the starting position.",
+            "Repeat with your left leg, alternating legs for the desired number of repetitions."
+          ]
+        },
+        {
+          "_id": "657fe9e1c69031a968f80f6a",
+          "id": "0013",
+          "name": "Deadlift",
+          "target": "Glutes",
+          "bodypart": "Upper Legs",
+          "equipment": "Barbell",
+          "gifurl": "https://fitness-app-glns.s3.eu-north-1.amazonaws.com/barbell/deadlift.webp",
+          "secondarymuscles": ["Hamstrings", "Lower Back"],
+          "instructions": [
+            "Stand with your feet shoulder-width apart and the barbell on the ground in front of you.",
+            "Bend your knees and hinge at the hips to lower your torso and grip the barbell with an overhand grip, hands slightly wider than shoulder-width apart.",
+            "Keep your back straight and chest lifted as you drive through your heels to lift the barbell off the ground, extending your hips and knees.",
+            "As you stand up straight, squeeze your glutes and keep your core engaged.",
+            "Lower the barbell back down to the ground by bending at the hips and knees, keeping your back straight.",
+            "Repeat for the desired number of repetitions."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Full Body",
+      "exercises": [
+        {
+          "_id": "657fe9e1c69031a968f80f66",
+          "id": "0009",
+          "name": "Clean and Press",
+          "target": "Quads",
+          "bodypart": "Upper Legs",
+          "equipment": "Barbell",
+          "gifurl": "https://fitness-app-glns.s3.eu-north-1.amazonaws.com/barbell/clean-and-press.webp",
+          "secondarymuscles": ["Hamstrings", "Glutes", "Shoulders", "Triceps"],
+          "instructions": [
+            "Stand with your feet shoulder-width apart and the barbell on the floor in front of you.",
+            "Bend your knees and hinge at the hips to lower down and grip the barbell with an overhand grip, hands slightly wider than shoulder-width apart.",
+            "Drive through your heels and extend your hips and knees to lift the barbell off the floor, keeping it close to your body.",
+            "As the barbell reaches your thighs, explosively extend your hips, shrug your shoulders, and pull the barbell up towards your chest.",
+            "As the barbell reaches chest height, quickly drop under it and catch it at shoulder level, with your elbows pointing forward and your palms facing up.",
+            "From the catch position, press the barbell overhead by extending your arms and pushing the barbell straight up.",
+            "Lower the barbell back down to the starting position and repeat for the desired number of repetitions."
+          ]
+        },
+        {
+          "_id": "657fe9e3c69031a968f80f84",
+          "id": "0019",
+          "name": "Incline Row",
+          "target": "Upper Back",
+          "bodypart": "Back",
+          "equipment": "Barbell",
+          "gifurl": "https://fitness-app-glns.s3.eu-north-1.amazonaws.com/barbell/incline-row.webp",
+          "secondarymuscles": ["Biceps", "Forearms"],
+          "instructions": [
+            "Set up an incline bench at a 45-degree angle.",
+            "Lie face down on the bench with your chest against the pad and your feet flat on the ground.",
+            "Grasp the barbell with an overhand grip, slightly wider than shoulder-width apart.",
+            "Keep your back straight and your core engaged.",
+            "Pull the barbell towards your chest, squeezing your shoulder blades together.",
+            "Pause for a moment at the top, then slowly lower the barbell back to the starting position.",
+            "Repeat for the desired number of repetitions."
+          ]
+        },
+        {
+          "_id": "657fe9e4c69031a968f80f8f",
+          "id": "0021",
+          "name": "Lying Extension",
+          "target": "Triceps",
+          "bodypart": "Upper Arms",
+          "equipment": "Barbell",
+          "gifurl": "https://fitness-app-glns.s3.eu-north-1.amazonaws.com/barbell/lying-extension.webp",
+          "secondarymuscles": ["Shoulders"],
+          "instructions": [
+            "Lie flat on a bench with your feet flat on the ground and your head at the end of the bench.",
+            "Hold the barbell with an overhand grip, hands shoulder-width apart, and extend your arms straight up over your chest.",
+            "Keeping your upper arms stationary, slowly lower the barbell towards your forehead by bending your elbows.",
+            "Pause for a moment, then extend your arms back up to the starting position.",
+            "Repeat for the desired number of repetitions."
+          ]
+        },
+        {
+          "_id": "657fe9dcc69031a968f80f19",
+          "id": "0005",
+          "name": "Assisted Pull Up",
+          "target": "Lats",
+          "bodypart": "Back",
+          "equipment": "Leverage Machine",
+          "gifurl": "https://fitness-app-glns.s3.eu-north-1.amazonaws.com/leverage-machine/assisted-pull-up.webp",
+          "secondarymuscles": ["Biceps", "Forearms"],
+          "instructions": [
+            "Adjust the machine to your desired weight and height settings.",
+            "Grasp the handles with an overhand grip, slightly wider than shoulder-width apart.",
+            "Hang with your arms fully extended and your feet off the ground.",
+            "Engage your back muscles and pull your body up towards the handles, keeping your elbows close to your body.",
+            "Continue pulling until your chin is above the handles.",
+            "Pause for a moment at the top, then slowly lower your body back down to the starting position.",
+            "Repeat for the desired number of repetitions."
+          ]
+        }
+      ]
+    }
+  ]
+}
