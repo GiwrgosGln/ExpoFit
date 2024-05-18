@@ -6,7 +6,7 @@ import BottomSheet, {
 import { StyleSheet, Text, View, ActivityIndicator } from "react-native";
 import { Image } from "expo-image";
 
-const ExerciseSheet = ({ exercise }) => {
+const ExerciseSheet = ({ exercise, onClose }) => {
   const sheetRef = useRef(null);
   const [loading, setLoading] = useState(true);
 
@@ -31,6 +31,7 @@ const ExerciseSheet = ({ exercise }) => {
       index={0}
       snapPoints={["70%", "90%"]}
       enablePanDownToClose={true}
+      onClose={() => onClose()}
       onChange={handleSheetChange}
       backdropComponent={(props) => (
         <BottomSheetBackdrop
