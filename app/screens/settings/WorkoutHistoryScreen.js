@@ -2,14 +2,14 @@ import { useNavigation } from "@react-navigation/native";
 import { View, Text, TouchableOpacity } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import { StatusBar } from "expo-status-bar";
+import WorkoutHistory from "../../components/Workout/WorkoutHistory";
 
-export default function NotificationsScreen() {
+export default function WorkoutHistoryScreen() {
   const navigation = useNavigation();
   return (
     <View
       style={{
         flex: 1,
-        justifyContent: "space-between",
         backgroundColor: "#161a22",
       }}
     >
@@ -25,8 +25,11 @@ export default function NotificationsScreen() {
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <AntDesign name="back" size={24} color="white" />
         </TouchableOpacity>
-        <Text style={{ color: "white", fontSize: 20 }}>Notifications</Text>
+        <Text style={{ color: "white", fontSize: 20 }}>Workout History</Text>
         <View style={{ width: 24 }}></View>
+      </View>
+      <View style={{ marginTop: 20 }}>
+        <WorkoutHistory />
       </View>
     </View>
   );

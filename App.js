@@ -12,13 +12,13 @@ import AdditionalInfoScreen from "./app/screens/auth/AdditionalInfoScreen";
 import SelectExercisesScreen from "./app/screens/exercises/SelectExercisesScreen";
 import CreateRoutineScreen from "./app/screens/routines/CreateRoutineScreen";
 import AccountScreen from "./app/screens/settings/AccountScreen";
-import NotificationsScreen from "./app/screens/settings/NotificationsScreen";
-import FrequentlyAskedQuestionsScreen from "./app/screens/settings/FrequentlyAskedQuestionsScreen";
+import MyRoutinesScreen from "./app/screens/settings/MyRoutinesScreen";
 import { Provider } from "react-redux";
 import store from "./app/redux/store/store";
 import WorkoutDetailsScreen from "./app/screens/routines/WorkoutDetailsScreen";
 import WorkoutScreen from "./app/screens/routines/WorkoutScreen";
 import EditRoutineScreen from "./app/screens/routines/EditRoutineScreen";
+import WorkoutHistoryScreen from "./app/screens/settings/WorkoutHistoryScreen";
 import ContactSupportScreen from "./app/screens/settings/ContactSupportScreen";
 import FeatureRequestScreen from "./app/screens/settings/FeatureRequestScreen";
 import MeasurementsScreen from "./app/screens/graphs/MeasurementsScreen";
@@ -118,13 +118,13 @@ export default function App() {
                   options={{ headerShown: false }}
                 />
                 <Stack.Screen
-                  name="Notifications"
-                  component={NotificationsScreen}
+                  name="WorkoutHistory"
+                  component={WorkoutHistoryScreen}
                   options={{ headerShown: false }}
                 />
                 <Stack.Screen
-                  name="FrequentlyAskedQuestions"
-                  component={FrequentlyAskedQuestionsScreen}
+                  name="MyRoutines"
+                  component={MyRoutinesScreen}
                   options={{ headerShown: false }}
                 />
                 <Stack.Screen

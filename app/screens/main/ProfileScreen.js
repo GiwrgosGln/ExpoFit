@@ -53,7 +53,7 @@ export default function ProfileScreen() {
           {username}
         </Text>
       </View>
-      <View style={{ paddingHorizontal: 28, marginTop: 40 }}>
+      <View style={{ paddingHorizontal: 28, marginTop: 80 }}>
         <YGroup separator={<Separator />}>
           <YGroup.Item>
             <ListItem
@@ -65,40 +65,35 @@ export default function ProfileScreen() {
           </YGroup.Item>
           <YGroup.Item>
             <ListItem
+              title="Routines"
+              subTitle="Manage your routines"
+              backgroundColor={"#292a3e"}
+              onPress={() => navigation.navigate("MyRoutines")}
+            />
+          </YGroup.Item>
+          <YGroup.Item>
+            <ListItem
+              title="Calendar"
+              subTitle="Check your workout history"
+              backgroundColor={"#292a3e"}
+              onPress={() => navigation.navigate("WorkoutHistory")}
+            />
+          </YGroup.Item>
+          <YGroup.Item>
+            <ListItem
               title="Feature Request"
               subTitle="Submit a feature idea"
               backgroundColor={"#292a3e"}
               onPress={() => navigation.navigate("FeatureRequest")}
             />
           </YGroup.Item>
-          <YGroup.Item>
-            <ListItem
-              title="FAQ"
-              subTitle="Frequently Asked Questions"
-              backgroundColor={"#292a3e"}
-              onPress={() => navigation.navigate("FrequentlyAskedQuestions")}
-            />
-          </YGroup.Item>
+
           <YGroup.Item>
             <ListItem
               title="Contact Support"
               subTitle="Need assistance? Contact us"
               backgroundColor={"#292a3e"}
               onPress={() => navigation.navigate("ContactSupport")}
-            />
-          </YGroup.Item>
-          <YGroup.Item>
-            <ListItem
-              title="Play Store"
-              subTitle="Review ExpoFit on the Play Store"
-              backgroundColor={"#292a3e"}
-            />
-          </YGroup.Item>
-          <YGroup.Item>
-            <ListItem
-              title="Terms and Conditions"
-              subTitle="Read our terms of service"
-              backgroundColor={"#292a3e"}
             />
           </YGroup.Item>
         </YGroup>
