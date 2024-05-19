@@ -1,8 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/core";
-import { View, Text, TouchableOpacity, Alert, Modal } from "react-native";
-import { Input } from "tamagui";
-import { AntDesign, FontAwesome } from "@expo/vector-icons";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Alert,
+  Modal,
+  TextInput,
+} from "react-native";
+import {
+  AntDesign,
+  FontAwesome,
+  Ionicons,
+  MaterialCommunityIcons,
+} from "@expo/vector-icons";
 import { StatusBar } from "expo-status-bar";
 import { useSelector, useDispatch } from "react-redux";
 import { setUser } from "../../redux/user/authSlice";
@@ -68,6 +79,13 @@ export default function AccountScreen() {
     }
   };
 
+  const getGenderButtonStyle = (selectedGender) => ({
+    backgroundColor: gender === selectedGender ? "#6879f8" : "#292a3e",
+    paddingHorizontal: 30,
+    paddingVertical: 10,
+    borderRadius: 10,
+  });
+
   return (
     <View style={{ flex: 1, backgroundColor: "#161a22" }}>
       <StatusBar backgroundColor="#161a22" style="light" />
@@ -94,63 +112,74 @@ export default function AccountScreen() {
           justifyContent: "center",
         }}
       >
-        <View>
-          <Text
-            style={{
-              color: "white",
-              marginBottom: 5,
-              alignSelf: "center",
-              fontSize: 16,
-            }}
-          >
-            Username
-          </Text>
-          <Input
+        <View
+          style={{
+            flexDirection: "row",
+            width: "100%",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: 20,
+          }}
+        >
+          <Ionicons
+            name="person"
+            size={30}
+            color="#6879f8"
+            style={{ marginTop: 10 }}
+          />
+          <TextInput
             placeholder="Username"
-            style={{ borderColor: "#6879f8" }}
+            placeholderTextColor={"lightgray"}
             value={username}
             onChangeText={(text) => setUsername(text)}
+            style={{
+              borderBottomWidth: 1,
+              borderBottomColor: "gray",
+              height: 50,
+              width: "60%",
+              color: "white",
+            }}
           />
         </View>
-        <View style={{ marginTop: 20 }}>
-          <Text
-            style={{
-              color: "white",
-              marginBottom: 5,
-              alignSelf: "center",
-              fontSize: 16,
-            }}
-          >
-            Gender
-          </Text>
-
+        <View
+          style={{
+            flexDirection: "row",
+            width: "100%",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: 15,
+            marginTop: 40,
+          }}
+        >
+          <MaterialCommunityIcons
+            name="gender-male-female"
+            size={40}
+            color="#6879f8"
+          />
           <TouchableOpacity
-            onPress={() => setGenderModalVisible(true)}
-            style={{
-              borderColor: "#6879f8",
-              borderWidth: 1,
-              padding: 10,
-              borderRadius: 5,
-              flexDirection: "row",
-              justifyContent: "space-between",
-              alignItems: "center",
-            }}
+            style={getGenderButtonStyle("Male")}
+            onPress={() => setGender("Male")}
           >
-            <Text style={{ color: "white" }}>{gender}</Text>
-            <AntDesign name="caretdown" size={15} color="white" />
+            <Text style={{ fontSize: 16, color: "white" }}>Male</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={getGenderButtonStyle("Female")}
+            onPress={() => setGender("Female")}
+          >
+            <Text style={{ fontSize: 16, color: "white" }}>Female</Text>
           </TouchableOpacity>
         </View>
-        <View style={{ marginTop: 20 }}>
-          <Text
-            style={{
-              color: "white",
-              marginBottom: 5,
-              alignSelf: "center",
-              fontSize: 16,
-            }}
-          >
-            Date of Birth
-          </Text>
+        <View
+          style={{
+            flexDirection: "row",
+            width: "100%",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: 20,
+            marginTop: 40,
+          }}
+        >
+          <FontAwesome name="birthday-cake" size={30} color="#6879f8" />
           <TouchableOpacity
             onPress={() => setDatePickerVisible(true)}
             style={{
@@ -161,6 +190,7 @@ export default function AccountScreen() {
               flexDirection: "row",
               justifyContent: "space-between",
               alignItems: "center",
+              width: "62%",
             }}
           >
             <Text style={{ color: "white" }}>
@@ -170,61 +200,6 @@ export default function AccountScreen() {
           </TouchableOpacity>
         </View>
       </View>
-
-      {/* Gender Modal */}
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={genderModalVisible}
-        onRequestClose={() => {
-          setGenderModalVisible(!genderModalVisible);
-        }}
-      >
-        <View
-          style={{
-            flex: 1,
-            justifyContent: "center",
-            alignItems: "center",
-            backgroundColor: "rgba(0, 0, 0, 0.5)",
-          }}
-        >
-          <View
-            style={{
-              backgroundColor: "#292a3e",
-              padding: 20,
-              borderRadius: 10,
-              gap: 5,
-              paddingHorizontal: 80,
-            }}
-          >
-            <TouchableOpacity
-              onPress={() => {
-                setGender("Male");
-                setGenderModalVisible(false);
-              }}
-            >
-              <Text style={{ fontSize: 20, color: "white" }}>Male</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => {
-                setGender("Female");
-                setGenderModalVisible(false);
-              }}
-            >
-              <Text style={{ fontSize: 20, color: "white" }}>Female</Text>
-            </TouchableOpacity>
-            {/* Close button */}
-            <TouchableOpacity
-              onPress={() => setGenderModalVisible(false)}
-              style={{
-                marginTop: 40,
-              }}
-            >
-              <Text style={{ fontSize: 20, color: "white" }}>Close</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </Modal>
 
       {/* Date Picker Modal */}
       <Modal
@@ -253,14 +228,6 @@ export default function AccountScreen() {
               setDatePickerVisible(false);
             }}
           />
-          <TouchableOpacity
-            onPress={() => setDatePickerVisible(false)}
-            style={{
-              marginTop: 10,
-            }}
-          >
-            <Text style={{ fontSize: 20, color: "white" }}>Close</Text>
-          </TouchableOpacity>
         </View>
       </Modal>
     </View>
