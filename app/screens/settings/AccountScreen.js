@@ -194,6 +194,7 @@ export default function AccountScreen() {
               padding: 20,
               borderRadius: 10,
               gap: 5,
+              paddingHorizontal: 80,
             }}
           >
             <TouchableOpacity
@@ -216,7 +217,7 @@ export default function AccountScreen() {
             <TouchableOpacity
               onPress={() => setGenderModalVisible(false)}
               style={{
-                marginTop: 10,
+                marginTop: 40,
               }}
             >
               <Text style={{ fontSize: 20, color: "white" }}>Close</Text>

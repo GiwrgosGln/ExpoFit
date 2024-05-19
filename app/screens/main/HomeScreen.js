@@ -22,6 +22,7 @@ const Home = () => {
   );
   const navigation = useNavigation();
   const [selectedDate, setSelectedDate] = useState(new Date());
+  const icon = require("../../../assets/icon.png");
 
   useEffect(() => {
     console.log("Date of Birth from Redux:", dateofbirth);
@@ -70,10 +71,7 @@ const Home = () => {
                 borderColor: "#6879f8",
               }}
             >
-              <Avatar.Image
-                accessibilityLabel="Nate Wienert"
-                src="https://i.pinimg.com/280x280_RS/c6/49/70/c64970ce68687694d897decdba92ea85.jpg"
-              />
+              <Avatar.Image accessibilityLabel="ExpoFit" src={icon} />
             </Avatar>
           </TouchableOpacity>
         </View>

@@ -7,18 +7,23 @@ import {
   ImageBackground,
   Image,
   TouchableOpacity,
+  TextInput,
 } from "react-native";
-import { Input, Button, Text } from "tamagui";
+import { Button, Text } from "tamagui";
 import { useSelector, useDispatch } from "react-redux";
 import { StatusBar } from "expo-status-bar";
 import { auth } from "../../../firebase";
 import { setUser } from "../../redux/user/authSlice";
+import { MaterialIcons, Entypo } from "@expo/vector-icons";
 
 const LoginScreen = () => {
-  const [email, setEmail] = useState("gergegl1999@gmail.com");
-  const [password, setPassword] = useState("30031963Gg!");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const navigation = useNavigation();
   const dispatch = useDispatch();
+
+  const waves = require("../../../assets/images/waves.png");
+  const logo = require("../../../assets/icon.png");
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -75,100 +80,109 @@ const LoginScreen = () => {
   };
 
   return (
-    <View style={{ flex: 1, backgroundColor: "#6879f8" }}>
-      <StatusBar backgroundColor="#6879f8" color="white" style="light" />
-      <View style={{ flex: 1 }}>
-        <KeyboardAvoidingView style={styles.container} behavior="height">
-          <View>
-            <Text style={{ fontSize: 40, color: "white" }}>
-              Workout Tracker
-            </Text>
-          </View>
-          <View
+    <View
+      style={{
+        flex: 1,
+        backgroundColor: "#292a3e",
+        alignItems: "center",
+        justifyContent: "space-between",
+      }}
+    >
+      <StatusBar backgroundColor="#292a3e" color="white" style="light" />
+      <View style={{ marginTop: 100 }}>
+        <Image source={logo} style={{ height: 230, width: 300 }} />
+      </View>
+      <View
+        style={{ marginTop: 20, width: "100%", gap: 20, alignItems: "center" }}
+      >
+        <View
+          style={{
+            flexDirection: "row",
+            width: "100%",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: 20,
+          }}
+        >
+          <MaterialIcons
+            name="email"
+            size={30}
+            color="#6879f8"
+            style={{ marginTop: 10 }}
+          />
+          <TextInput
+            placeholder="Email"
+            placeholderTextColor={"lightgray"}
+            value={email}
+            onChangeText={(text) => setEmail(text)}
             style={{
-              height: "75%",
-              width: "100%",
-              borderTopLeftRadius: 100,
-              overflow: "hidden",
-              justifyContent: "center",
-              borderColor: "#6879f8",
-              backgroundColor: "#161a22",
+              borderBottomWidth: 1,
+              borderBottomColor: "gray",
+              height: 50,
+              width: "60%",
+              color: "white",
             }}
+          />
+        </View>
+        <View
+          style={{
+            flexDirection: "row",
+            width: "100%",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: 20,
+          }}
+        >
+          <Entypo
+            name="key"
+            size={30}
+            color="#6879f8"
+            style={{ marginTop: 10 }}
+          />
+          <TextInput
+            placeholder="Password"
+            placeholderTextColor={"lightgray"}
+            secureTextEntry
+            value={password}
+            onChangeText={(text) => setPassword(text)}
+            style={{
+              borderBottomWidth: 1,
+              borderBottomColor: "gray",
+              height: 50,
+              width: "60%",
+              color: "white",
+            }}
+          />
+        </View>
+        <View style={{ marginTop: 80, width: "100%", alignItems: "center" }}>
+          <Button
+            onPress={handleLogin}
+            width={"75%"}
+            backgroundColor={"#6879f8"}
+            color={"white"}
           >
-            <View style={{ width: "100%", gap: 52 }}>
-              <View
+            Login
+          </Button>
+          <View style={{ flexDirection: "row", gap: 5, marginTop: 10 }}>
+            <Text style={{ color: "white", fontSize: 16 }}>
+              Don't have an account?
+            </Text>
+            <TouchableOpacity onPress={() => navigation.navigate("Register")}>
+              <Text
                 style={{
-                  width: "100%",
-                  alignItems: "center",
-                  gap: 10,
+                  color: "#6879f8",
+                  fontWeight: 600,
+                  fontSize: 16,
                 }}
               >
-                <Input
-                  placeholder="Email"
-                  value={email}
-                  onChangeText={(text) => setEmail(text)}
-                  width={"80%"}
-                  backgroundColor={"black"}
-                  color={"white"}
-                  borderColor={"#6879f8"}
-                />
-                <Input
-                  placeholder="Password"
-                  value={password}
-                  onChangeText={(text) => setPassword(text)}
-                  secureTextEntry
-                  width={"80%"}
-                  backgroundColor={"black"}
-                  color={"white"}
-                  borderColor={"#6879f8"}
-                />
-              </View>
-
-              <View
-                style={{
-                  width: "100%",
-                  alignItems: "center",
-                  gap: 10,
-                }}
-              >
-                <Button
-                  onPress={handleLogin}
-                  width={"80%"}
-                  backgroundColor={"#6879f8"}
-                  color={"white"}
-                >
-                  Login
-                </Button>
-                <View style={{ flexDirection: "row", gap: 5 }}>
-                  <Text style={{ color: "white", fontSize: 16 }}>
-                    Don't have an account?
-                  </Text>
-                  <TouchableOpacity
-                    onPress={() => navigation.navigate("Register")}
-                  >
-                    <Text
-                      style={{
-                        color: "#6879f8",
-                        fontWeight: 600,
-                        fontSize: 16,
-                      }}
-                    >
-                      Sign Up
-                    </Text>
-                  </TouchableOpacity>
-                </View>
-                {/* <Button
-                  onPress={handleSignUp}
-                  width={"80%"}
-                  backgroundColor={"#6879f8"}
-                  color={"white"}
-                >
-                  Register
-                </Button> */}
-              </View>
-            </View>
+                Sign Up
+              </Text>
+            </TouchableOpacity>
           </View>
-        </KeyboardAvoidingView>
+        </View>
+      </View>
+      <View style={{ marginTop: 30 }}>
+        <Image source={waves} />
       </View>
     </View>
   );

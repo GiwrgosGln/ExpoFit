@@ -5,7 +5,7 @@ export default function AvatarIcon() {
 
   return (
     <Avatar circular size="$12" style={{ alignSelf: "center" }}>
-      <Avatar.Image accessibilityLabel="Nate Wienert" src={icon} />
+      <Avatar.Image accessibilityLabel="ExpoFit" src={icon} />
     </Avatar>
   );
 }
