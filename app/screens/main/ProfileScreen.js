@@ -53,7 +53,7 @@ export default function ProfileScreen() {
           {username}
         </Text>
       </View>
-      <View style={{ paddingHorizontal: 28, marginTop: 80 }}>
+      <View style={{ paddingHorizontal: 28, marginTop: 60 }}>
         <YGroup separator={<Separator />}>
           <YGroup.Item>
             <ListItem
@@ -61,6 +61,14 @@ export default function ProfileScreen() {
               subTitle="Edit your account"
               backgroundColor={"#292a3e"}
               onPress={() => navigation.navigate("Account")}
+            />
+          </YGroup.Item>
+          <YGroup.Item>
+            <ListItem
+              title="Bodyweight"
+              subTitle="Track your bodyweight"
+              backgroundColor={"#292a3e"}
+              onPress={() => navigation.navigate("Bodyweight")}
             />
           </YGroup.Item>
           <YGroup.Item>
@@ -73,7 +81,7 @@ export default function ProfileScreen() {
           </YGroup.Item>
           <YGroup.Item>
             <ListItem
-              title="Calendar"
+              title="Workouts"
               subTitle="Check your workout history"
               backgroundColor={"#292a3e"}
               onPress={() => navigation.navigate("WorkoutHistory")}

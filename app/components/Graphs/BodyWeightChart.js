@@ -20,9 +20,10 @@ export default function BodyWeightChart({ refresh }) {
           `https://ginfitapi.onrender.com/measurements/${uid}`
         );
         const data = await response.json();
-        setMeasurements(data);
+        setMeasurements(data || []);
       } catch (error) {
         console.error("Error fetching data:", error);
+        setMeasurements([]);
       }
     };
 
@@ -88,16 +89,12 @@ export default function BodyWeightChart({ refresh }) {
             alignItems: "center",
           }}
         >
-          <View style={{ alignItems: "flex-start", flexDirection: "column" }}>
-            <Text style={{ color: "white", fontSize: 18 }}>Bodyweight</Text>
-            <Text style={{ color: "white", fontSize: 18, fontWeight: 200 }}>
-              {selectedDate.slice(0, 10)}
-            </Text>
-          </View>
+          <Text style={{ color: "white", fontSize: 18, fontWeight: 200 }}>
+            {selectedDate.slice(0, 10)}
+          </Text>
           <Text style={{ color: "white", fontSize: 24 }}>{selectedValue}</Text>
         </View>
         <LineChart
-          initialSpacing={0}
           data={measurements.map((item) => ({
             date: item.date.slice(0, 10),
             value: item.body_weight,
@@ -107,7 +104,8 @@ export default function BodyWeightChart({ refresh }) {
           height={120}
           spacing={50}
           scrollToEnd={true}
-          endSpacing={0}
+          initialSpacing={30}
+          endSpacing={30}
           pointerConfig={{
             pointerStripHeight: 160,
             pointerStripColor: "#6879f8",
@@ -188,31 +186,39 @@ export default function BodyWeightChart({ refresh }) {
         }}
       >
         <View>
-          {measurements
-            .slice()
-            .reverse()
-            .map((item, index) => (
-              <TouchableOpacity
-                key={index}
-                style={{
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                  marginBottom: 10,
-                  backgroundColor: "#292a3e",
-                  paddingVertical: 10,
-                  paddingHorizontal: 20,
-                  borderRadius: 10,
-                }}
-                onPress={() => openModal(item._id)}
-              >
-                <Text style={{ fontSize: 18, color: "white", marginRight: 10 }}>
-                  {item.body_weight}
-                </Text>
-                <Text style={{ fontSize: 18, color: "white" }}>
-                  {item.date.slice(0, 10)}
-                </Text>
-              </TouchableOpacity>
-            ))}
+          {measurements.length > 0 ? (
+            measurements
+              .slice()
+              .reverse()
+              .map((item, index) => (
+                <TouchableOpacity
+                  key={index}
+                  style={{
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                    marginBottom: 10,
+                    backgroundColor: "#292a3e",
+                    paddingVertical: 10,
+                    paddingHorizontal: 20,
+                    borderRadius: 10,
+                  }}
+                  onPress={() => openModal(item._id)}
+                >
+                  <Text
+                    style={{ fontSize: 18, color: "white", marginRight: 10 }}
+                  >
+                    {item.body_weight}
+                  </Text>
+                  <Text style={{ fontSize: 18, color: "white" }}>
+                    {item.date.slice(0, 10)}
+                  </Text>
+                </TouchableOpacity>
+              ))
+          ) : (
+            <Text style={{ color: "white", textAlign: "center" }}>
+              No measurements available.
+            </Text>
+          )}
         </View>
       </View>
 

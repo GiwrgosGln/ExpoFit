@@ -68,14 +68,15 @@ const OneRepMaxComponent = () => {
   ];
 
   return (
-    <View>
+    <View style={{ backgroundColor: "#292a3e" }}>
       <Picker
         selectedValue={selectedExercise}
         style={{
           color: "white",
           width: 350,
-          height: 10,
           backgroundColor: "#292a3e",
+          height: 10,
+
           borderRadius: 10,
         }}
         onValueChange={(itemValue, itemIndex) => setSelectedExercise(itemValue)}
@@ -96,8 +97,6 @@ const OneRepMaxComponent = () => {
             backgroundColor: "#292a3e",
             width: 350,
             height: 250,
-            marginTop: 20,
-            borderRadius: 10,
             alignItems: "center",
             justifyContent: "center",
           }}
@@ -133,6 +132,7 @@ const OneRepMaxComponent = () => {
               textAlign: "center",
               fontWeight: 100,
               paddingHorizontal: 50,
+              marginBottom: 80,
             }}
           >
             No data for this exercise
@@ -143,8 +143,9 @@ const OneRepMaxComponent = () => {
           style={{
             backgroundColor: "#292a3e",
             width: 350,
-            height: 250,
+            height: 260,
             marginTop: 20,
+
             borderRadius: 10,
           }}
         >
@@ -178,6 +179,16 @@ const OneRepMaxComponent = () => {
             xAxisLabelContainerStyle={(color = "red")}
             rotateLabel
           />
+          <Text
+            style={{
+              marginTop: 30,
+              alignSelf: "center",
+              color: "white",
+              fontSize: 18,
+            }}
+          >
+            One Rep Max
+          </Text>
         </View>
       )}
     </View>

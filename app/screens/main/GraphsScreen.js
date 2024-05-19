@@ -29,30 +29,7 @@ export default function GraphsScreen() {
           paddingHorizontal: 10,
         }}
       >
-        <TouchableOpacity
-          style={{
-            backgroundColor: "#292a3e",
-            width: "100%",
-            paddingVertical: 40,
-            borderRadius: 5,
-            alignItems: "center",
-          }}
-          onPress={() => navigation.navigate("Measurements")}
-        >
-          <Text style={{ color: "white", fontSize: 18 }}>Measurements</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={{
-            backgroundColor: "#292a3e",
-            width: "100%",
-            paddingVertical: 40,
-            borderRadius: 5,
-            alignItems: "center",
-          }}
-          onPress={() => navigation.navigate("ExercisesGraphs")}
-        >
-          <Text style={{ color: "white", fontSize: 18 }}>Exercises</Text>
-        </TouchableOpacity>
+        <OneRepMaxComponent />
       </View>
     </ScrollView>
   );

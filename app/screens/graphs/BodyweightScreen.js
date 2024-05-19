@@ -3,13 +3,15 @@ import { StatusBar, Modal, TextInput, Alert } from "react-native";
 import { Text, View, ScrollView, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/core";
 import { AntDesign, Ionicons } from "@expo/vector-icons";
+import { useSelector } from "react-redux";
 import BodyWeightChart from "../../components/Graphs/BodyWeightChart";
 
-export default function MeasurementsScreen() {
+export default function BodyweightScreen() {
   const navigation = useNavigation();
   const [modalVisible, setModalVisible] = useState(false);
   const [weight, setWeight] = useState("");
   const [refresh, setRefresh] = useState(false);
+  const uid = useSelector((state) => state.auth.uid);
 
   const handleAddMeasurement = async () => {
     try {
@@ -21,7 +23,7 @@ export default function MeasurementsScreen() {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            user_id: "GFxKCRB3aBOTaownKuU0BRCYGxa2",
+            user_id: uid,
             body_weight: parseFloat(weight),
           }),
         }
@@ -59,7 +61,7 @@ export default function MeasurementsScreen() {
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <AntDesign name="back" size={24} color="white" />
         </TouchableOpacity>
-        <Text style={{ color: "white", fontSize: 20 }}>Measurements</Text>
+        <Text style={{ color: "white", fontSize: 20 }}>Bodyweight</Text>
         <TouchableOpacity onPress={() => setModalVisible(true)}>
           <Ionicons name="add-circle-outline" size={24} color="white" />
         </TouchableOpacity>
