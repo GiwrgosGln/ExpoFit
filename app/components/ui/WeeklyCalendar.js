@@ -40,11 +40,11 @@ const WeeklyCalendar = ({ setSelectedDate }) => {
               paddingVertical: 8,
               borderRadius: 8,
               marginRight: 10,
-              width: 45,
+              width: "12%",
             }}
             onPress={() => handleDayPress(item)}
           >
-            <Text style={{ fontSize: 16, fontWeight: "300", color: "white" }}>
+            <Text style={{ fontSize: 14, fontWeight: "300", color: "white" }}>
               {item.charAt(0)}
             </Text>
             <Text

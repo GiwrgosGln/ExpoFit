@@ -53,7 +53,9 @@ export default function ProfileScreen() {
           {username}
         </Text>
       </View>
-      <View style={{ paddingHorizontal: 28, marginTop: 60 }}>
+      <View
+        style={{ paddingHorizontal: 28, marginTop: 60, paddingBottom: 100 }}
+      >
         <YGroup separator={<Separator />}>
           <YGroup.Item>
             <ListItem
@@ -96,6 +98,30 @@ export default function ProfileScreen() {
             />
           </YGroup.Item>
 
+          <YGroup.Item>
+            <ListItem
+              title="Contact Support"
+              subTitle="Need assistance? Contact us"
+              backgroundColor={"#292a3e"}
+              onPress={() => navigation.navigate("ContactSupport")}
+            />
+          </YGroup.Item>
+          <YGroup.Item>
+            <ListItem
+              title="Contact Support"
+              subTitle="Need assistance? Contact us"
+              backgroundColor={"#292a3e"}
+              onPress={() => navigation.navigate("ContactSupport")}
+            />
+          </YGroup.Item>
+          <YGroup.Item>
+            <ListItem
+              title="Contact Support"
+              subTitle="Need assistance? Contact us"
+              backgroundColor={"#292a3e"}
+              onPress={() => navigation.navigate("ContactSupport")}
+            />
+          </YGroup.Item>
           <YGroup.Item>
             <ListItem
               title="Contact Support"
