@@ -15,6 +15,7 @@ import { StatusBar } from "expo-status-bar";
 import { auth } from "../../../firebase";
 import { setUser } from "../../redux/user/authSlice";
 import { MaterialIcons, Entypo } from "@expo/vector-icons";
+import { sendPasswordResetEmail } from "firebase/auth";
 
 const LoginScreen = () => {
   const [email, setEmail] = useState("");
@@ -38,7 +39,6 @@ const LoginScreen = () => {
           })
         );
 
-        // Make HTTP request after successful login
         fetchUserData(user.uid);
       }
     });
@@ -77,6 +77,17 @@ const LoginScreen = () => {
     }
   };
 
+  const handlePasswordReset = () => {
+    sendPasswordResetEmail(auth, email)
+      .then(() => {
+        console.log("Password reset email sent!");
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+      });
+  };
+
   return (
     <View
       style={{
@@ -90,68 +101,83 @@ const LoginScreen = () => {
       <View style={{ marginTop: 100 }}>
         <Image source={logo} style={{ height: 230, width: 300 }} />
       </View>
-      <View
-        style={{ marginTop: 20, width: "100%", gap: 20, alignItems: "center" }}
-      >
+      <View style={{ marginTop: 20, width: "100%", gap: 20 }}>
         <View
           style={{
-            flexDirection: "row",
-            width: "100%",
-            alignItems: "center",
+            flexDirection: "column",
             justifyContent: "center",
-            gap: 20,
+            alignSelf: "center",
           }}
         >
-          <MaterialIcons
-            name="email"
-            size={30}
-            color="#6879f8"
-            style={{ marginTop: 10 }}
-          />
-          <TextInput
-            placeholder="Email"
-            placeholderTextColor={"lightgray"}
-            value={email}
-            onChangeText={(text) => setEmail(text)}
+          <View
             style={{
-              borderBottomWidth: 1,
-              borderBottomColor: "gray",
-              height: 50,
-              width: "60%",
-              color: "white",
+              flexDirection: "row",
+              width: "100%",
+              alignItems: "center",
+              gap: 20,
             }}
-          />
-        </View>
-        <View
-          style={{
-            flexDirection: "row",
-            width: "100%",
-            alignItems: "center",
-            justifyContent: "center",
-            gap: 20,
-          }}
-        >
-          <Entypo
-            name="key"
-            size={30}
-            color="#6879f8"
-            style={{ marginTop: 10 }}
-          />
-          <TextInput
-            placeholder="Password"
-            placeholderTextColor={"lightgray"}
-            secureTextEntry
-            value={password}
-            onChangeText={(text) => setPassword(text)}
+          >
+            <MaterialIcons
+              name="email"
+              size={30}
+              color="#6879f8"
+              style={{ marginTop: 10 }}
+            />
+            <TextInput
+              placeholder="Email"
+              placeholderTextColor={"lightgray"}
+              value={email}
+              onChangeText={(text) => setEmail(text)}
+              style={{
+                borderBottomWidth: 1,
+                borderBottomColor: "gray",
+                height: 50,
+                width: "60%",
+                color: "white",
+              }}
+            />
+          </View>
+          <View
             style={{
-              borderBottomWidth: 1,
-              borderBottomColor: "gray",
-              height: 50,
-              width: "60%",
-              color: "white",
+              flexDirection: "row",
+              width: "100%",
+              alignItems: "center",
+              gap: 20,
             }}
-          />
+          >
+            <Entypo
+              name="key"
+              size={30}
+              color="#6879f8"
+              style={{ marginTop: 10 }}
+            />
+            <TextInput
+              placeholder="Password"
+              placeholderTextColor={"lightgray"}
+              secureTextEntry
+              value={password}
+              onChangeText={(text) => setPassword(text)}
+              style={{
+                borderBottomWidth: 1,
+                borderBottomColor: "gray",
+                height: 50,
+                width: "60%",
+                color: "white",
+              }}
+            />
+          </View>
+          <TouchableOpacity
+            style={{
+              marginTop: 15,
+              width: "50%",
+              alignSelf: "center",
+            }}
+            onPress={() => handlePasswordReset()}
+          >
+            <Text style={{ fontSize: 16 }}>Forgot Password?</Text>
+          </TouchableOpacity>
         </View>
+
         <View style={{ marginTop: 80, width: "100%", alignItems: "center" }}>
           <Button
             onPress={handleLogin}
