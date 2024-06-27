@@ -106,30 +106,6 @@ export default function ProfileScreen() {
               onPress={() => navigation.navigate("ContactSupport")}
             />
           </YGroup.Item>
-          <YGroup.Item>
-            <ListItem
-              title="Contact Support"
-              subTitle="Need assistance? Contact us"
-              backgroundColor={"#292a3e"}
-              onPress={() => navigation.navigate("ContactSupport")}
-            />
-          </YGroup.Item>
-          <YGroup.Item>
-            <ListItem
-              title="Contact Support"
-              subTitle="Need assistance? Contact us"
-              backgroundColor={"#292a3e"}
-              onPress={() => navigation.navigate("ContactSupport")}
-            />
-          </YGroup.Item>
-          <YGroup.Item>
-            <ListItem
-              title="Contact Support"
-              subTitle="Need assistance? Contact us"
-              backgroundColor={"#292a3e"}
-              onPress={() => navigation.navigate("ContactSupport")}
-            />
-          </YGroup.Item>
         </YGroup>
       </View>
     </ScrollView>

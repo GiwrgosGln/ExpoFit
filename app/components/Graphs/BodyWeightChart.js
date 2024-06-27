@@ -12,7 +12,7 @@ export default function BodyWeightChart({ refresh }) {
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedMeasurementId, setSelectedMeasurementId] = useState("");
 
-  // Fetch data from the endpoint
+  // Fetch data for the bodyweight graph
   useEffect(() => {
     const fetchData = async () => {
       try {
