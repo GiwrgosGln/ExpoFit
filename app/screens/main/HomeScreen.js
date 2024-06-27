@@ -75,14 +75,6 @@ const Home = () => {
             </Avatar>
           </TouchableOpacity>
         </View>
-        {/* <View
-          style={{
-            paddingHorizontal: 10,
-            marginTop: 20,
-          }}
-        >
-          <WorkoutProgress />
-        </View> */}
         <View style={{ marginTop: 10, paddingHorizontal: 10 }}>
           {/* Pass selectedDate to WeeklyCalendar */}
           <WeeklyCalendar

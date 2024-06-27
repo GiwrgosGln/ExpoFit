@@ -30,7 +30,7 @@ const WorkoutList = ({ selectedDate }) => {
         const filteredWorkouts = data.filter(
           (workout) =>
             new Date(workout.date).toLocaleDateString("en-US", {
-              timeZone: "UTC", // Set timezone to UTC to match the backend
+              timeZone: "UTC",
               year: "numeric",
               month: "2-digit",
               day: "2-digit",
@@ -104,7 +104,7 @@ const WorkoutList = ({ selectedDate }) => {
                 style={{ fontSize: 14, fontWeight: "bold", color: "white" }}
               >
                 {new Date(workout.date).toLocaleDateString("en-US", {
-                  timeZone: "UTC", // Set timezone to UTC to match the backend
+                  timeZone: "UTC",
                   year: "numeric",
                   month: "long",
                   day: "numeric",

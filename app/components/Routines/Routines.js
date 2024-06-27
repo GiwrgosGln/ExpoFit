@@ -101,7 +101,7 @@ export default function Routines() {
     setModalVisible(false);
   };
 
-  const handleDeleteWorkout = async () => {
+  const handleDeleteRoutine = async () => {
     if (!selectedWorkout) return;
 
     try {
@@ -158,7 +158,7 @@ export default function Routines() {
             <TouchableOpacity onPress={handleEditWorkout}>
               <Text style={styles.modalOption}>Edit Workout</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={handleDeleteWorkout}>
+            <TouchableOpacity onPress={handleDeleteRoutine}>
               <Text style={styles.modalOption}>Delete Workout</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => setModalVisible(false)}>

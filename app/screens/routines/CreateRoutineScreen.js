@@ -59,6 +59,7 @@ const CreateRoutineScreen = () => {
     })
       .then((response) => response.json())
       .then((result) => {
+        console.log(routineData);
         console.log("Routine created:", result);
         dispatch(resetExercises());
         setRoutineTitle("");

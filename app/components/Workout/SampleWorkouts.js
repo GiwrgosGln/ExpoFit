@@ -25,7 +25,7 @@ const SampleWorkouts = () => {
     >
       {workoutsData.workouts.map((routine, index) => (
         <TouchableOpacity
-          key={index} // Ensure each item has a unique key
+          key={index}
           onPress={() => handleStartWorkout(routine)}
           style={styles.workoutItem}
         >

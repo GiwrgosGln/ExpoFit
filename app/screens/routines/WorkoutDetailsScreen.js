@@ -195,11 +195,12 @@ const WorkoutDetailsScreen = ({ route }) => {
       .then((data) => {
         console.log("Workout data sent successfully:", data);
         navigation.navigate("Home");
-        setIsProcessingRequest(false); // Reset isProcessingRequest once request completes
+        setIsProcessingRequest(false);
+        console.log(workoutData);
       })
       .catch((error) => {
         console.error("Error sending workout data:", error);
-        setIsProcessingRequest(false); // Reset isProcessingRequest on error
+        setIsProcessingRequest(false);
       });
   };
 

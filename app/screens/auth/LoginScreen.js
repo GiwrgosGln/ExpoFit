@@ -46,14 +46,21 @@ const LoginScreen = () => {
     return unsubscribe;
   }, [navigation, dispatch]);
 
+  const handleLogin = () => {
+    auth
+      .signInWithEmailAndPassword(email, password)
+      .then((userCredentials) => {
+        const user = userCredentials.user;
+      })
+      .catch((error) => alert(error.message));
+  };
+
   const fetchUserData = async (uid) => {
     try {
       const response = await fetch(
         `https://ginfitapi.onrender.com/user/${uid}`
       );
       const userData = await response.json();
-      console.log("User data:", userData);
-      console.log("Usernameeeeeeeeeeeeeeeee:", userData.username);
 
       dispatch(
         setUser({
@@ -68,15 +75,6 @@ const LoginScreen = () => {
     } catch (error) {
       console.error("Error fetching user data:", error);
     }
-  };
-
-  const handleLogin = () => {
-    auth
-      .signInWithEmailAndPassword(email, password)
-      .then((userCredentials) => {
-        const user = userCredentials.user;
-      })
-      .catch((error) => alert(error.message));
   };
 
   return (
