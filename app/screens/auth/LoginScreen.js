@@ -8,6 +8,7 @@ import {
   Image,
   TouchableOpacity,
   TextInput,
+  Alert,
 } from "react-native";
 import { Button, Text } from "tamagui";
 import { useSelector, useDispatch } from "react-redux";
@@ -78,14 +79,19 @@ const LoginScreen = () => {
   };
 
   const handlePasswordReset = () => {
-    sendPasswordResetEmail(auth, email)
-      .then(() => {
-        console.log("Password reset email sent!");
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-      });
+    if (email != "") {
+      sendPasswordResetEmail(auth, email)
+        .then(() => {
+          console.log("Password reset email sent!");
+          Alert.alert("Success", "Password reset email sent!");
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+        });
+    } else {
+      Alert.alert("Failed", "Please enter a valid email");
+    }
   };
 
   return (
@@ -169,9 +175,9 @@ const LoginScreen = () => {
           <TouchableOpacity
             style={{
               marginTop: 15,
-              width: "50%",
-              alignSelf: "center",
+              alignSelf: "flex-end",
             }}
+            activeOpacity={0.9}
             onPress={() => handlePasswordReset()}
           >
             <Text style={{ fontSize: 16 }}>Forgot Password?</Text>
