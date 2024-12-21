@@ -21,15 +21,30 @@ A modern fitness tracking application built with React Native and Expo, designed
 
 1. Clone the repository:
 
-````bash
-git clone https://github.com/GiwrgosGln/ExpoFit.git
+   ```bash
+   git clone https://github.com/GiwrgosGln/ExpoFit.git
+   ```
 
-2. Navigate to project directory and install dependencies:
-```bash
-cd ExpoFit
-npm install
+2. Navigate to the project directory and install dependencies:
+
+   ```bash
+   cd ExpoFit
+   npm install
+   ```
 
 3. Start the development server:
-```bash
-npm start
-````
+   ```bash
+   npm start
+   ```
+
+## Tech Stack
+
+- React Native
+- Expo
+- React Navigation
+- AsyncStorage
+- Native Base UI Components
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details
